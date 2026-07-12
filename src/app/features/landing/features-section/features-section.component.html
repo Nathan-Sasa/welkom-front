@@ -1,0 +1,70 @@
+<section
+    class="w-full min-h-screen max-h-270 flex flex-col gap-lg py-section-y px-main lg:px-section-y"
+    >
+    <div
+        class="w-full grid grid-cols-1 md:grid-cols-7 gap-main relative"
+        >
+        <div class="card card-white col-span-4 flex flex-col gap-lg">
+            <span class="w-full text-left">
+                <i  class="pi pi-qrcode size-icon!"></i>
+            </span>
+            <p 
+                class="title-card"
+                >
+                Entrée QR code sécurisée
+            </p>
+            <p
+                class=""
+                >
+                Accélérez l'accueil de vos invités avec un scan rapide. Chaque invitation génère un code unique pour un contrôle d'accès professionnel et fluide le jour J.
+            </p>
+            <span
+                class="card card-cream flex items-center justify-center py-16!"
+                >
+                <i class="pi pi-check-circle size-icon-large!"></i>
+            </span>
+        </div>
+        <div class="card col-span-3 flex flex-col gap-lg">
+            <span class="w-full text-left">
+                <i  class="pi pi-calendar size-icon!"></i>
+            </span>
+            <p 
+                class="text-title-4 sm:text-title-4-sm md:text-title-4-md lg:text-title-4-lg font-roboto-medium"
+                >
+                RSVP & Liste d'invités
+            </p>
+            <p
+                class=""
+                >
+                Suivez les confirmations en temps réel. Gérez les préférences alimentaires, les plus-uns et les notifications automatiques en un seul tableau de bord épuré.
+            </p>
+            <span class="separator my-lg"></span>
+            <div
+                class="flex flex-col gap-sm"
+                >
+                @for(checkList of checkListRsvp; track $index){
+                   <span class="flex gap-sm items-center">
+                        <i class="{{checkList.icon}}"></i>
+                        <p class="text-base-small">{{checkList.text}}</p>
+                   </span> 
+                }                
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg"
+        >
+        @for (promise of promises; track $index) {
+            <div
+                class="card card-white flex flex-col not-hover md:first:col-span-2 lg:first:col-span-1 gap-lg"
+                >
+                <span class="w-full">
+                    <i class="{{promise.icon}}"></i>
+                </span>
+                <p>{{promise.title}}</p>
+                <p>{{promise.text}}</p>
+            </div>
+        }
+    </div>
+</section>

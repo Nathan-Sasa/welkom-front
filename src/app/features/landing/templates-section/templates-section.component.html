@@ -1,0 +1,52 @@
+<section 
+    class="w-full min-h-screen max-h-270 bg-clr-bg-container-cream dark:bg-clr-bg-container-dark py-section-y px-main flex flex-col"
+    >
+    <div
+        class="w-full py-main text-left gap-sm flex items-center"
+        >
+        <p
+            class="title-4 font-stretch-50%"
+            >
+            Inspiration & Styles
+        </p>
+    </div>
+
+    <div
+        class="w-full h-[75vh] max-h-180 relative "
+        >
+        <div
+            class="carousel relative"
+            >
+            @for(template of templates; track $index){
+                <article 
+                    class="carousel-item h-full w-full max-w-84 flex flex-col gap-md"
+                    >
+                    <!-- <p
+                        class="text-caption"
+                        >
+                        {{template.name}}
+                    </p> -->
+                    <div
+                        class="h-15/16 w-full relative rounded-lg"
+                        >
+                        <img 
+                            [src]="template.image" 
+                            alt=""
+                            class="w-full h-full border-3 border-background dark:border-clr-bg-container-cream rounded-md "
+                        >
+                    </div>
+                    <!-- <button
+                        class="button primary w-full"
+                        >
+                        Voir le template
+                    </button> -->
+                    <p
+                        class="text-caption text-center"
+                        >
+                        {{template.name}}
+                    </p>
+                </article>
+            }
+        </div>
+    </div>
+</section>

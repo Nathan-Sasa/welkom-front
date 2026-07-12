@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Yann-ndani:build:production"
+              "buildTarget": "Welkom:build:production"
             },
             "development": {
-              "buildTarget": "Yann-ndani:build:development"
+              "buildTarget": "Welkom:build:development"
             }
           },
           "defaultConfiguration": "development"

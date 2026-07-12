@@ -1,0 +1,71 @@
+<header
+    class="w-full h-[10vh] lg:h-[12vh] fixed top-0 z-20 flex items-center justify-between px-main bg-clr-bg-page dark:bg-clr-bg-page-dark || "
+    >
+    <div 
+        class="flex items-center gap-sm"
+        >
+        <span></span>
+        <!-- police app name temporaire -->
+        <p class="title-3">
+            {{appInfo.name}}
+        </p>
+        <li class="w-12 scale-50">
+            <app-theme></app-theme>
+        </li>
+    </div>
+
+    <div
+        class="lg:w-3/5 xl:w-1/2 hidden lg:flex items-center justify-between"
+        >
+        <ul
+            class="flex items-center gap-sm "
+            >
+            <li>
+                <a 
+                    [routerLink]="['/home']"
+                    [routerLinkActive]="['link']"
+                    class="button tertial"
+                    >
+                    Acceuil
+                </a>
+            </li>
+            <li>
+                <a 
+                    [routerLink]="['/template']"
+                    [routerLinkActive]="['link']"
+                    class="button tertial"
+                    >
+                    Templates
+                </a>
+            </li>
+            <li>
+                <a 
+                    [routerLink]="['/design-system']"
+                    [routerLinkActive]="['link']"
+                    class="button tertial"
+                    >
+                    Design
+                </a>
+            </li>
+        </ul>
+        <ul
+            class="flex items-center gap-sm"
+            >
+            <a 
+                [routerLink]="['/login']"
+                class="button primary"
+                >
+                Se connecter
+            </a>
+        </ul>
+    </div>
+
+    <p-button (click)="isMenuOpen = true" icon="pi pi-bars" class="2xl:scale-150! lg:hidden!" />
+</header>
+
+<p-drawer [header]="appInfo.name" [(visible)]="isMenuOpen" position="right">
+    <nav
+        class="w-full h-full flex flex-col justify-between"
+        >
+    </nav>
+</p-drawer>
