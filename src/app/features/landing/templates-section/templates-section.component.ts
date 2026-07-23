@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-	selector: 'app-templates-section',
+	selector: 'wlk-templates-section',
 	imports: [
 		
 	],
@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
 	styleUrl: './templates-section.component.css',
 })
 export class TemplatesSectionComponent {
-
 
 	templates = [
 		{name: 'Mariage floral de luxe', image: 'assets/images/invitation-templates/widding-template.png'},
@@ -19,4 +18,5 @@ export class TemplatesSectionComponent {
 		{name: 'template 5', image: ''},
 		{name: 'template 6', image: ''},
 	]
+
 }

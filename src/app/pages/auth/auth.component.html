@@ -88,7 +88,7 @@
                         class="label-input"
                         >
                         <input 
-                            type="text" 
+                            type="password" 
                             formControlName="password"
                             id="password"
                             class="input-text"
@@ -144,14 +144,14 @@
         <div
             class="w-full flex justify-center"
             >
-            <a
-                href=""
+            <button
+                (click)="RedirectToGoogleLogin()"
                 class="button secondary submit flex items-center gap-md"
                 >
                 <!-- http://localhost:8080/oauth2/authorization/google -->
                 <i class="pi pi-google size-icon!"></i>
                 <p>Google</p>
-            </a>
+            </button>
         </div>
     </div>
 </section>

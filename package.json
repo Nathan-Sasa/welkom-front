@@ -22,6 +22,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^20.3.19",
     "@angular/common": "^21.2.17",
     "@angular/compiler": "^21.2.17",
     "@angular/core": "^21.2.17",
@@ -31,6 +32,7 @@
     "@lucide/angular": "^1.14.0",
     "@primeuix/themes": "^2.0.3",
     "@tailwindcss/postcss": "^4.2.4",
+    "@zxing/ngx-scanner": "^22.0.1",
     "postcss": "^8.5.12",
     "primeicons": "^7.0.0",
     "primeng": "^20.4.0",

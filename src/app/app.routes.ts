@@ -23,17 +23,22 @@ export const routes: Routes = [
 
 
     // redirection ==============================
-    {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-    },
-
     // routes provisoire
     // design system
     {
         path: 'design-system',
         title: 'design system',
         loadComponent: ()=> import('./pages/design-system/design-system.component').then(m => m.DesignSystemComponent)
-    }
+    },
+    {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+    },
+    {
+        path: '**',
+        redirectTo: 'home',
+        pathMatch: 'full'
+    },
+
 ];

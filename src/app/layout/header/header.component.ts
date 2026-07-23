@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { ThemeComponent } from '../../shared/theme/theme.component';
 
 @Component({
-	selector: 'app-header',
+	selector: 'wlk-header',
 	imports: [
 		RouterModule,
 		DrawerModule, 

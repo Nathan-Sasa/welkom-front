@@ -1,6 +1,6 @@
 const baseUrl = 'http://localhost:8080';
 
-const authPrefixApi = `${baseUrl}/v1/auth`
+const authPrefixApi = `${baseUrl}/api/v1/auth`
 
 export const environment = {
     production: true,

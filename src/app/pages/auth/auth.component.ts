@@ -13,7 +13,7 @@ interface IAuthForm {
 }
 
 @Component({
-	selector: 'app-auth',
+	selector: 'wlk-auth',
 	imports: [
 		RouterModule,
 		ReactiveFormsModule,
@@ -113,14 +113,21 @@ export class AuthComponent implements OnInit {
 				next: (res) => {
 					this.authForm.reset()
 					this.loading.set(false)
-					firstValueFrom(this.authService.getCurrentUser())
+					// firstValueFrom(this.authService.getCurrentUser())
+					console.log('login ok : ',	res)
 					// this.router.navigate(['/session'])
 				},
 				error: (err) => {
 					this.isSubmitting.set(false)
 					this.loading.set(false)
+					console.log('erreur : ', err)
 				}
 			})
+	}
+
+	// login with google
+	RedirectToGoogleLogin(): void {
+		this.authService.loginWithGoogle()
 	}
 
 	goBack(): void {
