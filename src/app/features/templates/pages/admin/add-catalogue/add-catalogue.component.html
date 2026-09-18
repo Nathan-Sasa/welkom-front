@@ -1,0 +1,402 @@
+<section class="min-h-screen w-full flex flex-col gap-section-y pt-section-y relative px-main  p-8">
+
+    <nav
+        class="w-full h-[12vh] flex items-center justify-between top-0 left-0 fixed z-40 bg-clr-bg-page dark:bg-clr-bg-page-dark px-main"
+        >
+        <div>
+            <a 
+                routerLink="/"
+                class="cursor-pointer"
+                >
+                <i class="pi pi-chevron-left"></i>
+            </a>
+        </div>
+        <div
+            class="flex items-center gap-md"
+            >
+            <button
+                (click)="saveTemplate()" 
+                [disabled]="isFormInvalid()"
+                [class.cursor-not-allowed]="isFormInvalid()"
+                class="button primary"
+                >
+                Enregistrer la catalogue
+            </button>
+        </div>
+    </nav>
+    <div
+        class="flex flex-col gap-md"
+        >
+        <h2 class="title-3">
+            Ajouter un modèle
+        </h2>
+        <p>
+            Configurez un nouveau modèle de catalogue pour les invitations Welkom. Définissez les métadonnées de base et les champs de personnalisation pour vos clients.
+        </p>
+    </div>
+
+    <div class="w-full relative flex flex-col lg:flex-row gap-lg">
+        <div
+            class="max-h-240 relative flex flex-col gap-lg card lg:sticky lg:top-[12vh]"
+            >
+
+            <h3 class="title-4">Informations générales</h3>
+
+            <fieldset
+                class="flex justify-center mt-lg"
+                >
+                <label 
+                    for="modelName"
+                    class="label-input"
+                    >
+                    <input 
+                        id="modelName"
+                        type="text" 
+                        name="name"
+                        [ngModel]="name()" 
+                        (ngModelChange)="name.set($event)" 
+                        class="input-text"
+                    >
+                <span class="label-1">Nom du modèle</span>
+                <span class="label-2 modelName"></span>
+                </label>
+            </fieldset>
+
+            <fieldset 
+                class="flex justify-center mt-10"
+                >
+                <label 
+                    for="category"
+                    class="label-input select" 
+                    >
+                    <select 
+                        name="category"
+                        [ngModel]="category()" 
+                        (ngModelChange)="category.set($event)" 
+                        class="input-text"
+                        >
+                        <option value="mariage" selected>Mariage</option>
+                        <option value="anniversaire">Anniversaire</option>
+                        <option value="gala">Gala / Conférence</option>
+                    </select>
+                    <span class="label-1">Catégorie</span>
+                </label>
+            </fieldset>
+
+            <fieldset
+                class="flex justify-center mt-10"
+                >
+                <label 
+                    for="apercu"
+                    class="label-input">
+                    <input 
+                        id="apercu"
+                        name="catalogueImgUrl"
+                        type="text" [ngModel]="backgroundImgUrl()" 
+                        (ngModelChange)="backgroundImgUrl.set($event)" 
+                        placeholder="assets/templates/..." 
+                        class="input-text"
+                    >
+                    <span class="label-1">Aperçu visuel (JPEG/PNG)</span>
+                </label>
+                <!-- <div 
+                    class="card card-white h-44! flex items-center justify-center label-input"
+                    >
+                    <p>Aperçu visuel (JPEG/PNG)</p>
+                </div> -->
+            </fieldset>
+
+            <fieldset 
+                class="flex justify-center mt-10"
+                >
+                <label 
+                    for="fontTitle"
+                    class="label-input select" 
+                    >
+                    <select 
+                        name="fontTitle"
+                        [ngModel]="fontTitle()"
+                        (ngModelChange)="fontTitle.set($event)" 
+                        id="fontTitle"
+                        class="input-text"
+                        >
+                        <option value="Roboto" >Roboto</option>
+                        <option value="Hanken Grotesk">Hanken Grotesk</option>
+                        <option value="Segoe Gothic">Segoe Gothic</option>
+                        <option value="Playfair Display" selected>Playfair Display</option>
+                    </select>
+                    <span class="label-1">Police de titlre</span>
+                </label>
+            </fieldset>
+
+            <fieldset 
+                class="flex justify-center mt-10"
+                >
+                <label 
+                    for="fontTitle"
+                    class="label-input select" 
+                    >
+                    <select 
+                        name="fontBody"
+                        [ngModel]="fontBody()"
+                        (ngModelChange)="fontBody.set($event)" 
+                        id="fontBody"
+                        class="input-text"
+                        >
+                        <option value="Roboto">Roboto</option>
+                        <option value="Hanken Grotesk" selected>Hanken Grotesk</option>
+                        <option value="poppins">Poppins</option>
+                        <option value="inter">Inter</option>
+                    </select>
+                    <span class="label-1">Police de corps</span>
+                </label>
+            </fieldset>
+
+            <fieldset
+                class="flex justify-center mt-10"
+                >
+                <label 
+                    for="colorPrimary"
+                    class="label-input">
+                    <input 
+                        id="colorPrimary"
+                        name="colorPrimary"
+                        type="color" 
+                        [ngModel]="colorPrimary()" 
+                        (ngModelChange)="colorPrimary.set($event)" 
+                        placeholder="" 
+                        class="input-text"
+                    >
+                    <span class="label-1">Couleur primaire</span>
+                </label>
+            </fieldset>
+            <fieldset
+                class="flex justify-center mt-10"
+                >
+                <label 
+                    for="colorAccent"
+                    class="label-input">
+                    <input 
+                        id="colorAccent"
+                        name="colorAccent"
+                        type="color" 
+                        [ngModel]="colorAccent()" 
+                        (ngModelChange)="colorAccent.set($event)" 
+                        placeholder="" 
+                        class="input-text"
+                    >
+                    <span class="label-1">Couleur d'accentuation</span>
+                </label>
+            </fieldset>
+
+            <fieldset
+                class="flex justify-center mt-10"
+                >
+                <label 
+                    for="image1"
+                    class="label-input">
+                    <input 
+                        id="image1"
+                        name="image1"
+                        type="text" 
+                        [ngModel]="image1()" 
+                        (ngModelChange)="image1.set($event)" 
+                        placeholder="assets/images/..." 
+                        class="input-text"
+                    >
+                    <span class="label-1">Image 1</span>
+                </label>
+                <!-- <div 
+                    class="card card-white h-44! flex items-center justify-center label-input"
+                    >
+                    <p>Aperçu visuel (JPEG/PNG)</p>
+                </div> -->
+            </fieldset>
+
+            <fieldset
+                class="flex justify-center mt-10"
+                >
+                <label 
+                    for="image2"
+                    class="label-input">
+                    <input 
+                        id="image2"
+                        name="image2"
+                        type="text" 
+                        [ngModel]="image2()" 
+                        (ngModelChange)="image2.set($event)" 
+                        placeholder="assets/images/..." 
+                        class="input-text"
+                    >
+                    <span class="label-1">Image 2</span>
+                </label>
+                <!-- <div 
+                    class="card card-white h-44! flex items-center justify-center label-input"
+                    >
+                    <p>Aperçu visuel (JPEG/PNG)</p>
+                </div> -->
+            </fieldset>
+
+            <fieldset
+                class="flex justify-center mt-10"
+                >
+                <label 
+                    for="image3"
+                    class="label-input">
+                    <input 
+                        id="image3"
+                        name="image3"
+                        type="text" 
+                        [ngModel]="image3()" 
+                        (ngModelChange)="image3.set($event)" 
+                        placeholder="assets/images/..." 
+                        class="input-text"
+                    >
+                    <span class="label-1">Image 3</span>
+                </label>
+                <!-- <div 
+                    class="card card-white h-44! flex items-center justify-center label-input"
+                    >
+                    <p>Aperçu visuel (JPEG/PNG)</p>
+                </div> -->
+            </fieldset>
+        </div>
+
+        <div
+            class="flex flex-col gap-xl px-main"
+            >
+            <div
+                class="flex flex-col gap-md"
+                >
+                <h3
+                    class="title-4"
+                    >
+                    Champs de textes dynamiques
+                </h3>
+                <p
+                    class=""
+                    >
+                    Définissez les variables que les clients pourront éditer.
+                </p>
+            </div>
+
+            <div class="flex flex-col gap-md">
+                @for (field of dynamicFields(); track $index; let i = $index) {
+                    <div class="flex items-center gap-lg card">
+                        <div class="flex justify-center w-2/7 relative">
+                            <label 
+                                [for]="'val-' + i"
+                                class="label-input w-full!"
+                                >
+                                <input 
+                                    type="text" 
+                                    [id]="'key-' + i"
+                                    [name]="'keyName-' + i"
+                                    autocomplete="off"
+                                    [ngModel]="field.keyName" 
+                                    (ngModelChange)="followFieldChange(i, 'keyName', $event)"
+                                    placeholder="nom du champ" 
+                                    class="input-text"
+                                >
+                                <span class="label-1">Clé</span>
+                            </label>
+                        </div>
+
+                        <div class="flex justify-center w-4/7 relative">
+                            <label 
+                                [for]="'val-' + i"
+                                class="label-input"
+                                >
+                                <input 
+                                    type="text" 
+                                    [id]="'val-' + i"
+                                    [name]="'defaultVal-' + i"
+                                    autocomplete="off"
+                                    [ngModel]="field.defaultValue"
+                                    (ngModelChange)="followFieldChange(i, 'defaultValue', $event)"
+                                    placeholder="valeur" 
+                                    class="input-text"
+                                >
+                                <span class="label-1">Texte par défaut</span>
+                            </label>
+                        </div>
+
+                        <button 
+                            type="button" 
+                            (click)="deleteField(i)" 
+                            class="cursor-pointer button secondary"
+                            >
+                            <i class="pi pi-trash text-xl!"></i>
+                        </button>
+                    </div>
+                }
+                <div class="">
+                    <button 
+                        type="button" 
+                        (click)="addFields()" 
+                        class="button secondary flex gap-sm items-center"
+                        >
+                        <p class="pi pi-plus-circle"></p>
+                        <p>Ajouter un champ</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">URL de l'image de fond</label>
+                    <input type="text" [ngModel]="backgroundImgUrl()" (ngModelChange)="backgroundImgUrl.set($event)" placeholder="assets/templates/..." class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm border p-2">
+                </div>
+                
+            </div> -->
+
+        <!-- <hr class="my-6 border-gray-200"> -->
+
+        <!-- ZONE DYNAMIQUE : GRÂCE AU SIGNAL DYNAMICFIELDS -->
+        <!-- <div>
+            <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-gray-700">Champs de textes du modèle</h2>
+            <button type="button" (click)="addFields()" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                + Ajouter un texte
+            </button>
+            </div>
+
+            <div class="space-y-3">
+            @for (field of dynamicFields(); track $index; let i = $index) {
+                <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                
+                <div class="w-1/3">
+                    <label class="block text-xs font-bold text-gray-500 uppercase">Clé (Règle d'or)</label>
+                    
+                    <input type="text" [(ngModel)]="field.keyName" placeholder="ex: nom_maries" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm border p-1.5">
+                </div>
+
+                <div class="flex-1">
+                    <label class="block text-xs font-bold text-gray-500 uppercase">Texte par défaut</label>
+                    <input type="text" [(ngModel)]="field.defaultValue" placeholder="ex: Arthur & Inès" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm border p-1.5">
+                </div>
+
+                <button type="button" (click)="deleteField(i)" class="mt-5 text-red-500 hover:text-red-700 font-bold text-sm px-2">
+                    ✕
+                </button>
+
+                </div>
+            }
+            </div>
+        </div>
+
+        <div class="pt-4">
+            <button type="button" 
+                    (click)="saveTemplate()" 
+                    [disabled]="isFormInvalid()"
+                    [class.opacity-50]="isFormInvalid()"
+                    [class.cursor-not-allowed]="isFormInvalid()"
+                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none">
+            Enregistrer le modèle dans le catalogue
+            </button>
+        </div> -->
+
+    </div> 
+    <!-- </div> -->
+</section>

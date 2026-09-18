@@ -1,0 +1,30 @@
+<div
+    class="w-full relative h-[75vh] max-h-180"
+    >
+    <div
+        role="list"
+        class="carousel relative"
+        >
+        @for (catalogue of catalogues(); track $index) {
+            <article
+                aria-label="{{catalogue.name}} catalogue"
+                class="carousel-item h-full w-full max-w-84 flex flex-col gap-md"
+                >
+                <div
+                    class="h-15/16 w-full relative rounded-lg"
+                    >
+                    <img 
+                        [src]="catalogue.catalogueImgUrl" 
+                        alt="image {{catalogue.name}} catalogue"
+                        class="w-full h-full border-3 border-background dark:border-clr-bg-container-cream rounded-md "
+                    >
+                    <p
+                        class="text-caption text-center"
+                        >
+                        {{catalogue.name}}
+                    </p>
+                </div>
+            </article>
+        }    
+    </div>
+</div>

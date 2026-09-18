@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, LOCALE_ID } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, LOCALE_ID, inject, provideAppInitializer } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { withInMemoryScrolling } from '@angular/router';
@@ -10,8 +10,29 @@ import localeFr from '@angular/common/locales/fr';
 
 import { routes } from './app.routes';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { AuthService } from './core/auth/services/auth.service';
+// import { IUser } from './core/auth/interfaces/user.interface';
+import { catchError, firstValueFrom, of } from 'rxjs';
 
 registerLocaleData(localeFr);
+
+// function initializeApp(): () => Promise<IUser | null> {
+// 	const auth = inject(AuthService)
+	
+// 	return () => firstValueFrom(
+// 		auth.getCurrentUser().pipe(
+// 			catchError(() => of(null))
+// 		)
+// 	)
+// }
+
+// function initializeApp(authService = inject(AuthService)): () => Promise<IUser | null> {
+//   return () => firstValueFrom(
+// 		authService.getCurrentUser().pipe(
+// 			catchError(() => of(null)) 
+// 		)
+//   );
+// }
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -29,6 +50,14 @@ export const appConfig: ApplicationConfig = {
 				JwtInterceptor
 			])
 		),
+		provideAppInitializer(() => {
+			const auth = inject(AuthService)
+			return firstValueFrom(
+				auth.getCurrentUser().pipe(
+					catchError(() => of(null))
+				)
+			)
+		}),
 		provideAnimationsAsync(),
 		providePrimeNG({
             theme: {

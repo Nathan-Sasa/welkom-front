@@ -1,0 +1,91 @@
+<section
+    class="w-full relative flex flex-col gap-xl pt-section-y p-main"
+    >
+    <div
+        class="w-1/2 flex flex-col gap-16 relative"
+        >
+        <fieldset
+            class="flex w-2/3"
+            >
+            <label 
+                for="title"
+                class="label-input"
+                >
+                <input 
+                    type="text"
+                    name="title"
+                    [ngModel]="title()"
+                    (ngModelChange)="title.set($event)"
+                    class="input-text"
+                    id="title"
+                >
+                <span class="label-1">Titre de l'événement</span>
+            </label>
+        </fieldset>
+        <fieldset
+            class="flex w-2/3"
+            >
+            <label 
+                for="description"
+                class="label-input"
+                >
+                <input 
+                    type="text"
+                    name="description"
+                    [ngModel]="description()"
+                    (ngModelChange)="description.set($event)"
+                    class="input-text"
+                    id="description"
+                >
+                <span class="label-1">Déscription de l'événement</span>
+            </label>
+        </fieldset>
+        <fieldset
+            class="flex w-2/3"
+            >
+            <label 
+                for="dateEvent"
+                class="label-input"
+                >
+                <input 
+                    type="datetime-local"
+                    name="dateEvent"
+                    [ngModel]="dateEvent()"
+                    (ngModelChange)="dateEvent.set($event)"
+                    class="input-text"
+                    id="dateEvent"
+                >
+                <span class="label-1">Date de l'événement</span>
+            </label>
+        </fieldset>
+        <fieldset
+            class="flex w-2/3"
+            >
+            <label 
+                for="color"
+                class="label-input"
+                >
+                <input 
+                    type="color"
+                    name="color"
+                    [ngModel]="color()"
+                    (ngModelChange)="color.set($event)"
+                    class="input-text"
+                    id="color"
+                >
+                <span class="label-1">Dresse code</span>
+            </label>
+        </fieldset>
+        <button
+            type="button"
+            (click)="saveStep1()"
+            [disabled]="isFormInvalid()"
+            [class.cursor-not-allowed]="isFormInvalid()"
+            class="button primary w-1/3"
+            >
+            next
+        </button>
+
+        <p>{{dateEvent() | date: 'dd MMM yyyy à H: mm' | titlecase}}</p>
+    </div>
+</section>

@@ -1373,6 +1373,12 @@ body{
     }
 }
 
+.label-input.select{
+    border-top: var(--border-width) solid;
+    border-left: var(--border-width) solid;
+    border-right: var(--border-width) solid;
+}
+
 .label-input .input-text {
     height: 100%;
     width: 100%;
@@ -1419,6 +1425,10 @@ body{
         top: -20%;
     }
 }
+.label-input.select .label-1{
+    top: -30%;
+}
+
 .input-text:disabled ~ .label-1{
     top: 50%;
     padding-left: var(--spacing-sm);
@@ -1484,6 +1494,7 @@ body{
         color: var(--color-clr-input-label-2-dark);
     }
 }
+
 .label-input .input-text:focus ~ .label-2::after,
 .label-input .input-text:valid ~ .label-2::after{
     content: '';
@@ -1496,6 +1507,9 @@ body{
 }
 .label-2.password::after{
     content: '* * * * * * * *' !important;
+}
+.label-2.modelName::after{
+    content: 'Mariage Floral, Annivaire Soft,...' !important;
 }
 
 .label-input input:-webkit-autofill,

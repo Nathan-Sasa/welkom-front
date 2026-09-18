@@ -1,0 +1,93 @@
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environment/environment';
+import { IUser } from '../interfaces/user.interface';
+import { Router } from '@angular/router';
+import { catchError, map, Observable, of, tap } from 'rxjs';
+
+interface AuthRequest {
+	email: string,
+	username: string
+	password: string
+}
+
+@Injectable({
+  	providedIn: 'root',
+})
+export class AuthService {
+
+	private readonly http = inject(HttpClient)
+	private readonly router = inject(Router)
+
+	private readonly oauthApiUrl = environment.apisUrl.auth.oauthApi
+	private readonly loginApiUrl = environment.apisUrl.auth.loginApiUrl
+	private readonly registerApiUrl = environment.apisUrl.auth.registerApiUrl
+	private readonly currentUserApiUrl = environment.apisUrl.auth.currentUserApiUrl
+	private readonly logoutApiUrl = environment.apisUrl.auth.logoutApiUrl
+
+
+	public readonly currentUser = signal<IUser | null>(null)
+	public readonly isAuthenticated = computed<boolean>(() => this.currentUser() !== null)
+	public readonly isUser = computed<boolean>(() => this.currentUser()?.role === 'WLK_USER')
+	public readonly isAdmin = computed<boolean>(() => this.currentUser()?.role === 'WLK_ADMIN')
+	public readonly isSuperAdmin = computed<boolean>(() => this.currentUser()?.role === 'WLK_SUPER_ADMIN')
+
+	getCurrentUser(): Observable<IUser | null> {
+		return this.http.get<IUser>(this.currentUserApiUrl)
+			.pipe(
+				tap( user => {
+					this.currentUser.set(user)
+					console.log('Utilisateur connecté : ',this.currentUser())
+				}),
+				catchError((err) => {
+					this.currentUser.set(null)
+					console.log('Error current user : ', err)
+					return of(null)
+				})
+			) // zHZXs9t3P6GT
+	}
+
+	login(email: string, password: string): Observable<any> {
+		return this.http.post<{user: IUser}>(this.loginApiUrl, {email, password}, {withCredentials: true, responseType: 'json' as 'json'})
+			.pipe(
+				tap( (res) => {
+					this.currentUser.set(res.user)
+					console.log('Utilisateur connecté : ',this.currentUser())
+				})
+			)
+	}
+
+	register(payload: AuthRequest): Observable<any> {
+		return this.http.post<{user: IUser}>(this.registerApiUrl, payload, {withCredentials: true, responseType: 'json' as 'json'})
+			.pipe(
+				tap( (res) => {
+					this.currentUser.set(res.user)
+					console.log('Utilisateur Enregistré : ',this.currentUser())
+				})
+			)
+	}
+
+	loginWithGoogle(): void {
+		window.location.href = this.oauthApiUrl;
+	}
+
+	logoutUser(): Observable<void | null> {
+		return this.http.post<void>(this.logoutApiUrl, {}, {withCredentials: true})
+			.pipe(
+				tap( res => {
+					console.log('Utilisateur déconnecté !')
+					this.purge()
+				}),
+				catchError((err) => {
+					console.log('Erreur de déconnexion... : ', err)
+					return of(null)
+				})
+			)
+	}
+
+	purge(): void {
+		this.currentUser.set(null)
+		this.router.navigate(['/login'])
+	}
+
+}
