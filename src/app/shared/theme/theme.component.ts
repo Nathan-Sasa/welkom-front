@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import { AppTheme, ThemeAppService } from '../../core/services/themeApp.service'
+import { AppTheme, ThemeAppService } from '../../core/theme/themeApp.service'
 
 @Component({
 	selector: 'app-theme',

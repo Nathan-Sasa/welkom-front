@@ -33,4 +33,90 @@
             </button>
         </div>
     </div>
+
+
+
+    <div class="flex flex-col gap-4 p-main bg-wlk-background">
+        <p-button 
+            label="Button primary"
+            severity="primary"
+            icon="pi pi-calendar"
+            size="small"
+        />
+        <p-button 
+            label="Button success"
+            severity="success"
+            icon="pi pi-calendar"
+            size="small"
+        />
+        <p-button 
+            label="Button secondary"
+            severity="secondary"
+            icon="pi pi-calendar"
+            size="small"
+        />
+        <p-button 
+            label="Button warning"
+            severity="warn"
+            icon="pi pi-calendar"
+            size="small"
+        />
+        <p-button 
+            label="Button danger"
+            severity="danger"
+            icon="pi pi-calendar"
+            size="small"
+        />
+        <p-button 
+            label="Button success desabled"
+            severity="success"
+            icon="pi pi-calendar"
+            [disabled]="true"
+            size="small"
+        />
+        <p-button 
+            label="Button success rounded"
+            severity="info"
+            icon="pi pi-calendar"
+            [raised]="true"
+            size="small"
+        />
+        <p-button 
+            label="Button success outilne"
+            severity="secondary"
+            icon="pi pi-calendar"
+            [outlined]="true"
+            size="small"
+        />
+        <input 
+            pInputText 
+            type="text" 
+            id="depart" 
+            placeholder="ex. Kinshasa" 
+            class="w-full" 
+            size="small"
+        />
+        <span>
+            <p-badge
+                severity="success"
+                value="badge"
+            />
+            <p-badge
+                severity="warn"
+                value="badge"
+            />
+            <p-badge
+                severity="danger"
+                value="badge"
+            />
+            <p-badge
+                severity="secondary"
+                value="badge"
+            />
+            <p-badge
+                severity="contrast"
+                value="badge"
+            />
+        </span>
+    </div>
 </section>

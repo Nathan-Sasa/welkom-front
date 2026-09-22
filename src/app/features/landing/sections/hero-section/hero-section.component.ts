@@ -4,11 +4,18 @@ import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
+import { Button, ButtonLabel } from 'primeng/button'
+import { InputText } from 'primeng/inputtext'
+import { Badge } from 'primeng/badge'
+
 @Component({
 	selector: 'wlk-hero-section',
 	imports: [
-
-	],
+    Button,
+    InputText,
+    Badge,
+    ButtonLabel
+],
 	templateUrl: './hero-section.component.html',
 	styleUrl: './hero-section.component.css',
 })

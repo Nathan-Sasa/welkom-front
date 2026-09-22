@@ -4,6 +4,7 @@ import { HeroSectionComponent } from '../sections/hero-section/hero-section.comp
 import { TemplatesSectionComponent } from '../sections/templates-section/templates-section.component';
 import { FeaturesSectionComponent } from '../sections/features-section/features-section.component';
 import { CtaSectionComponent } from '../sections/cta-section/cta-section.component';
+import { Button } from 'primeng/button'
 
 @Component({
 	selector: 'wlk-lading',
@@ -12,7 +13,8 @@ import { CtaSectionComponent } from '../sections/cta-section/cta-section.compone
 		HeroSectionComponent,
 		TemplatesSectionComponent,
 		FeaturesSectionComponent,
-		CtaSectionComponent
+		CtaSectionComponent,
+		
 	],
 	templateUrl: './lading.component.html',
 	styleUrl: './lading.component.css',

@@ -1,18 +1,19 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, LOCALE_ID, inject, provideAppInitializer } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { routes } from './app.routes';
 import { withInMemoryScrolling } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeuix/themes/aura';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 
-import { routes } from './app.routes';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { AuthService } from './core/auth/services/auth.service';
 // import { IUser } from './core/auth/interfaces/user.interface';
 import { catchError, firstValueFrom, of } from 'rxjs';
+
+import { providePrimeNG } from 'primeng/config';
+import { WelkomPreset } from './core/theme/welkom-preset';
 
 registerLocaleData(localeFr);
 
@@ -61,7 +62,11 @@ export const appConfig: ApplicationConfig = {
 		provideAnimationsAsync(),
 		providePrimeNG({
             theme: {
-                preset: Aura
+                preset: WelkomPreset,
+				options: {
+					darkModeSelector: '.dark',
+					cssLayer: false
+				}
             }
         }),
 		{ provide: LOCALE_ID, useValue: 'fr-FR' },
