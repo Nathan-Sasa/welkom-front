@@ -1549,4 +1549,191 @@ select:-webkit-autofill {
 }
 
 
+Logo app ==========================
+=================================
+<svg
 
+  width="520"
+
+  height="150"
+
+  viewBox="0 0 520 150"
+
+  fill="none"
+
+  xmlns="http://www.w3.org/2000/svg"
+
+>
+
+  <defs>
+
+    <!-- Dégradé principal Welkom -->
+
+    <linearGradient
+
+      id="welkomGradient"
+
+      x1="20"
+
+      y1="20"
+
+      x2="105"
+
+      y2="90"
+
+      gradientUnits="userSpaceOnUse"
+
+    >
+
+      <stop offset="0%" stop-color="#F19A80"/>
+
+      <stop offset="45%" stop-color="#D9775F"/>
+
+      <stop offset="100%" stop-color="#B84D3C"/>
+
+    </linearGradient>
+
+  </defs>
+
+  <!-- =======
+
+landing page features ==================
+=================================
+1. HERO
+
+Créez. Invitez. Célébrez.
+
+Bienvenue sur Welkom, l’espace qui simplifie l’organisation de vos événements.
+Créez votre événement, personnalisez vos invitations, gérez vos invités et gardez tout au même endroit.
+
+Bouton principal : Créer mon événement
+Bouton secondaire : Découvrir Welkom
+
+⸻
+
+2. LE PROBLÈME
+
+Organiser un événement ne devrait pas devenir un deuxième métier.
+
+Une liste d’invités sur WhatsApp.
+Des confirmations dans plusieurs conversations.
+Des invitations envoyées à droite et à gauche.
+Des informations difficiles à retrouver.
+
+Welkom rassemble tout ce dont vous avez besoin dans un seul espace.
+
+⸻
+
+3. LA PROMESSE
+
+Un événement. Un espace. Une expérience plus simple.
+Avec Welkom, vous gardez le contrôle de votre événement de sa création jusqu’au jour J.
+
+
+Tout est pensé pour vous permettre de vous concentrer sur l’essentiel : votre événement et les personnes qui comptent.
+
+⸻
+
+4. COMMENT ÇA FONCTIONNE
+
+Votre événement en quelques étapes.
+
+01 — Créez votre événement
+Renseignez les informations essentielles de votre événement et créez votre espace d’organisation.
+
+02 — Préparez vos invitations
+Ajoutez vos invités, personnalisez votre invitation et préparez votre événement à votre image.
+
+03 — Invitez vos proches
+Chaque invité dispose de son invitation personnelle et peut confirmer sa présence simplement.
+
+04 — Suivez les réponses
+Visualisez les confirmations et gardez une vue claire sur votre liste d’invités.
+
+05 — Accueillez vos invités
+Le jour J, utilisez le checking Welkom pour vérifier rapidement les invitations et accueillir vos invités.
+
+⸻
+
+5. LES FONCTIONNALITÉS
+
+Tout ce qu’il faut pour préparer votre événement.
+
+🎉 Gestion des événements
+Créez et gérez vos événements depuis un espace unique.
+
+👥 Gestion des invités
+
+Ajoutez vos invités individuellement ou importez une liste pour gagner du temps.
+💌 Invitations personnalisées
+
+Créez une expérience d’invitation adaptée à votre événement.
+🔗 Invitations individuelles
+
+Chaque invité dispose de son propre accès à son invitation.
+📱 RSVP
+
+Vos invités peuvent confirmer leur présence directement depuis leur invitation.
+📊 Suivi
+
+Gardez un œil sur les invités confirmés, en attente et sur l’évolution de votre événement.
+📷 QR Code
+
+Chaque invitation possède un QR Code utilisable pour le contrôle le jour de l’événement.
+🔐 Checking sécurisé
+
+Un accès dédié permet à votre équipe de vérifier les invitations sans exposer votre espace d’organisation.
+
+⸻
+
+6. L’EXPÉRIENCE INVITÉ
+
+Vos invités méritent aussi une belle expérience.
+Pas besoin de créer un compte compliqué.
+Votre invité reçoit son invitation, découvre les informations de l’événement et peut confirmer sa présence en quelques instants.
+
+Une invitation personnalisée.
+Une expérience simple.
+Une réponse en quelques secondes.
+
+⸻
+
+7. LE JOUR J
+
+Le jour de votre événement, Welkom passe en mode accueil.
+
+Vos invités arrivent.
+
+Le QR Code est scanné.
+
+L’invitation est vérifiée.
+
+La présence est enregistrée.
+
+Simple, rapide et sécurisé.
+
+Vous savez qui est arrivé et votre équipe peut se concentrer sur l’accueil plutôt que sur une liste papier.
+
+⸻
+
+8. CTA FINAL
+
+Votre prochain événement commence ici.
+
+Créez votre événement, invitez vos proches et préparez votre jour J avec Welkom.
+
+Créez. Invitez. Célébrez.
+
+Bouton : Créer mon événement
+
+⸻
+
+FOOTER
+
+Welkom
+
+Bien plus qu’un événement. Une expérience humaine.
+
+Événements · Invitations · Invités · Checking
+
+© 2026 Welkom. Tous droits réservés.

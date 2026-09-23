@@ -1,20 +1,13 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { AuthService } from '../../../../core/auth/services/auth.service';
-import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { Button, ButtonLabel } from 'primeng/button'
-import { InputText } from 'primeng/inputtext'
-import { Badge } from 'primeng/badge'
+import { Button } from 'primeng/button'
 
 @Component({
 	selector: 'wlk-hero-section',
 	imports: [
-    Button,
-    InputText,
-    Badge,
-    ButtonLabel
+    Button
 ],
 	templateUrl: './hero-section.component.html',
 	styleUrl: './hero-section.component.css',
@@ -24,9 +17,9 @@ export class HeroSectionComponent {
 	authService = inject(AuthService)
 	destroyRef = inject(DestroyRef)
 
-	appDescription = {
-		title: 'Vos invitations, du premier clic au contrôle du Jour J.',
-		description: 'RSVPs numériques, gestion des invités et accès sécurisé par QR code. Simplifiez l\'organisation de vos moments précieux avec une élégance absolue.'
+	heroTextContent = {
+		title: 'Créez. Invitez. Célébrez.',
+		description: 'Bienvenue sur Welkom, l’espace qui simplifie l\’organisation de vos événements. Créez votre événement, personnalisez vos invitations, gérez vos invités et gardez tout au même endroit.'
 	}
 
 	logoutSession(): void {

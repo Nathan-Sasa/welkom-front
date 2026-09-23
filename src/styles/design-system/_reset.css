@@ -8,8 +8,27 @@ body {
     font-family: var(--font-sans);
     font-size: var(--text-base);
     line-height: var(--line-height-normal);
-    color: var(--color-text);
+    color: var(--color-wlk-content);
     background-color: var(--color-wlk-background);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
 }

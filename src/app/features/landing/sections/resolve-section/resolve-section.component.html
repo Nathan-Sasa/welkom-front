@@ -1,0 +1,63 @@
+<section
+    class="w-full flex flex-col-reverse lg:flex-row px-main py-section-y bg-wlk-surface-soft"
+    >
+    <div
+        class="w-full lg:w-2/5"
+        >
+        <img 
+            aria-label="Illustration svg de problem resolu par welkom"
+            src="assets/shapes/human-laptop.svg" 
+            alt="Problem illustration"
+            width="300"
+        >
+    </div>
+    <div
+        class="flex flex-col gap-y-md"
+        >
+        <small class="text-wlk-gold font-semibold">LE PROBLEME</small>
+        <h2 class="text-h2">Organiser un événement ne devrait pas devenir un deuxième métier.</h2>
+        <ul class="flex flex-col gap-sm">
+           @for (problem of problems; track $index) {
+                <li class="flex items-center gap-sm">
+                    <p-badge
+                        value=" x"
+                    />
+                    <span>{{problem.text}}</span>
+                </li>
+           } 
+        </ul>
+    </div>
+</section>
+
+<section
+    class="w-full flex flex-col lg:flex-row px-main py-section-y"
+    >
+    <div
+        class="w-full lg:w-2/5 flex flex-col gap-y-8"
+        >
+        <div class="flex flex-col gap-sm">
+            <small class="text-wlk-gold font-semibold">LA PROMESSE</small>
+            <h2 class="text-h2">Un événement. Un espace. Une expérience plus simple.</h2>
+            <span class="">Avec Welkom, vous gardez le contrôle de votre événement de sa création jusqu’au jour J.</span>
+        </div>
+        <ul class="grid grid-cols-5 gap-md">
+           @for (promise of promises; track $index) {
+                <li class="flex flex-col items-center gap-sm">
+                    <p-avatar
+                        [icon]="promise.icon"
+                        shape="circle"
+                        style="background-color: #f4c2b59c;"
+                        size="large"
+                    />
+                    <span>{{promise.text}}</span>
+                </li>
+           } 
+        </ul>
+        <p class="text-wlk-content-secondary">Tout est pensé pour vous permettre de vous concentrer sur l’essentiel : votre événement et les personnes qui comptent.</p>
+    </div>
+    <div
+        class="w-full lg:w-3/5"
+        >
+
+    </div>
+</section>

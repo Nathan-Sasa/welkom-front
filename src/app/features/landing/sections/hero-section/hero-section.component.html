@@ -1,122 +1,51 @@
 <section
-    class="w-full h-screen max-h-270 flex flex-col lg:flex-row max-lg:mt-section-y justify-between items-center p-main || "
+    class="w-full h-screen flex flex-col lg:flex-row max-lg:mt-section-y justify-between items-center p-main relative || overflow-hidden"
     >
     <div
-        class="w-full lg:w-2/3 flex flex-col gap-xl relative"
+        class="w-full lg:w-2/3 flex flex-col gap-xl relative "
         >
         <div
             class="w-full flex flex-col gap-sm"
             >
-            <h1 class="title-1">
-                {{appDescription.title}}
+            <h1 class="text-hero font-display z-2">
+                {{heroTextContent.title}}
             </h1>
             <p
-                class="text-base secondary"
+                class="text-h3 text-wlk-content-secondary! z-2"
                 >
-                {{appDescription.description}}
+                {{heroTextContent.description}}
             </p>
         </div>
         <div
             class="flex flex-col lg:flex-row gap-sm"
             >
-            <button class="button primary">
-                Créer un événement
-            </button>
-            <button class="button secondary">
-                Voir les template
-            </button>
-            <button 
+            <p-button class="button primary" 
+                label="Créer mon événement"
+                class="z-2"
+            />
+            <p-button class="button primary" 
+                label="Découvrir Welkom"
+                severity="secondary"
+                class="z-2"
+            />
+
+            <!-- <button 
                 class="button secondary attention" 
                 (click)="logoutSession()"
                 >
                 Déconnexion
-            </button>
+            </button> -->
         </div>
     </div>
-
-
-
-    <div class="flex flex-col gap-4 p-main bg-wlk-background">
-        <p-button 
-            label="Button primary"
-            severity="primary"
-            icon="pi pi-calendar"
-            size="small"
-        />
-        <p-button 
-            label="Button success"
-            severity="success"
-            icon="pi pi-calendar"
-            size="small"
-        />
-        <p-button 
-            label="Button secondary"
-            severity="secondary"
-            icon="pi pi-calendar"
-            size="small"
-        />
-        <p-button 
-            label="Button warning"
-            severity="warn"
-            icon="pi pi-calendar"
-            size="small"
-        />
-        <p-button 
-            label="Button danger"
-            severity="danger"
-            icon="pi pi-calendar"
-            size="small"
-        />
-        <p-button 
-            label="Button success desabled"
-            severity="success"
-            icon="pi pi-calendar"
-            [disabled]="true"
-            size="small"
-        />
-        <p-button 
-            label="Button success rounded"
-            severity="info"
-            icon="pi pi-calendar"
-            [raised]="true"
-            size="small"
-        />
-        <p-button 
-            label="Button success outilne"
-            severity="secondary"
-            icon="pi pi-calendar"
-            [outlined]="true"
-            size="small"
-        />
-        <input 
-            pInputText 
-            type="text" 
-            id="depart" 
-            placeholder="ex. Kinshasa" 
-            class="w-full" 
-            size="small"
-        />
-        <span>
-            <p-badge
-                severity="success"
-                value="badge"
-            />
-            <p-badge
-                severity="warn"
-                value="badge"
-            />
-            <p-badge
-                severity="danger"
-                value="badge"
-            />
-            <p-badge
-                severity="secondary"
-                value="badge"
-            />
-            <p-badge
-                severity="contrast"
-                value="badge"
-            />
-        </span>
-    </div>
+    <img 
+        src="assets/shapes/lak.svg" 
+        alt=""
+        width="800"
+        class="absolute -right-1/6 -bottom-1/2 z-1"
+    >
+    <img 
+        src="assets/shapes/flowers.svg" 
+        alt=""
+        class="absolute right-0 bottom-0"
+    >
 </section>

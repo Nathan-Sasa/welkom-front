@@ -1,4 +1,4 @@
-@import "./typography.css";
+@import "./_typography.css";
 @import "tailwindcss";
 
 :root {
@@ -68,7 +68,7 @@
 
 }
 
-p {
+.y {
     color: #d9775f; /*primary*/
     color: #b85c49; /*primary dark*/
     color: #faf7f2; /*cream*/
@@ -96,8 +96,22 @@ p {
 }
 
 @theme {
-    --font-display: "Poppins", sans-serif;
+    --font-display: "Poppins Light", sans-serif;
     --font-sans: "Inter", sans-serif;
+    /* --font-sans: 'Poppins Light'; */
+    --font-regular: 'Poppins Regular';
+    --font-medium: 'Poppins Medium';
+    --font-Semibold: 'Poppins Bold';
+    --font-bold: 'Poppins bold';
+
+    --text-hero: var(--text-hero);
+    --text-h1: var(--text-h1);
+    --text-h2: var(--text-h2);
+    --text-h3: var(--text-h3);
+    --text-small: var(--text-small);
+    --text-base: var(--text-base);
+    --text-label: var(--text-label);
+
     --color-wlk-background: var(--wlk-background);
     --color-wlk-surface: var(--wlk-surface);
     --color-wlk-surface-soft: var(--wlk-surface-soft);
@@ -113,10 +127,24 @@ p {
     --color-wlk-border: var(--wlk-border);
     --color-wlk-danger: var(--wlk-danger);
     --color-wlk-warning: var(--wlk-warning);
+
     --radius-wlk-xs: 6px;
     --radius-wlk-sm: 8px;
     --radius-wlk-md: 12px;
     --radius-wlk-lg: 16px;
     --radius-wlk-xl: 20px;
     --radius-wlk-2xl: 24px;
+
+    --spacing-main: clamp(1rem, 5vw, 2rem);
+    --spacing-section-y: clamp(3rem, 10vw, 6rem);
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 24px;
+    --spacing-big: 48px;
+
+    --z-sticky: 200;
+    --z-overlay: 300;
+    --z-modal: 400;
 }

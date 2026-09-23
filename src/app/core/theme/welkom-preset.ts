@@ -237,12 +237,12 @@ export const WelkomPreset = definePreset(Aura, {
                             hoverBackground: '{sage.50}',
                             activeBackground: '{sage.100}',
                         },
-                        info: {
-                            color: '{warning.500}',
-                            borderColor: '{waring.500}',
-                            hoverBackground: '{gold.50}',
-                            activeBackground: '{gold.100}',
-                        },
+                        // info: {
+                        //     color: '{warning.500}',
+                        //     borderColor: '{waring.500}',
+                        //     hoverBackground: '{gold.50}',
+                        //     activeBackground: '{gold.100}',
+                        // },
                         danger: {
                             color: '{dangers.500}',
                             borderColor: '{dangers.500}',
@@ -251,7 +251,7 @@ export const WelkomPreset = definePreset(Aura, {
                         }
                     },
                     root: {
-                        borderRadius: '12px',
+                        borderRadius: '8px',
                         success: {
                             background: '{sage.600}',
                             borderColor: '{sage.600}',
@@ -276,14 +276,14 @@ export const WelkomPreset = definePreset(Aura, {
                             activeBackground: '{gold.800}',
                             activeBorderColor: '{gold.800}',
                         },
-                        info: {
-                            background: '{gold.600}',
-                            borderColor: '{gold.600}',
-                            hoverBackground: '{gold.700}',
-                            hoverBorderColor: '{gold.700}',
-                            activeBackground: '{gold.800}',
-                            activeBorderColor: '{gold.800}',
-                        }
+                        // info: {
+                        //     background: '{gold.600}',
+                        //     borderColor: '{gold.600}',
+                        //     hoverBackground: '{gold.700}',
+                        //     hoverBorderColor: '{gold.700}',
+                        //     activeBackground: '{gold.800}',
+                        //     activeBorderColor: '{gold.800}',
+                        // }
                     }
                 },
                 dark: {
@@ -309,12 +309,12 @@ export const WelkomPreset = definePreset(Aura, {
                             hoverBackground: '{sage.950}',
                             activeBackground: '{sage.900}',
                         },
-                        info: {
-                            color: '{warning.500}',
-                            borderColor: '{waring.500}',
-                            hoverBackground: '{gold.950}',
-                            activeBackground: '{gold.900}',
-                        },
+                        // info: {
+                        //     color: '{warning.500}',
+                        //     borderColor: '{waring.500}',
+                        //     hoverBackground: '{gold.950}',
+                        //     activeBackground: '{gold.900}',
+                        // },
                         danger: {
                             color: '{dangers.500}',
                             borderColor: '{dangers.500}',
@@ -368,17 +368,17 @@ export const WelkomPreset = definePreset(Aura, {
                             activeBackground: '{gold.800}',
                             activeBorderColor: '{gold.800}',
                         },
-                        info: {
-                            color: '#F7F2EC',
-                            hoverColor: '#F7F2EC',
-                            activeColor: '#F7F2EC',
-                            background: '{gold.600}',
-                            borderColor: '{gold.600}',
-                            hoverBackground: '{gold.700}',
-                            hoverBorderColor: '{gold.700}',
-                            activeBackground: '{gold.800}',
-                            activeBorderColor: '{gold.800}',
-                        }
+                        // info: {
+                        //     color: '#F7F2EC',
+                        //     hoverColor: '#F7F2EC',
+                        //     activeColor: '#F7F2EC',
+                        //     background: '{gold.600}',
+                        //     borderColor: '{gold.600}',
+                        //     hoverBackground: '{gold.700}',
+                        //     hoverBorderColor: '{gold.700}',
+                        //     activeBackground: '{gold.800}',
+                        //     activeBorderColor: '{gold.800}',
+                        // }
                     }
                 }
 

@@ -5,6 +5,7 @@ import { TemplatesSectionComponent } from '../sections/templates-section/templat
 import { FeaturesSectionComponent } from '../sections/features-section/features-section.component';
 import { CtaSectionComponent } from '../sections/cta-section/cta-section.component';
 import { Button } from 'primeng/button'
+import { ResolveSectionComponent } from '../sections/resolve-section/resolve-section.component';
 
 @Component({
 	selector: 'wlk-lading',
@@ -14,7 +15,7 @@ import { Button } from 'primeng/button'
 		TemplatesSectionComponent,
 		FeaturesSectionComponent,
 		CtaSectionComponent,
-		
+		ResolveSectionComponent
 	],
 	templateUrl: './lading.component.html',
 	styleUrl: './lading.component.css',
