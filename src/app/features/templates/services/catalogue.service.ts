@@ -1,9 +1,9 @@
 import { inject, Injectable, ResourceRef, Signal } from '@angular/core';
-import { environment } from '../../../../environment/environment';
+import { environment } from '../../../../environments/environment';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ICatalogue } from '../interfaces/catalogue.interface';
-import { Page } from '../../../core/interfaces/pagination.interface';
+import { Pagination } from '../../../core/interfaces/pagination.interface';
 
 @Injectable({
   	providedIn: 'root',

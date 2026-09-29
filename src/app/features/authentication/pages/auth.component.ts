@@ -5,6 +5,16 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { takeUntilDestroyed} from '@angular/core/rxjs-interop'
 import { firstValueFrom } from 'rxjs';
+import { InputText } from 'primeng/inputtext'
+import { Button, ButtonIcon, ButtonDirective } from 'primeng/button'
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { PasswordModule} from 'primeng/password'
+import { AppInfo } from '../../../shared/utils/meta-data';
+// import { ToastModule} from 'primeng/toast'
+import { MessageModule } from 'primeng/message'
+// import { MessageService } from 'primeng/api';
+import { IExceptions } from '../../../core/interfaces/exception.interface';
 
 interface IAuthForm {
 	email: FormControl,
@@ -15,10 +25,18 @@ interface IAuthForm {
 @Component({
 	selector: 'wlk-auth',
 	imports: [
-		RouterModule,
-		ReactiveFormsModule,
-		CommonModule
-	],
+    RouterModule,
+    ReactiveFormsModule,
+    CommonModule,
+    Button,
+    ButtonIcon,
+    IconFieldModule,
+    InputIconModule,
+    InputText,
+	PasswordModule,
+    ButtonDirective,
+	MessageModule
+],
 	templateUrl: './auth.component.html',
 	styleUrl: './auth.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -30,6 +48,8 @@ export class AuthComponent implements OnInit {
 	private readonly router = inject(Router)
 	private readonly authService = inject(AuthService)
 	private readonly location = inject(Location)
+
+	appInfo = AppInfo
 
 	protected authForm: FormGroup<IAuthForm>
 
@@ -43,7 +63,8 @@ export class AuthComponent implements OnInit {
 	protected loading = signal<boolean>(false)
 	protected isSubmitting = signal<boolean>(false)
 
-	messageError: String | null = null
+	protected isError = signal<boolean>(false)
+	protected messageError = signal<IExceptions | null>(null)
 
 	constructor (){
 		this.authForm = new FormGroup<IAuthForm>({
@@ -114,15 +135,32 @@ export class AuthComponent implements OnInit {
 					this.authForm.reset()
 					this.loading.set(false)
 					// firstValueFrom(this.authService.getCurrentUser())
-					console.log('login ok : ',	res)
-					// this.router.navigate(['/session'])
+					// console.log('login ok : ',	res)
+					// console.log('connect success', res)
+					// void this.router.navigate(['/profile'])
 				},
 				error: (err) => {
 					this.isSubmitting.set(false)
 					this.loading.set(false)
 					console.log('erreur : ', err)
+
+					const error = {
+						error: {message: err.error.message},
+						name: err.name,
+						status: err.status,
+					}
+					this.messageError.set(error)
+					setTimeout(() => {
+						this.isError.set(true)
+					}, 300);
+
 				}
 			})
+	}
+
+	isInvalid(controlName: string){
+		const control = this.authForm.get(controlName)
+		return control?.touched && control?.invalid
 	}
 
 	// login with google

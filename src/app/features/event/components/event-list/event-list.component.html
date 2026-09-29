@@ -1,0 +1,44 @@
+<section
+    class="w-full flex flex-col gap-sm pt-section-y p-main"
+    >
+    <span class="mt-main lg:hidden"></span>
+    <div
+        class="w-full flex flex-wrap gap-md"
+        >
+        @defer (on viewport) {
+            <!-- <span>{{loadEvents(true)}}</span> -->
+            @if (eventsLoading() && firstPage()){
+                <p-progress-spinner 
+                    size="small"
+                />
+            }@else {
+                @for (event of events(); track $index) {
+                    <wlk-event-card 
+                        [event]="event"
+                        class="carousel-item"
+                    />
+                }
+            }
+        }@placeholder {
+            <span class="">
+                Chargement des événements...
+            </span>
+        }
+    </div>
+    <div class="mx-auto w-5">
+        @if (!lastPage() && !fetching) {
+            @defer (on viewport) {
+                <span>{{loadEvents(false)}}</span>
+            }@placeholder {
+                <div>
+                    Défiler pour charger plus d'événements.
+                </div>
+            }
+        }
+        @if(fetching && !lastPage()) {
+            <p-progress-spinner 
+                size="small"
+            />
+        }
+    </div>
+</section>

@@ -17,6 +17,10 @@ export const routes: Routes = [
         canMatch: [guestGuard]
     },
 
+    {
+        path: 'profile',
+        loadChildren: () => import('./features/profile/profile.routes').then(m => m.ProfileRoutes)
+    },
 
     // redirection ==============================
     // routes provisoire

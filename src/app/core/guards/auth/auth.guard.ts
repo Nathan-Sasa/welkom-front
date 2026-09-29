@@ -22,7 +22,7 @@ export const guestGuard: CanMatchFn = () => {
         return true
     }
 
-    alert("Cet utilisateur est deja connecté")
+    // alert("Cet utilisateur est deja connecté")
 
     return router.createUrlTree(['/'])
 }

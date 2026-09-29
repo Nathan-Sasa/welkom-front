@@ -4,7 +4,7 @@ import { catchError, switchMap } from 'rxjs/operators';
 import { EMPTY, of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/services/auth.service';
-import { environment } from '../../../environment/environment';
+import { environment } from '../../../environments/environment';
 
 export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
     const auth = inject(AuthService)

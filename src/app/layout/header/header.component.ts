@@ -8,6 +8,7 @@ import { WelkomLogoComponent } from '../../shared/components/welko-logo/welkom-l
 import { RoleDirective } from '../../shared/directives/role/role.directive';
 import { AuthService } from '../../core/auth/services/auth.service';
 import { Button } from 'primeng/button'
+import { Avatar } from 'primeng/avatar'
 
 @Component({
 	selector: 'wlk-header',
@@ -18,7 +19,8 @@ import { Button } from 'primeng/button'
 		ButtonModule,
 		ThemeComponent,
 		WelkomLogoComponent,
-		Button
+		Button,
+		Avatar
 	],
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.css',
@@ -37,6 +39,6 @@ export class HeaderComponent {
 	protected isMenuOpen: boolean = false
 
 	constructor(){
-		
+
 	}
 }

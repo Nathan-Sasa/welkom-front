@@ -1,7 +1,9 @@
-export interface Page<T> {
-    items: T[];
-    total: number;
-    page: number;
-    limit: number;
+export interface Pagination<T> {
+    content: T[];
+    size: number
+    numberOfElements: number
     totalPages: number;
+    totalElements: number
+    first: boolean
+    last: boolean
 }

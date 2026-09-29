@@ -1,8 +1,7 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, LOCALE_ID, inject, provideAppInitializer } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
-import { withInMemoryScrolling } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -45,6 +44,7 @@ export const appConfig: ApplicationConfig = {
 				scrollPositionRestoration: 'top',
 				anchorScrolling: 'enabled',
 			}),
+			withComponentInputBinding()
 		),
 		provideHttpClient(
 			withInterceptors([

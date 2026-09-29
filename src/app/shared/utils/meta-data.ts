@@ -1,5 +1,6 @@
 export const AppInfo = {
     name: 'Welkom',
-    logo: '',
-    slogan: 'Vos invitations, du premier clic au contrôle du Jour J.'
+    logo: 'assets/logo/welkom-logo.webp',
+    slogan: 'Vos invitations, du premier clic au contrôle du Jour J.',
+    defaultAvatar: 'assets/shapes/default-profile.svg'
 }

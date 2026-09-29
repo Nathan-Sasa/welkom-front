@@ -1,0 +1,13 @@
+<div
+    class=""
+    >
+    @switch(wlkError().status) {
+        @case(500){
+            <div
+                class="border-2 border-dashed border-wlk-danger/50 rounded-lg bg-wlk-danger/10 p-main"
+                >
+                <span class="font-Semibold">{{wlkError().error.message}}</span>
+            </div>
+        }
+    }
+</div>

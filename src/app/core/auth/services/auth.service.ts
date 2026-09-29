@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environment/environment';
+import { environment } from '../../../../environments/environment';
 import { IUser } from '../interfaces/user.interface';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, of, tap } from 'rxjs';
@@ -48,20 +48,20 @@ export class AuthService {
 	}
 
 	login(email: string, password: string): Observable<any> {
-		return this.http.post<{user: IUser}>(this.loginApiUrl, {email, password}, {withCredentials: true, responseType: 'json' as 'json'})
+		return this.http.post<IUser>(this.loginApiUrl, {email, password}, {withCredentials: true, responseType: 'json' as 'json'})
 			.pipe(
-				tap( (res) => {
-					this.currentUser.set(res.user)
-					console.log('Utilisateur connecté : ',this.currentUser())
+				tap((user) => {
+					this.currentUser.set(user)
+					void this.router.navigate(['/profile'])
 				})
 			)
 	}
 
 	register(payload: AuthRequest): Observable<any> {
-		return this.http.post<{user: IUser}>(this.registerApiUrl, payload, {withCredentials: true, responseType: 'json' as 'json'})
+		return this.http.post<IUser>(this.registerApiUrl, payload, {withCredentials: true, responseType: 'json' as 'json'})
 			.pipe(
-				tap( (res) => {
-					this.currentUser.set(res.user)
+				tap((user) => {
+					this.currentUser.set(user)
 					console.log('Utilisateur Enregistré : ',this.currentUser())
 				})
 			)

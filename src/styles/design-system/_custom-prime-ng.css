@@ -1,0 +1,18 @@
+/* p-drawer ************** */
+.p-drawer {
+    background-color: var(--color-clr-bg-page) !important;
+    color: var(--color-clr-text) !important;
+    /* border-color: var(--color-clr-border) !important; */
+    border-color: transparent !important;
+
+    &:where(.dark, .dark *) {
+        background-color: var(--color-clr-bg-page-dark) !important;
+        color: var(--color-clr-text-dark) !important;
+
+        /* border-color: var(--color-clr-border-dark) !important; */
+    }
+}
+
+.p-datepicker-panel{
+    z-index: 2000 !important;
+}

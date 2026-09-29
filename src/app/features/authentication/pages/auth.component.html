@@ -1,152 +1,220 @@
 <section
-    class="w-full h-screen flex flex-col lg:flex-row items-center relative"
+    class="w-full h-auto lg:h-screen flex flex-col lg:flex-row items-center relative max-lg:pt-big"
     >
     <div
-        class="w-full card card-white not-hover border-none! h-auto lg:w-1/2 lg:h-full flex flex-col max-lg:pt-section-y lg:items-center lg:justify-center relative gap-md"
+        class="w-full lg:w-1/2 h-auto lg:h-full flex flex-col max-lg:mt-section-y max-lg:mb-lg lg:items-center lg:justify-center relative gap-md"
         >
             <!-- (click)="goBack()" -->
         <a 
             [routerLink]="['/']"
-            class="absolute top-md left-md">
+            class="absolute top-md left-md max-lg:hidden">
             <i class="pi pi-arrow-left size-icon! hover:text-clr-chips-border-hover dark:hover:text-clr-chips-hover-dark transition-morph duration-300"></i>
         </a>
         <span
             class="w-full flex flex-col items-center justify-center gap-sm"
             >
-            <p 
-                class="title-1"
-                >
-                Welkom
-            </p>
-            <p>
+            <img 
+                [src]="appInfo.logo" 
+                alt="Logo welkom"
+                width="164"
+                class="hidden lg:block"
+            >
+            <h3 class="text-h3 font-display">
                 Créez des souvenirs inoubliables.
-            </p>
+            </h3>
         </span>
     </div>
     <span class="separator separator-y max-lg:hidden"></span>
     <div
-        class="w-full h-auto lg:w-1/2 lg:h-full lg:justify-center flex flex-col gap-8"
+        class="w-full h-auto lg:w-1/2 lg:h-full lg:justify-center flex flex-col gap-lg"
         >
         <form 
             [formGroup]="authForm"
             (ngSubmit)="submitForm()"
-            class="w-full h-auto flex flex-col lg:justify-center gap-xl px-main"
+            class="w-full h-auto flex flex-col lg:justify-center gap-md px-main"
             >
             <div
-                class="w-full flex flex-col gap-xl"
+                class="w-full flex flex-col items-center gap-md"
                 >
                 <fieldset
                     [disabled]="isSubmitting()"
-                    class="flex justify-center mt-lg"
+                    class="flex justify-center"
                     >
                     @if (!authLogin()) {
                         <label 
                             for="username"
-                            class="label-input"
+                            class=""
                             >
-                            <input 
-                                type="text" 
-                                formControlName="username"
-                                id="username"
-                                class="input-text"
-                                required
-                            >
-                            <p class="label-1">
-                                Nom d'utilisateur
-                            </p>
-                            <p class="label-2 username"></p>
+                            <small class="font-Semibold">
+                            Nom d'utilisateur
+                        </small>
+                            <p-iconfield>
+                                <p-inputicon class="pi pi-user" />
+                                <input 
+                                    pInputText
+                                    pSize="small"
+                                    type="text" 
+                                    formControlName="username"
+                                    id="username"
+                                    class="w-full!"
+                                    required
+                                    aria-label="Nom d'utilisateur"
+                                    placeholder="John"
+                                />
+                                <p-inputicon class="pi pi-lock opacity-0!" />
+                            </p-iconfield>
+                            @if (isInvalid('username')) {
+                            <p-message 
+                                severity="error"
+                                size="small"
+                                variant="simple"
+                                >
+                                Le nom d.utilisatuer est requis.    
+                            </p-message>
+                        }
                         </label>
                     }
                 </fieldset>
                 <fieldset
                     [disabled]="isSubmitting()"
-                    class="flex justify-center mt-lg"
+                    class="flex justify-center"
                     >
                     <label 
                         for="email"
-                        class="label-input"
+                        class=""
                         >
-                        <input 
-                            type="email" 
-                            formControlName="email"
-                            id="email"
-                            class="input-text"
-                            required
-                        >
-                        <p class="label-1">
+                        <small class="font-Semibold">
                             Email
-                        </p>
-                        <p class="label-2 email"></p>
+                        </small>
+                        <p-iconfield>
+                            <p-inputicon class="pi pi-envelope" />
+                            <input 
+                                pInputText
+                                pSize="small"
+                                type="email" 
+                                formControlName="email"
+                                id="email"
+                                class="input-text"
+                                required
+                                aria-label="Email"
+                                placeholder="example@contact.com"
+                            />
+                            <p-inputicon class="pi pi-lock opacity-0!" />
+                        </p-iconfield>
+                        @if (isInvalid('email')) {
+                            <p-message 
+                                severity="error"
+                                size="small"
+                                variant="simple"
+                                >
+                                L'email est requis
+                            </p-message>
+                        }
                     </label>
                 </fieldset>
                 <fieldset
                     [disabled]="isSubmitting()"
-                    class="flex justify-center mt-lg"
+                    class="flex justify-center"
                     >
                     <label 
                         for="password"
                         class="label-input"
                         >
-                        <input 
-                            type="password" 
-                            formControlName="password"
-                            id="password"
-                            class="input-text"
-                            required
-                        >
-                        <p class="label-1">
+                        <small class="font-Semibold">
                             Mot de passe
-                        </p>
-                        <p class="label-2 password"></p>
+                        </small>
+                        <p-iconfield>
+                            <p-inputicon class="pi pi-lock" />
+                            <p-password
+                                formControlName="password"
+                                [invalid]=""
+                                autocomplete="off"
+                                fluid
+                                id="password"
+                                class="input-text"
+                                required
+                                ariaLabel="Mot de passe"
+                                [feedback]="true"
+                                placeholder="mot de passe"
+                                [toggleMask]="true"
+                                size="small"
+                            />
+                                <!-- size="small" -->
+                        </p-iconfield>
+                        @if (isInvalid('password')) {
+                            <p-message 
+                                severity="error"
+                                size="small"
+                                variant="simple"
+                                >
+                                Le mot de passe est requis.    
+                            </p-message>
+                        }
                     </label>
                 </fieldset>
             </div>
             <div
-                class="w-full flex items-center justify-center"
+                class="w-full flex flex-col items-center justify-center mt-md"
                 >
+                @if(isError()){
+                    <p-message 
+                        severity="error"
+                        size="small"
+                        variant="simple"
+                        class="mb-md"
+                        >
+                        {{messageError()?.error?.message}}    
+                    </p-message>
+                }
                 <button 
+                    pButton
+                    [severity]="authForm.invalid ? 'secondary' : 'primary'"
+                    size="small"
+                    [loading]="loading()"
                     [disabled]="authForm.invalid"
                     class="button primary submit"
                     >
-                    @if(loading()){
-                        <p>en cours...</p>
-                    } @else {
-                        <!-- @if() -->
-                        <p class="flex items-center gap-sm">
-                            {{buttontext()}}
-                            <i class="pi pi-arrow-right icon-size!"></i>
-                        </p>
-                    }
+                    <p class="flex items-center gap-sm">
+                        {{buttontext()}}
+                        <i class="pi pi-arrow-right text-xs!"></i>
+                    </p>
                 </button>
             </div>
         </form>
 
         <span class="w-full flex items-center justify-center">
-            <p class="text-base-small ">{{authLogin() ? 'Pas encore de compte ?': 'Avez-vous déjà un compte ?'}} </p>
+            <p class="text-label">{{authLogin() ? 'Pas encore de compte ?': 'Avez-vous déjà un compte ?'}} </p>
                 <a
+                    pButton
+                    [text]="true"
+                    size="small"
                     [routerLink]="[authRoute]"
-                    class="button tertial text-base-small text-clr-text-accent! hover:text-clr-text-caption! transition-morph uration-300"
+                    class=""
                     >
                     {{title}}
                 </a>
         </span>
-        <div class="w-full h-8 flex justify-center relative">
+        <div class="w-full h-6 flex justify-center relative">
             <div class="w-2/3 h-full flex items-center justify-center gap-sm">
                 <span class="w-2/10 flex">
                     <span class="separator"></span>
                 </span>
-                <span class="text-caption">Ou continuer avec</span>
+                <span class="text-small">Ou continuer avec</span>
                 <span class="w-2/10 flex">
                     <span class="separator"></span>
                 </span>
             </div>
         </div>
         <div
-            class="w-full flex justify-center"
+            class="w-full flex justify-center items-center relative"
             >
             <button
+                pButton
+                severity="primary"
+                [outlined]="true"
                 (click)="RedirectToGoogleLogin()"
-                class="button secondary submit flex items-center gap-md"
+                class="w-3/7"
+                size="small"
                 >
                 <!-- http://localhost:8080/oauth2/authorization/google -->
                 <i class="pi pi-google size-icon!"></i>

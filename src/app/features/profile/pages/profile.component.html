@@ -1,0 +1,175 @@
+<section
+    class="w-full flex flex-col lg:flex-row gap-lg justify-between items-start py-section-y px-main"
+    >
+    <p-toast />
+    <div
+        class="w-full lg:w-2/5 relative lg:sticky lg:top-0"
+        >
+        <p-card 
+            class="w-full flex flex-col"
+            >
+            <div 
+                class="w-full flex itmes-center gap-md">
+                <div 
+                    [ariaLabel]="user()?.first_name+' '+ 'profile'"
+                    class="relative w-fit">
+                    <p-avatar 
+                        [ariaLabel]="user()?.first_name+' '+ 'profile avatar'"
+                        [image]="user()?.avatar ? user()?.avatar : appInfo.defaultAvatar"
+                        shape="circle"
+                        size="xlarge"
+                    />
+                    <span 
+                        class="absolute bottom-0 right-0 w-fit scale-70">
+                        <p-button 
+                            severity="secondary"
+                            icon="pi pi-pencil" 
+                            size="small"
+                        />
+                    </span>
+                </div>
+                <div
+                    class="flex flex-col"
+                    >
+                    <h2 
+                        [ariaLabel]="user()?.first_name+' '+ 'profile name'"
+                        class="text-h2 font-semibold">
+                        {{ user()?.first_name }}
+                        <small *wlkRole="['WLK_ADMIN']">Admin</small>
+                    </h2>
+                    <p 
+                        [ariaLabel]="user()?.first_name+' '+ 'profile email'"
+                        class="text-label text-wlk-content-muted">
+                        {{ user()?.email }}
+                    </p>
+                </div>
+            </div>
+            @if(updateMode()){
+                <div
+                    class="w-full flex flex-col gap-md mt-md"
+                    >
+                    <fieldset
+                        class="flex relative"
+                        >
+                        <label 
+                            for="firstName"
+                            class="flex flex-col gap-xs"
+                            >
+                            <span class="font-semibold">Prénom</span>
+                            <p-iconfield>
+                                <p-inputicon class="pi pi-user" />
+                                <input 
+                                    pInputText
+                                    type="text"
+                                    name="first_name"
+                                    [ngModel]="firstName()"
+                                    (ngModelChange)="firstName.set($event)"
+                                    class="w-60!"
+                                    id="firstName"
+                                    placeholder="ex. Nathan Sasa"
+                                >
+                            </p-iconfield>
+                        </label>
+                    </fieldset>
+                </div>
+            }
+            <p-divider 
+                class="my-md"
+            />
+            <div
+                class="w-full flex items-center justify-between gap-md"
+                >
+                <div>
+                    @if (updateMode()) {
+                        <p-button 
+                            [ariaLabel]="'save profile button'"
+                            label="Enregistrer"
+                            severity="success"
+                            icon="pi pi-save"
+                            size="small"
+                            [disabled]="fieldsInvalid()"
+                            (click)="updateMode.set(false)"
+                        />
+                    } @else {
+                        <p-button 
+                            [ariaLabel]="'edit profile button'"
+                            label="Modifier le profil"
+                            severity="secondary"
+                            icon="pi pi-user-edit"
+                            size="small"
+                            (click)="updateMode.set(true)"
+                        />
+                    }
+                </div>
+                <p-button 
+                    [ariaLabel]="'logout button'"
+                    label="Déconnexion"
+                    severity="danger"
+                    icon="pi pi-sign-out"
+                    size="small"
+                    (click)="logout()"
+                />
+            </div>
+        </p-card>
+    </div>
+
+    <div 
+        class="w-full lg:w-3/5 flex flex-col"
+        >
+        <p-card
+            class="w-full flex flex-col min-h-100"
+            >
+            <div>
+                <span class="w-full flex items-center justify-between">
+                    <h3 class="font-display font-semibold">Vos événements</h3>
+                    @if (!this.eventLoading() && this.eventsLabel()!.content.length > 0) {
+                        <p-button 
+                            routerLink="events"
+                            label="tout voir"
+                            size="small"
+                            [text]="true"
+                        />
+                    }
+                </span>
+                <div
+                    class="carousel carousel gap-sm"
+                    >
+                    @defer (on viewport) {
+                        @if (eventLoading()){
+                            <p-progress-spinner 
+                                size="small"
+                            />
+                        }@else {
+                            @if(eventsLabel()!.content.length === 0){
+                                <span class="flex flex-col gap-sm items-center justify-center w-full h-40">
+                                    <p class="text-wlk-content-muted">
+                                        Vous n'avez pas encore d'événements.
+                                    </p>
+                                    <p-button 
+                                        routerLink="/events/create"
+                                        label="Créer un événement"
+                                        size="small"
+                                    />
+                                </span>
+                            }@else {    
+                                @for (event of eventsLabel()!.content; track $index) {
+                                    <wlk-event-card 
+                                        [event]="event"
+                                        class="carousel-item"
+                                    />
+                                }
+                            }
+                        }
+                    }@placeholder {
+                        <span class="">
+                            <!-- <p-progress-spinner 
+                                size="small"
+                            /> -->
+                            Vos Evénements
+                        </span>
+                    }
+                </div>
+            </div>
+        </p-card>
+    </div>
+</section>

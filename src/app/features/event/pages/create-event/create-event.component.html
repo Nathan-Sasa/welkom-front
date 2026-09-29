@@ -1,4 +1,4 @@
-<section
+<!-- <section
     class="w-full relative flex flex-col gap-xl pt-section-y p-main"
     >
     <div
@@ -88,4 +88,498 @@
 
         <p>{{dateEvent() | date: 'dd MMM yyyy à H: mm' | titlecase}}</p>
     </div>
+</section> -->
+
+<section
+    class="w-full p-main pt-section-y flex items-center justify-center"
+    >
+    <p-card 
+        class="m"
+        >
+        <p-stepper 
+            [(value)]="activeStep" 
+            [linear]="true"
+            class="basis-160">
+            <p-step-list 
+                class="flex flex-row flex-auto gap-md">
+                <p-step 
+                    [value]="1"
+                    >
+                    <ng-template 
+                        #content 
+                        let-activateCallback="activateCallback" 
+                        let-value="value"
+                        >
+                        <button
+                            (click)="activateCallback()"
+                            class="inline-flex items-center gap-xs"
+                            >
+                            <span
+                                class="rounded-full border-2 border-wlk-border w-10 h-10 inline-flex items-center justify-center"
+                                [ngClass]="{
+                                    'bg-wlk-primary': value === activeStep,
+                                    'bg-wlk-sage': value < activeStep
+                                }"
+                                >
+                                <i class="pi pi-calendar"></i>
+                            </span>
+                            <span class="hidden lg:block">
+                                Informations
+                            </span>
+                        </button>
+                    </ng-template>
+                </p-step>
+                
+                <p-step 
+                    [value]="2"
+                    >
+                    <ng-template 
+                        #content 
+                        let-activateCallback="activateCallback" 
+                        let-value="value"
+                        >
+                        <button
+                            (click)="activateCallback()"
+                            class="inline-flex items-center gap-xs"
+                            >
+                            <span
+                                class="rounded-full border-2 border-wlk-border w-10 h-10 inline-flex items-center justify-center"
+                                [ngClass]="{
+                                    'bg-wlk-primary': value === activeStep,
+                                    'bg-wlk-sage': value < activeStep
+                                }"
+                                >
+                                <i class="pi pi-calendar"></i>
+                            </span>
+                            <span class="hidden lg:block">
+                                Secondary
+                            </span>
+                        </button>
+                    </ng-template>
+                </p-step>
+                
+                <p-step 
+                    [value]="3"
+                    >
+                    <ng-template 
+                        #content 
+                        let-activateCallback="activateCallback" 
+                        let-value="value"
+                        >
+                        <button
+                            (click)="activateCallback()"
+                            class="inline-flex items-center gap-xs"
+                            >
+                            <span
+                                class="rounded-full border-2 border-wlk-border w-10 h-10 inline-flex items-center justify-center"
+                                [ngClass]="{
+                                    'bg-wlk-primary': value === activeStep,
+                                    'bg-wlk-sage': value < activeStep
+                                }"
+                                >
+                                <i class="pi pi-image"></i>
+                            </span>
+                            <span class="hidden lg:block">
+                                Image de couverture
+                            </span>
+                        </button>
+                    </ng-template>
+                </p-step>
+
+                <p-step 
+                    [value]="4"
+                    >
+                    <ng-template 
+                        #content 
+                        let-activateCallback="activateCallback" 
+                        let-value="value"
+                        >
+                        <button
+                            (click)="activateCallback()"
+                            class="inline-flex items-center gap-xs"
+                            >
+                            <span
+                                class="rounded-full border-2 border-wlk-border w-10 h-10 inline-flex items-center justify-center"
+                                [ngClass]="{
+                                    'bg-wlk-primary': value === activeStep,
+                                    'bg-wlk-sage': created()
+                                }"
+                                >
+                                @if(created()){
+                                    <i class="pi pi-check"></i>
+                                }@else if(!created() && error()){
+                                    <i class="pi pi-refresh"></i>
+                                }@else{
+                                    <i class="pi pi-save"></i>
+                                }
+                                <!-- <i [class]="created() ? 'pi pi-check' : 'pi pi-refresh'"></i> -->
+                            </span>
+                            <span class="hidden lg:block">
+                                Création
+                            </span>
+                        </button>
+                    </ng-template>
+                </p-step>
+            </p-step-list>
+
+            <p-step-panels>
+                <p-step-panel [value]="1">
+                    <ng-template
+                        #content
+                        let-activateCallback="activateCallback"
+                        >
+                        <div
+                            style="min-height: 16rem;"
+                            class="flex flex-col items-center gap-xl mx-auto"
+                            >
+                            <div class="my-xl">
+                                <h3 class="font-semibold text-base text-wlk-primary">Informations requises de l'événement</h3>
+                            </div>
+                            <div
+                                class="w-full flex flex-col lg:flex-row items-center justify-around gap-md"
+                                >
+                                <fieldset
+                                    class="flex relative"
+                                    >
+                                    <label 
+                                        for="title"
+                                        class="flex flex-col"
+                                        >
+                                        <span class="">Titre de l'événement</span>
+                                        <input 
+                                            pInputText
+                                            type="text"
+                                            name="title"
+                                            [ngModel]="title()"
+                                            (ngModelChange)="title.set($event)"
+                                            class="w-80!"
+                                            id="title"
+                                            placeholder="ex. Mariage Lucie et John"
+                                        >
+                                    </label>
+                                </fieldset>
+                                <fieldset
+                                    class="flex relative"
+                                    >
+                                    <label 
+                                        for="description"
+                                        class="flex flex-col"
+                                        >
+                                        <span class="">Description</span>
+                                        <input 
+                                            pInputText
+                                            type="text"
+                                            name="description"
+                                            [ngModel]="description()"
+                                            (ngModelChange)="description.set($event)"
+                                            class="w-80!"
+                                            id="description"
+                                            placeholder="ex. Cérémonie coutumière de Lucie et John"
+                                        >
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div
+                                class="w-full flex flex-col lg:flex-row items-center justify-around gap-md"
+                                >
+                                <fieldset
+                                    class="flex relative"
+                                    >
+                                    <label 
+                                        for="dateEventStart"
+                                        class="flex flex-col"
+                                        >
+                                        <span class="">Date & heure du début</span>
+                                        <input 
+                                            pInputText
+                                            type="datetime-local"
+                                            name="dateEventStart"
+                                            [ngModel]="dateEventStart()"
+                                            (ngModelChange)="dateEventStart.set($event)"
+                                            class="w-80!"
+                                            id="dateEventStart"
+                                        >
+                                    </label>
+                                </fieldset>
+                                <fieldset
+                                    class="flex relative"
+                                    >
+                                    <label 
+                                        for="dateEventEnd"
+                                        class="flex flex-col"
+                                        >
+                                        <span class="">Date & heure de la fin</span>
+                                        <input 
+                                            pInputText
+                                            type="datetime-local"
+                                            name="dateEventEnd"
+                                            [ngModel]="dateEventEnd()"
+                                            (ngModelChange)="dateEventEnd.set($event)"
+                                            class="w-80!"
+                                            id="dateEventEnd"
+                                        >
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div
+                                class="w-full flex pt-6 justify-end"
+                                >
+                                <p-button 
+                                    (onClick)="activateCallback(2)"
+                                    label="Suivant"
+                                    icon="pi pi-arrow-right"
+                                    iconPos="right"
+                                    size="small"
+                                    [disabled]="stepPassTwo()"
+                                />
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-step-panel>
+
+                <p-step-panel [value]="2">
+                    <ng-template
+                        #content
+                        let-activateCallback="activateCallback"
+                        >
+                        <div
+                            style="min-height: 10rem;"
+                            class="flex flex-col items-center gap-xl mx-auto"
+                            >
+                            <div>
+                                <h3 class="font-semibold text-base text-wlk-primary">Informations secondaire</h3>
+                            </div>
+                            <div
+                                class="w-full flex flex-col lg:flex-row items-center justify-around gap-md"
+                                >
+                                <fieldset
+                                    class="flex relative"
+                                    >
+                                    <label 
+                                        for="address"
+                                        class="flex flex-col"
+                                        >
+                                        <span class="">Adresse de l'événement</span>
+                                        <input 
+                                            pInputText
+                                            type="text"
+                                            name="address"
+                                            [ngModel]="address()"
+                                            (ngModelChange)="address.set($event)"
+                                            class="w-80!"
+                                            id="address"
+                                            placeholder="Av. Liberation (ex 24 Novembre) nº139, Gombé/Kinshasa"
+                                        >
+                                    </label>
+                                </fieldset>
+                                <fieldset
+                                    class="flex relative"
+                                    >
+                                    <label 
+                                        for="estimatedGuests"
+                                        class="flex flex-col"
+                                        >
+                                        <span class="">Nombre estimé d'invités</span>
+                                        <input 
+                                            pInputText
+                                            type="number"
+                                            name="estimatedGuests"
+                                            [ngModel]="estimatedGuests()"
+                                            (ngModelChange)="estimatedGuests.set($event)"
+                                            min="0"
+                                            step="25"
+                                            class="w-80!"
+                                            id="address"
+                                        >
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div
+                                class="w-full flex pt-6 justify-between"
+                                >
+                                <p-button 
+                                    (onClick)="activateCallback(1)"
+                                    label="précédent"
+                                    icon="pi pi-arrow-left"
+                                    iconPos="left"
+                                    size="small"
+                                    severity="secondary"
+                                />
+                                <p-button 
+                                    (onClick)="activateCallback(3)"
+                                    label="Suivant"
+                                    icon="pi pi-arrow-right"
+                                    iconPos="right"
+                                    size="small"
+                                    [disabled]="stepPassThree()"
+                                />
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-step-panel>
+
+                <p-step-panel [value]="3">
+                    <ng-template
+                        #content
+                        let-activateCallback="activateCallback"
+                        >
+                        <div
+                            style="min-height: 10rem;"
+                            class="flex flex-col items-center gap-xl mx-auto"
+                            >
+                            <div>
+                                <h3 class="font-semibold text-base text-wlk-primary">Choisissez une image de couture</h3>
+                            </div>
+                            <div
+                                class="w-full flex flex-col lg:flex-row items-center gap-md"
+                                >
+                                <fieldset
+                                    class="flex flex-col w-full relative"
+                                    >
+                                    <span class="mb-md">
+                                        Image cover 
+                                        <small class="text-wlk-primary-light ml-md">optionnelle</small>
+                                    </span>
+                                    <label 
+                                        for="image"
+                                        class="flex flex-col items-center justify-center"
+                                        >
+                                        <!-- #fu -->
+                                        <p-fileupload 
+                                            mode="advanced"
+                                            chooseIcon="pi pi-upload"
+                                            chooseLabel="Choisir"
+                                            name="demo[]"
+                                            accept="image/*"
+                                            maxFileSize="1000000"
+                                            [multiple]="false"
+                                            class="w-full!"
+                                            >
+                                            <!-- (onUpload)="onUpload($event)" -->
+                                            <ng-template #empty>
+                                                <div>
+                                                    Glissez-déposez une image.
+                                                </div>
+                                            </ng-template>    
+                                        </p-fileupload>
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div
+                                class="w-full flex pt-6 justify-between"
+                                >
+                                <p-button 
+                                    (onClick)="activateCallback(2)"
+                                    label="Précédent"
+                                    icon="pi pi-arrow-left"
+                                    iconPos="left"
+                                    size="small"
+                                    severity="secondary"
+                                />
+                                <p-button 
+                                    (onClick)="activateCallback(4); submitEvent()"
+                                    label="Créer"
+                                    icon="pi pi-check"
+                                    iconPos="right"
+                                    size="small"
+                                    [disabled]="stepPassThree()"
+                                />
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-step-panel>
+
+                <p-step-panel [value]="4">
+                    <ng-template
+                        #content
+                        let-activateCallback="activateCallback"
+                        >
+                        <div
+                            style="min-height: 10rem;"
+                            class="flex flex-col items-center gap-xl mx-auto"
+                            >
+                            <div>
+                                <h3
+                                    class="font-semibold text-base text-wlk-primary"
+                                    [ngClass]="{
+                                        'text-wlk-sage': created()
+                                    }"
+                                    >
+                                    {{submittedMessage()}}
+                                </h3>
+                            </div>
+                            <div>
+                                @if(loading()){
+                                    <p-progress-spinner />
+                                }@else{
+                                    @if(error()){
+                                        <div
+                                            class="flex flex-col items-center gap-lg"
+                                            >
+                                            <wlk-errors 
+                                                [wlkError]="errorContent()"
+                                            />
+                                            <p-button 
+                                                (onClick)="submitEvent()"
+                                                severity="primary"
+                                                size="small"
+                                                icon="pi pi-refresh"
+                                                iconPos="right"
+                                                label="Réessayez"
+                                            />
+                                        </div>
+                                    }@else{
+                                        <div
+                                            class="flex flex-col items-center gap-md"
+                                            >
+                                            <div
+                                                class="flex flex-col gap-md"
+                                                >
+                                                <span class="flex flex-col items-center gap-sm">
+                                                    <i class="pi pi-check text-wlk-sage text-5xl!"></i>
+                                                    <p class="text-wlk-primary">Félicaitation, votre événement a été créé !</p>
+                                                </span>
+                                            </div>
+                                            <div
+                                                class="mt-lg flex items-center gap-lg"
+                                                >
+                                                <!-- <p>Maintenant choisissez une catalogue pour votre événement</p> -->
+                                                <p-button 
+                                                    label="choisir une catalogue"
+                                                    size="small"
+                                                />
+                                                <p-button 
+                                                    label="tableau de border de mon événement"
+                                                    [outlined]="true"
+                                                    severity="secondary"
+                                                    size="small"
+                                                />
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+
+                            @if(error()){
+                                <div
+                                    class="w-full flex pt-6 justify-between"
+                                    >
+                                    <p-button 
+                                        (onClick)="activateCallback(3)"
+                                        label="Précédent"
+                                        icon="pi pi-arrow-left"
+                                        iconPos="left"
+                                        size="small"
+                                        severity="secondary"
+                                    />
+                                </div>
+                            }
+                        </div>
+                    </ng-template>
+                </p-step-panel>
+            </p-step-panels>
+        </p-stepper>
+    </p-card>
 </section>
+
+<!-- <p-progress-spinner/> -->

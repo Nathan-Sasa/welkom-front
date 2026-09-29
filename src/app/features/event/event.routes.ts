@@ -5,8 +5,8 @@ import { ROLES } from "../../core/auth/interfaces/role.interface";
 export const EventRoutes: Routes = [
     {
         path: "create",
-        title: "Créer",
+        title: "Créer votre événement",
         loadComponent: () => import('./pages/create-event/create-event.component').then(m => m.CreateEventComponent),
-        // canMatch: [roleGuard(ROLES.USER)]
+        canMatch: [roleGuard(ROLES.USER)]
     }
 ]

@@ -39,7 +39,8 @@
                     [text]="true"
                     severity="secondary"
                     [routerLink]="['/home']"
-                    [routerLinkActive]="['*:text-wlk-primary!']"
+                    [routerLinkActive]="['text-wlk-primary!']"
+                    variant="simple"
                     class="button tertial"
                     >
                     <!-- [routerLinkActiveOptions]="{exact: true}" -->
@@ -53,7 +54,8 @@
                     [text]="true"
                     severity="secondary"
                     [routerLink]="['/catalogues']"
-                    [routerLinkActive]="['link']"
+                    [routerLinkActive]="['text-wlk-primary!']"
+                    variant="simple"
                     class="text-wlk-primary"
                     >
                     Templates
@@ -97,8 +99,15 @@
                 <a 
                     routerLink="/profile"
                     aria-label="Profile de {{auth.currentUser()!.username}}"
+                    class="flex items-center gap-sm"
                     >
-                    {{auth.currentUser()!.username}}
+                    <span class="font-semibold">
+                        {{auth.currentUser()!.username}}
+                    </span>
+                    <p-avatar 
+                        image="assets/shapes/default-profile.svg"
+                        shape="circle"
+                    />
                 </a>
             </ng-container>
             <ng-container

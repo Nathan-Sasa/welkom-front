@@ -1,0 +1,58 @@
+<div
+    wlkEntryAnim
+    [delay]="300"
+    [threshold]="0.3"
+    [ariaLabel]="'Evénement' + event().title"
+    class="flex flex-col w-44 lg:w-52 bg-wlk-background rounded-lg border border-wlk-border/50 hover:cursor-pointer hover:opacity-70 hover:border-wlk-primary transition duration-300 opacity-0"
+    >
+    <div
+        class="w-full h-28 flex items-end justify-end relative"
+        >
+        <span
+            class="w-full h-full absolute top-0 left-0 rounded-t-lg flex items-center justify-center"
+            >
+            <img 
+                [src]="event().cover || event().cover === '' ? defaultAvatar : event().cover"
+                alt="Image de l'événement {{event().title}}"
+                class="w-full h-full object-cover rounded-t-lg opacity-40"
+            />
+        </span>
+        <span
+            class="w-fit p-xs bg-wlk-surface border border-wlk-border rounded-sm mr-xs mb-xs flex items-center"
+            >
+
+            <small>
+                {{event().dateEventStart | date: 'dd MMMM yyyy, HH:MM'}}
+            </small>
+        </span>
+    </div>
+    <div
+        class="w-full flex flex-col p-sm"
+        >
+        <div
+            class="w-full flex items-center justify-between"
+            >
+            <span
+                class="flex flex-col"
+                >
+                <small class="font-Semibold line-clamp-1">{{event().title}}</small>
+                <small class="text-wlk-content-muted text-small line-clamp-1">{{event().description}}</small>
+            </span>
+        </div>
+    </div>
+    <div
+        class="flex flex-col gap-xs p-sm"
+        >
+        <span
+            class="flex items-center gap-sm"
+            >
+            <small class="font-Semibold">Activation : </small>
+            <p-badge 
+                [value]="paymentStatusFr(event().paymentStatus)"
+                [severity]="paymentSeverity(event().paymentStatus)"
+                size="small"
+                
+            />
+        </span>
+    </div>
+</div>

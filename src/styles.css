@@ -1,26 +1,8 @@
 @import "primeicons/primeicons.css";
 @import "./styles/design-system/_reset.css";
 @import "./styles/design-system/_tokens.css";
+@import "./styles/design-system/_classes.css";
+@import "./styles/design-system/_custom-prime-ng.css";
+@import "./styles/design-system/animation.css";
 /* @import "tailwindcss"; */
 
-
-/* prime ng classes *************************************************************************** */
-/* ============================================================== */
-
-/* general classes ************* */
-/* =================== */
-
-/* p-drawer ************** */
-.p-drawer {
-    background-color: var(--color-clr-bg-page) !important;
-    color: var(--color-clr-text) !important;
-    /* border-color: var(--color-clr-border) !important; */
-    border-color: transparent !important;
-
-    &:where(.dark, .dark *) {
-        background-color: var(--color-clr-bg-page-dark) !important;
-        color: var(--color-clr-text-dark) !important;
-
-        /* border-color: var(--color-clr-border-dark) !important; */
-    }
-}

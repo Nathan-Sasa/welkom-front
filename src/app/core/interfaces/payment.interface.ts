@@ -1,0 +1,15 @@
+export type PaymentStatus = 'PENDING' | 'PAYMENT_SUCCESS' | 'PAYMENT_FAILED'
+
+export const PAYMENT_STATUS = {
+    PENDING: 'PENDING',
+    PAYMENT_SUCCESS: 'PAYMENT_SUCCESS',
+    PAYMENT_FAILED: 'PAYMENT_FAILED'
+} as const
+
+export type Role = (typeof PAYMENT_STATUS)[keyof typeof PAYMENT_STATUS]
+
+/* 
+PENDING,
+    PAYMENT_SUCCESS,
+    PAYMENT_FAILED,
+*/
