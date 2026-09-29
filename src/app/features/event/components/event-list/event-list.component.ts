@@ -12,8 +12,7 @@ import { RoleDirective } from '../../../../shared/directives/role/role.directive
 	selector: 'wlk-event-list',
 	imports: [
 		EventCardComponent,
-		ProgressSpinnerModule,
-		RoleDirective
+		ProgressSpinnerModule
 	],
 	templateUrl: './event-list.component.html',
 	styleUrl: './event-list.component.css',

@@ -16,6 +16,8 @@ import { FileUpload } from 'primeng/fileupload'
 import { ProgressSpinnerModule} from 'primeng/progressspinner'
 import { ErrorsComponent } from '../../../../shared/components/errors/errors.component';
 import { IExceptions } from '../../../../core/interfaces/exception.interface';
+import { CatalogueSelectionService } from '../../../templates/services/catalogues-selection.service';
+import { RouterLink } from '@angular/router';
 
 interface UploadEvent {
 	originalEvent: Event
@@ -33,7 +35,8 @@ interface UploadEvent {
 		CardModule,
 		FileUpload,
 		ProgressSpinnerModule,
-		ErrorsComponent
+		ErrorsComponent,
+		RouterLink
 	],
 	templateUrl: './create-event.component.html',
 	styleUrl: './create-event.component.css',
@@ -42,6 +45,9 @@ export class CreateEventComponent {
 
 	private readonly destroyRef = inject(DestroyRef)
 	private readonly eventService = inject(EventService)
+	private readonly eventStorage = inject(CatalogueSelectionService)
+
+	protected eventUuid = signal<string | null>(this.eventStorage.getEventUuid())
 
 	activeStep= 1
 
@@ -103,6 +109,7 @@ export class CreateEventComponent {
 					this.loading.set(false)
 					this.created.set(true)
 					this.submittedMessage.set('Événement créé')
+					this.eventStorage.setEventUuid(res.uuid)
 					console.log('create event res ok : ', res)
 				},
 				error: (err) => {

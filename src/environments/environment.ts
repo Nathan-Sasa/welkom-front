@@ -22,7 +22,7 @@ export const environment = {
         },
         eventUrl: {
             prefix: eventPrefix,
-            list: `${eventPrefix}/list`,
+            list: `${eventPrefix}/my-events`,
             create: `${eventPrefix}/create`
         }
     }

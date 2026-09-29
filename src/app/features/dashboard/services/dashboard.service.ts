@@ -7,8 +7,9 @@ import { IEventResponse } from '../../event/interface/event.interface';
 export class DashboardService {
 	
 	eventStorage = localStorage.getItem('eventStorage')
-
 	public readonly getEventStorage$ = signal<IEventResponse | null>(this.eventStorage ? JSON.parse(this.eventStorage) : null)
+
+	// public readonly clearEventStorage$ = signal(this.getEventStorage$.set(null))
 
 	// constructor() {
 	// 	effect(() => {

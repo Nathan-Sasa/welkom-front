@@ -1,8 +1,8 @@
 import { inject, Injectable, ResourceRef, Signal } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient, httpResource } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ICatalogue } from '../interfaces/catalogue.interface';
+import { delay, Observable } from 'rxjs';
+import { ICatalogue, ICatalogueResponse } from '../interfaces/catalogue.interface';
 import { Pagination } from '../../../core/interfaces/pagination.interface';
 
 @Injectable({
@@ -12,6 +12,7 @@ export class CatalogueService {
 	
 	private readonly http = inject(HttpClient)
 
+	private readonly templateApi = environment.apisUrl.templateUrl.prefix
 	private readonly listApi = environment.apisUrl.templateUrl.list
 	private readonly createApi =environment.apisUrl.templateUrl.create
 
@@ -32,7 +33,11 @@ export class CatalogueService {
 	// 	})
 	// }
 
-	create(payload: ICatalogue): Observable<ICatalogue> {
-		return this.http.post<ICatalogue>(this.createApi, payload)
+	getByUuid(uuid: string): Observable<ICatalogueResponse>{
+		return this.http.get<ICatalogueResponse>(`${this.templateApi}/${uuid}`).pipe(delay(500))
+	}
+
+	create(payload: ICatalogue): Observable<ICatalogueResponse> {
+		return this.http.post<ICatalogueResponse>(this.createApi, payload)
 	}
 }

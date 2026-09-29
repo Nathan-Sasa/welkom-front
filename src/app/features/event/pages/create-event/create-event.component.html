@@ -545,10 +545,12 @@
                                                 >
                                                 <!-- <p>Maintenant choisissez une catalogue pour votre événement</p> -->
                                                 <p-button 
+                                                    [routerLink]="['/catalogues']"
                                                     label="choisir une catalogue"
                                                     size="small"
                                                 />
                                                 <p-button 
+                                                    [routerLink]="['/dashboard', eventUuid()]"
                                                     label="tableau de border de mon événement"
                                                     [outlined]="true"
                                                     severity="secondary"
