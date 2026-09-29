@@ -4,7 +4,7 @@ import { Avatar } from 'primeng/avatar'
 @Component({
 	selector: 'wlk-features-section',
 	imports: [
-		Avatar
+		// Avatar
 	],
 	templateUrl: './features-section.component.html',
 	styleUrl: './features-section.component.css',

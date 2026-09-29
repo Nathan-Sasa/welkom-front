@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { EventService } from '../../service/event.service';
 import { IEventResponse } from '../../interface/event.interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { EventCardComponent } from '../../../../shared/components/event-card/event-card.component';
+import { EventCardComponent } from '../event-card/event-card.component';
 
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ActivatedRoute } from '@angular/router';
@@ -58,7 +58,6 @@ export class EventListComponent implements OnInit {
 				if(initialLoad){
 					this.events.set(response.content)
 				}else{
-					console.log('Appending events')
 					this.events.set([...this.events(), ...response.content])
 				}
 				

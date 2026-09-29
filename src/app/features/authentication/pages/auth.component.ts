@@ -6,7 +6,7 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 import { takeUntilDestroyed} from '@angular/core/rxjs-interop'
 import { firstValueFrom } from 'rxjs';
 import { InputText } from 'primeng/inputtext'
-import { Button, ButtonIcon, ButtonDirective } from 'primeng/button'
+import { ButtonDirective } from 'primeng/button'
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PasswordModule} from 'primeng/password'
@@ -28,8 +28,6 @@ interface IAuthForm {
     RouterModule,
     ReactiveFormsModule,
     CommonModule,
-    Button,
-    ButtonIcon,
     IconFieldModule,
     InputIconModule,
     InputText,

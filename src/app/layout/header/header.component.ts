@@ -18,7 +18,7 @@ import { Avatar } from 'primeng/avatar'
 		DrawerModule, 
 		ButtonModule,
 		ThemeComponent,
-		WelkomLogoComponent,
+		// WelkomLogoComponent,
 		Button,
 		Avatar
 	],

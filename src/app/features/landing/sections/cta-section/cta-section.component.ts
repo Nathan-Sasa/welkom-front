@@ -8,7 +8,7 @@ import { Button, ButtonDirective } from 'primeng/button'
     imports: [
     CommonModule,
     RouterLink,
-    Button,
+    // Button,
     ButtonDirective
 ],
     templateUrl: './cta-section.component.html',

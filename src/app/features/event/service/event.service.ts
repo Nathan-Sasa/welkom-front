@@ -16,15 +16,13 @@ export class EventService {
 	private readonly listApi = environment.apisUrl.eventUrl.list
 
 	create(payload: IEvent): Observable<IEventResponse>{
-		return this.http.post<IEventResponse>(this.createApi, payload).pipe(delay(1500))
+		return this.http.post<IEventResponse>(this.createApi, payload).pipe(delay(800))
 	}
 
 	list(page: number = 0, size: number = 10): Observable<Pagination<IEventResponse>>{
-		
 		let params = new HttpParams().set('page', page)
-		// params.set('size', size)
 		params = params.append('size', size)
 
-		return this.http.get<Pagination<IEventResponse>>(this.listApi, {params}).pipe(delay(1500))
+		return this.http.get<Pagination<IEventResponse>>(this.listApi, {params}).pipe(delay(800))
 	}
 }

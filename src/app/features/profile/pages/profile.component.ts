@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, DestroyRef, inject, signal, input } from '@angular/core';
+import { Component, computed, OnInit, DestroyRef, inject, signal } from '@angular/core';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { AppInfo } from '../../../shared/utils/meta-data';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
@@ -6,7 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { tap } from 'rxjs'
 import { RoleDirective } from '../../../shared/directives/role/role.directive';
-import { EventCardComponent } from '../../../shared/components/event-card/event-card.component';
+import { EventCardComponent } from '../../event/components/event-card/event-card.component';
 
 import { MessageService } from 'primeng/api'
 import { Card } from 'primeng/card'
@@ -19,6 +19,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { EventService } from '../../event/service/event.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner'
+import { EntryAnimDirective } from '../../../shared/directives/entry-anim.directive';
 
 @Component({
     selector: 'wlk-profile',
@@ -35,7 +36,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner'
 		ProgressSpinnerModule,
 		EventCardComponent,
 		RouterLink,
-		RoleDirective
+		RoleDirective,
+		EntryAnimDirective
 	],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
@@ -48,8 +50,6 @@ export class ProfileComponent implements OnInit {
 	private readonly router = inject(Router)
 	private readonly event = inject(EventService)
 
-	protected readonly role = input<string | null>()
-
 	protected readonly appInfo = AppInfo
 	protected readonly user = this.auth.currentUser
 
@@ -60,12 +60,12 @@ export class ProfileComponent implements OnInit {
 	})
 
 	eventLoading = signal<boolean>(true)
-	eventsLabel = toSignal(this.event.list(0, 3).pipe(tap((event) => {this.eventLoading.set(false); console.log('eventLabel : ', event)})))
+	eventsLabel = toSignal(this.event.list(0, 3).pipe(tap((event) => {this.eventLoading.set(false);})))
 
 	constructor(private readonly messageService: MessageService) {}
 
 	ngOnInit(): void {
-		console.log('ProfileComponent initialized with role: ', this.role())
+
 	}
 
 	updateModeHandle():void {
@@ -77,7 +77,6 @@ export class ProfileComponent implements OnInit {
 		.pipe(takeUntilDestroyed(this.destroyRef))
 		.subscribe({
 			next: (res) => {
-				// console.log('logout ok : ',	res)
 				this.auth.currentUser.set(null)
 				void this.router.navigate(['/auth/login'])
 			},

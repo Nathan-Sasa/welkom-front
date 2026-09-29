@@ -22,6 +22,11 @@ export const routes: Routes = [
         loadChildren: () => import('./features/profile/profile.routes').then(m => m.ProfileRoutes)
     },
 
+    {
+        path: 'dashboard',
+        loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.DashboardRoutes)
+    },
+
     // redirection ==============================
     // routes provisoire
     // design system

@@ -3,8 +3,10 @@
     [delay]="300"
     [threshold]="0.3"
     [ariaLabel]="'Evénement' + event().title"
+    (click)="goDashboard(event())"
     class="flex flex-col w-44 lg:w-52 bg-wlk-background rounded-lg border border-wlk-border/50 hover:cursor-pointer hover:opacity-70 hover:border-wlk-primary transition duration-300 opacity-0"
     >
+    <!-- [routerLink]="['/dashboard', event().uuid]" -->
     <div
         class="w-full h-28 flex items-end justify-end relative"
         >
@@ -51,7 +53,6 @@
                 [value]="paymentStatusFr(event().paymentStatus)"
                 [severity]="paymentSeverity(event().paymentStatus)"
                 size="small"
-                
             />
         </span>
     </div>

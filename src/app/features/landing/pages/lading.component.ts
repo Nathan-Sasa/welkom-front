@@ -11,9 +11,9 @@ import { FooterComponent } from '../../../layout/footer/footer.component';
 @Component({
 	selector: 'wlk-lading',
 	imports: [
-		HeaderComponent,
+		// HeaderComponent,
 		HeroSectionComponent,
-		TemplatesSectionComponent,
+		// TemplatesSectionComponent,
 		FeaturesSectionComponent,
 		CtaSectionComponent,
 		ResolveSectionComponent,

@@ -1,17 +1,16 @@
-import { Component, input } from '@angular/core';
-import { EventStatus, IEventResponse } from '../../../features/event/interface/event.interface';
+import { Component, inject, input } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { EventStatus, IEventResponse } from '../../interface/event.interface';
 import { CommonModule } from '@angular/common';
-import { AppInfo } from '../../utils/meta-data';
+import { AppInfo } from '../../../../shared/utils/meta-data';
 
-import {Card } from 'primeng/card'
 import { BadgeModule } from 'primeng/badge';
-import { PaymentStatus } from '../../../core/interfaces/payment.interface';
-import { EntryAnimDirective } from '../../directives/entry-anim.directive';
+import { PaymentStatus } from '../../../../core/interfaces/payment.interface';
+import { EntryAnimDirective } from '../../../../shared/directives/entry-anim.directive';
 
 @Component({
     selector: 'wlk-event-card',
     imports: [
-		Card,
 		CommonModule,
 		BadgeModule,
 		EntryAnimDirective
@@ -20,8 +19,13 @@ import { EntryAnimDirective } from '../../directives/entry-anim.directive';
     styleUrl: './event-card.component.css',
 })
 export class EventCardComponent {
+
+	private readonly router = inject(Router)
+
 	event = input.required<IEventResponse>()
 	defaultAvatar = AppInfo.defaultAvatar
+
+	eventStorage = 'eventStorage'
 
 	eventStatusFr(eventStatus: EventStatus): string {
 		switch(eventStatus){
@@ -77,5 +81,14 @@ export class EventCardComponent {
 			default:
 				return 'warn'
 		}
+	}
+
+
+	goDashboard(event: IEventResponse){
+		if(!event) return
+
+		localStorage.setItem(this.eventStorage, JSON.stringify(event))
+		console.log('event storage : ', event)
+		this.router.navigate(['/dashboard', event.uuid])
 	}
 }
