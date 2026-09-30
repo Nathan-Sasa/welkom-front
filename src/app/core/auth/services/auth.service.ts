@@ -99,8 +99,7 @@ export class AuthService {
 
 	purge(): void {
 		this.currentUser.set(null)
-		// localStorage.clear()
-		// this.dashboard.clearEventStorage$()
+		this.dashboard.clearEventStorage()
 		this.router.navigate(['/login'])
 	}
 

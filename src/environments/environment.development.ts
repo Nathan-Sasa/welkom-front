@@ -24,6 +24,9 @@ export const environment = {
             prefix: eventPrefix,
             list: `${eventPrefix}/my-events`,
             create: `${eventPrefix}/create`
+        },
+        catalogueUrl: {
+            customize: eventPrefix
         }
     }
 }

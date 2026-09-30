@@ -6,15 +6,20 @@ import { IEventResponse } from '../../event/interface/event.interface';
 })
 export class DashboardService {
 	
-	eventStorage = localStorage.getItem('eventStorage')
-	public readonly getEventStorage$ = signal<IEventResponse | null>(this.eventStorage ? JSON.parse(this.eventStorage) : null)
+	private storageKey = 'eventStorage'
 
-	// public readonly clearEventStorage$ = signal(this.getEventStorage$.set(null))
+	private eventStorage = localStorage.getItem(this.storageKey)
+	// public readonly getEventStorage$ = signal<IEventResponse | null>(this.eventStorage ? JSON.parse(this.eventStorage) : null)
 
-	// constructor() {
-	// 	effect(() => {
-	// 		const eventLocal = localStorage.getItem('eventStorage')
+	setEventUuid(eventUuid: string): void {
+        localStorage.setItem(this.storageKey, eventUuid)
+    }
 
-	// 	})
-	// }
+    getEventStorage$(): IEventResponse | null {
+        return this.eventStorage ? JSON.parse(this.eventStorage) : null
+    }
+
+    clearEventStorage(): void {
+        localStorage.removeItem(this.storageKey)
+    }
 }
