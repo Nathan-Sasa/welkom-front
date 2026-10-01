@@ -8,9 +8,15 @@
         @defer (on viewport) {
             <!-- <span>{{loadEvents(true)}}</span> -->
             @if (eventsLoading() && firstPage()){
-                <p-progress-spinner 
+                <!-- <p-progress-spinner 
                     size="small"
-                />
+                /> -->
+                @for (i of  [1, 2, 3]; track $index) {
+                    <wlk-event-skeleton-card 
+                        [cardNumber]="i"
+                        class="carousel-item"
+                    />
+                }
             }@else {
                 @for (event of events(); track $index) {
                     <wlk-event-card 

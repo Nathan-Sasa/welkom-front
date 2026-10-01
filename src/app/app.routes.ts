@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { guestGuard } from './core/guards/auth/auth.guard';
+import { roleGuard } from './core/guards/role/role.guard';
+import { ROLES } from './core/auth/interfaces/role.interface';
 
 export const routes: Routes = [
     // entry ===============================
@@ -23,9 +25,21 @@ export const routes: Routes = [
     },
 
     {
-        path: 'dashboard',
-        loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.DashboardRoutes)
+        path: '',
+        loadComponent: () => import('./layout/dashboard-layout/dashboard-layout.component').then(m => m.DashboardLayoutComponent),
+        canMatch: [roleGuard(ROLES.USER || ROLES.ADMIN || ROLES.SUPER_ADMIN)],
+        children: [
+            {
+                path: 'dashboard',
+                loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.DashboardRoutes)
+            }
+        ]
     },
+
+    // {
+    //     path: 'dashboard',
+    //     loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.DashboardRoutes)
+    // },
 
     // redirection ==============================
     // routes provisoire

@@ -3,6 +3,7 @@ import { EventService } from '../../service/event.service';
 import { IEventResponse } from '../../interface/event.interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventCardComponent } from '../event-card/event-card.component';
+import { EventSkeletonCardComponent } from '../event-skeleton-card/event-skeleton-card.component';
 
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +13,8 @@ import { RoleDirective } from '../../../../shared/directives/role/role.directive
 	selector: 'wlk-event-list',
 	imports: [
 		EventCardComponent,
-		ProgressSpinnerModule
+		ProgressSpinnerModule,
+		EventSkeletonCardComponent
 	],
 	templateUrl: './event-list.component.html',
 	styleUrl: './event-list.component.css',

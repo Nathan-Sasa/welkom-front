@@ -2,7 +2,7 @@ import { Component, inject, signal, OnInit, DestroyRef } from '@angular/core';
 import { HeaderComponent } from '../../../../layout/header/header.component';
 import { RoleDirective } from '../../../../shared/directives/role/role.directive';
 import { CatalogueService } from '../../services/catalogue.service';
-import { ICatalogue } from '../../interfaces/catalogue.interface';
+import { ICatalogue, ICatalogueResponse } from '../../interfaces/catalogue.interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CatalogueListComponent } from '../../components/catalogue-list/catalogue-list.component';
 import { RouterLink } from '@angular/router';
@@ -22,7 +22,7 @@ export class CatalogueComponent implements OnInit {
 
 	private readonly catalogueService = inject(CatalogueService)
 	private readonly destroyRef = inject(DestroyRef)
-  	protected readonly list = signal<ICatalogue[]>([])
+  	protected readonly list = signal<ICatalogueResponse[]>([])
 
 
 	ngOnInit(): void {

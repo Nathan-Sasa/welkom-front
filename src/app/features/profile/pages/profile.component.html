@@ -170,9 +170,15 @@
                     >
                     @defer (on viewport) {
                         @if (eventLoading()){
-                            <p-progress-spinner 
+                            <!-- <p-progress-spinner 
                                 size="small"
-                            />
+                            /> -->
+                            @for (i of  [1, 2, 3]; track $index) {
+                                <wlk-event-skeleton-card 
+                                    [cardNumber]="i"
+                                    class="carousel-item"
+                                />
+                            }
                         }@else {
                             @if(eventsLabel()!.content.length === 0){
                                 <span class="flex flex-col gap-sm items-center justify-center w-full h-40">
@@ -207,6 +213,10 @@
                         </span>
                     }
                 </div>
+                <!-- <wlk-event-skeleton-card 
+                    [cardNumber]="1"
+                    class="carousel-item"
+                /> -->
             </div>
         </p-card>
     </div>

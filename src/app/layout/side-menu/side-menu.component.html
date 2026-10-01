@@ -1,0 +1,25 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  
+    <button class="toggle-btn" (click)="toggleMenu()">
+        <i [class]=" isCollapsed ? 'pi pi-caret-right' : 'pi pi-caret-left'"></i>
+        <!-- {{ isCollapsed ? 'pi-caret-right' : 'pi-caret-left' }} -->
+    </button>
+
+    <nav class="menu-list">
+        @for (item of menuItems; track $index) {
+            <a  
+                [routerLink]="item.route" 
+                routerLinkActive="active" 
+                class="menu-item"
+                >
+                <span class="icon flex items-center text-center h-5 min-w-4">
+                    <i [class]="item.icon"></i>
+                </span>
+                @if (!isCollapsed) {
+                    <span class="label text-label">{{ item.label }}</span>
+                }
+            </a>
+        }
+  </nav>
+
+</div>

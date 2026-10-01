@@ -11,8 +11,9 @@ export class DashboardService {
 	private eventStorage = localStorage.getItem(this.storageKey)
 	// public readonly getEventStorage$ = signal<IEventResponse | null>(this.eventStorage ? JSON.parse(this.eventStorage) : null)
 
-	setEventUuid(eventUuid: string): void {
-        localStorage.setItem(this.storageKey, eventUuid)
+	setEventStorage(event: IEventResponse): void {
+        // localStorage.setItem(this.storageKey, eventUuid)
+        localStorage.setItem(this.storageKey, JSON.stringify(event))
     }
 
     getEventStorage$(): IEventResponse | null {

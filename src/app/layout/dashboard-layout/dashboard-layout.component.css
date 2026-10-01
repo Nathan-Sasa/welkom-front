@@ -1,0 +1,35 @@
+.app-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    transition: grid-template-columns 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.app-layout.menu-collapsed {
+    grid-template-columns: 70px 1fr;
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.top-header {
+    height: 60px;
+    background-color: var(--color-wlk-background);
+    border-bottom: 1px solid var(--color-wlk-border);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aligne le profil à droite */
+    padding: 0 20px;
+}
+
+.main-content {
+    flex: 1;
+    background-color: var(--color-wlk-background);
+    padding: 20px;
+    overflow-y: auto;
+}

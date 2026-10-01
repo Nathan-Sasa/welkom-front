@@ -1,0 +1,114 @@
+<div
+  class="stage"
+  #stage
+  role="img"
+  aria-label="Animation Welkom : créer un événement, envoyer les invitations, recevoir les confirmations, accueillir les invités avec un QR Code."
+>
+  <div class="steps a" aria-hidden="true">
+    <span class="step">Créer</span>
+    <span class="step">Inviter</span>
+    <span class="step">Confirmer</span>
+    <span class="step">Accueillir</span>
+  </div>
+
+  @for (g of guests; track g.initials) {
+    <div class="guest a" [attr.data-c]="g.tone">{{ g.initials }}</div>
+  }
+
+  <!-- Formulaire qui se transforme en invitation -->
+  <div class="card a">
+    <div class="form">
+      <p class="form-title">Nouvel événement</p>
+      <div class="field a">
+        <span class="label">Événement</span>
+        <span class="value name-value">Mariage de Grâce &amp; David</span>
+      </div>
+      <div class="field a">
+        <span class="label">Date</span>
+        <span class="value">14 juin 2027</span>
+      </div>
+      <div class="field a">
+        <span class="label">Lieu</span>
+        <span class="value">Jardin des Cèdres</span>
+      </div>
+      <div class="cta a">Créer l'événement</div>
+    </div>
+
+    <div class="invite-content a">
+      <span class="invite-kicker">Vous êtes invités</span>
+      <span class="orn"></span>
+      <span class="invite-names">Grâce &amp; David</span>
+      <span class="invite-meta">14 juin 2027<br />Jardin des Cèdres</span>
+    </div>
+  </div>
+
+  <div class="counter a">1 réponse ✓</div>
+
+  <!-- Téléphone : RSVP puis scan -->
+  <div class="phone a">
+    <div class="screen screen-rsvp">
+      <p class="rsvp-title a">Vous êtes invité(e)</p>
+      <p class="rsvp-sub a">Grâce &amp; David · 14 juin 2027</p>
+      <div class="btn-wrap a">
+        <div class="rsvp-btn">
+          <span class="t1">Confirmer ma présence</span>
+          <span class="t2">Présence confirmée ✓</span>
+        </div>
+        <span class="cursor a"></span>
+      </div>
+    </div>
+
+    <div class="screen screen-scan a">
+      <div class="qr-area">
+        <svg class="qr" viewBox="0 0 21 21" aria-hidden="true">
+          @for (m of qr; track $index) {
+            <rect
+              class="m"
+              [attr.data-x]="m.x"
+              [attr.data-y]="m.y"
+              [attr.x]="m.x + 0.06"
+              [attr.y]="m.y + 0.06"
+              width="0.88"
+              height="0.88"
+              rx="0.2"
+            />
+          }
+        </svg>
+        <span class="scanline a"></span>
+        <div class="valid a">
+          <span class="halo a"></span>
+          <span class="check-circle a">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path class="check-path" pathLength="1" d="M6 12.5l4 4 8-9" />
+            </svg>
+          </span>
+          <span class="valid-text a">Invitation valide</span>
+          @for (s of sparks; track s) {
+            <i class="spark a"></i>
+          }
+        </div>
+      </div>
+      <p class="welcome a">Bienvenue, Grâce</p>
+    </div>
+  </div>
+
+  <!-- Signature -->
+  <div class="brand a">
+    <svg class="symbol" viewBox="0 0 120 90" aria-hidden="true">
+      <!-- PLACEHOLDER : remplace par le vrai SVG de ton logo -->
+      <path
+        class="symbol-path"
+        pathLength="1"
+        d="M12 26 C24 26 26 78 38 78 C50 78 52 40 60 40 C68 40 70 78 82 78 C94 78 96 26 108 26"
+      />
+      <circle class="dot a" cx="52" cy="12" r="5" />
+      <circle class="dot a" cx="68" cy="12" r="5" />
+    </svg>
+    <div class="wordmark" aria-hidden="true">
+      @for (c of letters; track $index) {
+        <span class="mask"><span class="ch">{{ c }}</span></span>
+      }
+    </div>
+    <p class="tagline a">Créez. Invitez. Célébrez.</p>
+  </div>
+</div>

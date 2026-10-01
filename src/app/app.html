@@ -1,12 +1,9 @@
-<!-- <main 
-  	class="text-base w-screen relative max-w-370 2xl:max-w-480 flex flex-col items-center  mx-auto || selection:bg-clr-bg-page-dark selection:text-clr-bg-container-cream dark:selection:bg-clr-bg-container-cream dark:selection:text-clr-bg-page-dark gap-sm"
-	>
-	<div class="w-full relative">
-		<router-outlet />
-	</div> 
-</main> -->
-<wlk-header></wlk-header>
+@if (routeBool()) {
+	<wlk-header
+		(HasHeader)="getHasRoute($event)"
+	></wlk-header>
+}
 
-<div class="container mx-auto mb-8">
+<div class="container mx-auto">
   <router-outlet />
 </div>

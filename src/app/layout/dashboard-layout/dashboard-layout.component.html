@@ -1,0 +1,29 @@
+<ng-container 
+    *wlkRole="['WLK_USER', 'WLK_ADMIN', 'WLK_SUPER_ADMIN']"
+    >
+    <section class="app-layout" [class.menu-collapsed]="isMenuCollapsed">
+        <wlk-side-menu (toggle)="onMenuToggle($event)" />
+    
+        <div class="right-container">
+            <header class="top-header">
+                <a 
+                    routerLink="/profile"
+                    aria-label="Profile de {{auth.currentUser()!.username}}"
+                    class="flex items-center gap-sm"
+                    >
+                    <span class="font-semibold">
+                        {{auth.currentUser()!.username}}
+                    </span>
+                    <p-avatar 
+                        image="assets/shapes/default-profile.svg"
+                        shape="circle"
+                    />
+                </a>
+            </header>
+    
+            <main class="main-content">
+                <router-outlet></router-outlet>
+            </main>
+        </div>
+    </section>
+</ng-container>

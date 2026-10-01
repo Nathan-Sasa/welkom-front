@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { tap } from 'rxjs'
 import { RoleDirective } from '../../../shared/directives/role/role.directive';
 import { EventCardComponent } from '../../event/components/event-card/event-card.component';
+import { EventSkeletonCardComponent } from '../../event/components/event-skeleton-card/event-skeleton-card.component';
 
 import { MessageService } from 'primeng/api'
 import { Card } from 'primeng/card'
@@ -35,6 +36,7 @@ import { EntryAnimDirective } from '../../../shared/directives/entry-anim.direct
 		InputIconModule,
 		ProgressSpinnerModule,
 		EventCardComponent,
+		EventSkeletonCardComponent,
 		RouterLink,
 		RoleDirective,
 		EntryAnimDirective

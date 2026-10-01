@@ -7,6 +7,7 @@ import { AppInfo } from '../../../../shared/utils/meta-data';
 import { BadgeModule } from 'primeng/badge';
 import { PaymentStatus } from '../../../../core/interfaces/payment.interface';
 import { EntryAnimDirective } from '../../../../shared/directives/entry-anim.directive';
+import { DashboardService } from '../../../dashboard/services/dashboard.service';
 
 @Component({
     selector: 'wlk-event-card',
@@ -21,6 +22,7 @@ import { EntryAnimDirective } from '../../../../shared/directives/entry-anim.dir
 export class EventCardComponent {
 
 	private readonly router = inject(Router)
+	private readonly dashboard = inject(DashboardService)
 
 	event = input.required<IEventResponse>()
 	defaultAvatar = AppInfo.defaultAvatar
@@ -87,7 +89,7 @@ export class EventCardComponent {
 	goDashboard(event: IEventResponse){
 		if(!event) return
 
-		localStorage.setItem(this.eventStorage, JSON.stringify(event))
+		this.dashboard.setEventStorage(event)
 		console.log('event storage : ', event)
 		this.router.navigate(['/dashboard', event.uuid])
 	}
