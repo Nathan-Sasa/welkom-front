@@ -1,3 +1,13 @@
-<section>
-    
+<section class="w-full">
+    <div
+        class="w-full mb-xl"
+        >
+        <span class="flex items-center text-h3 font-Semibold">
+            Bonjour
+            {{auth()?.first_name}}
+        </span>
+    </div>
+    <wlk-rsvp-event-calendar 
+        [dateTime]="data().event ? data().event : simulate"
+    />
 </section>

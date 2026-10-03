@@ -19,10 +19,6 @@
             <!-- <wlk-welkom-logo [size]="36"></wlk-welkom-logo>
             <span class="title-3"> {{appInfo.name}}</span> -->
         </a>
-        <div
-            class="w-12 scale-50 list-none flex items-center justify-center">
-            <app-theme></app-theme>
-        </div>
     </div>
 
     <nav
@@ -93,6 +89,10 @@
         <ul
             class="flex items-center gap-sm"
             >
+            <div
+                class="items-center justify-center">
+                <wlk-theme />
+            </div>
             <ng-container 
                 *wlkRole="['WLK_USER', 'WLK_ADMIN', 'WLK_SUPER_ADMIN']"
                 >

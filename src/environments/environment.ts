@@ -27,6 +27,9 @@ export const environment = {
         },
         catalogueUrl: {
             customize: eventPrefix
+        },
+        dashboardUrl: {
+            dashboard: eventPrefix
         }
     }
 }

@@ -23,6 +23,6 @@ export class EventService {
 		let params = new HttpParams().set('page', page)
 		params = params.append('size', size)
 
-		return this.http.get<Pagination<IEventResponse>>(this.listApi, {params}).pipe(delay(3000))
+		return this.http.get<Pagination<IEventResponse>>(this.listApi, {params}).pipe(delay(800))
 	}
 }

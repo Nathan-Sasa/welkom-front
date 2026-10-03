@@ -1,11 +1,22 @@
 <ng-container 
     *wlkRole="['WLK_USER', 'WLK_ADMIN', 'WLK_SUPER_ADMIN']"
     >
-    <section class="app-layout" [class.menu-collapsed]="isMenuCollapsed">
-        <wlk-side-menu (toggle)="onMenuToggle($event)" />
+    <section class="app-layout container" [class.menu-collapsed]="isMenuCollapsed">
+            <!-- (toggle)="onMenuToggle($event)"  -->
+        <wlk-side-menu 
+            [toggle]="isCollapsed()"
+            class="max-lg:hidden!"
+        />
     
         <div class="right-container">
-            <header class="top-header">
+            <header class="top-header flex items-center justify-between">
+                <div class="flex items-center gap-sm">
+                    <button class="flex items-center justify-center toggle-btn *:text-wlk-content-muted *:hover:text-wlk-content *:transition *:duration-200" (click)="toggleMenu()">
+                        <i [class]=" isCollapsed() ? 'pi pi-caret-right' : 'pi pi-caret-left'"></i>
+                        <!-- {{ isCollapsed ? 'pi-caret-right' : 'pi-caret-left' }} -->
+                    </button>
+                    <wlk-theme class="mr-xs" />
+                </div>
                 <a 
                     routerLink="/profile"
                     aria-label="Profile de {{auth.currentUser()!.username}}"

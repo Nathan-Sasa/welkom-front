@@ -1,0 +1,22 @@
+<div
+    class="w-full h-full relative "
+    >
+    @if (chartData().length > 0) {
+        <apx-chart
+            [series]="chartOptions().series!"
+            [chart]="chartOptions().chart!"
+            [dataLabels]="chartOptions().dataLabels!"
+            [stroke]="chartOptions().stroke!"
+            [xaxis]="chartOptions().xaxis!"
+            [tooltip]="chartOptions().tooltip!"
+            [colors]="chartOptions().colors!"
+            [theme]="chartOptions().theme!"
+            [grid]="chartOptions().grid!"
+        ></apx-chart>
+    } @else {
+        <div class="flex items-center justify-center w-full h-full text-gray-500">
+            Chargement des statistiques...
+            <!-- <app-loader-custom [class]="loaderSize()"></app-loader-custom> -->
+        </div>
+    }
+</div>

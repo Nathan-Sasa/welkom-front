@@ -1,0 +1,104 @@
+<div class="calendar p-sm max-w-3xl">
+    <div
+        class="w-full"
+        >
+        <span class="flex items-center gap-md">
+            <span class="text-h4 font-Semibold text-wlk-content-secondary">
+                {{calendarMonthYear()}}
+            </span>
+        </span>
+    </div>
+
+    <div class="calendar-week border-b-2 border-wlk-border pb-sm">
+        @for (day of week(); track day.date.getTime()) {
+            <div 
+                class="calendar-day "
+                [class.event-day]="day.isEventDay"
+                [class.event-start]="day.isStartDay"
+                [class.event-end]="day.isEndDay"
+                >
+                <small class="calendar-day-name font-Semibold text-wlk-content-secondary">
+                    {{ day.dayName }}
+                </small>
+
+                <small
+                    class="calendar-day-number font-semibold"
+                    >
+                    {{ day.dayNumber }}
+                </small>
+            </div>
+        }
+    </div>
+
+    <div class="calendar-times pt-xs">
+        <div class="calendar-time flex items-start justify-between border-b border-wlk-border py-md">
+            <div class="calendar-time-label flex gap-8.5">
+                <small class="calendar-time-value text-wlk-content-secondary">
+                    <!-- {{ formatEventTime(dateTime().dateEventStart) }} -->
+                    lieu
+                </small>
+                <span class="flex flex-col gap-">
+                    <small class="font-Semibold">
+                        {{dateTime().location}}
+                    </small>
+                    <small class="text-label text-wlk-content-muted">
+                        <!-- l'heure du début l'événement -->
+                        {{calendarTimezone()}}
+                    </small>
+                </span>
+            </div>
+            <span class="flex items-center justify-center p-sm border border-wlk-border rounded-md">
+                <i class="pi pi-play text-wlk-sage-dark"></i>
+            </span>
+        </div>
+
+        <div class="calendar-time flex items-start justify-between border-b border-wlk-border py-md">
+            <div class="calendar-time-label flex gap-xl">
+                <small class="calendar-time-value text-wlk-content-secondary">
+                    {{ formatEventTime(dateTime().dateEventStart) }}
+                </small>
+                <span class="flex flex-col gap-">
+                    <small class="font-Semibold">
+                        Début
+                    </small>
+                    <small class="text-label text-wlk-content-muted">
+                        l'heure du début l'événement
+                    </small>
+                </span>
+            </div>
+            <span class="flex items-center justify-center p-sm border border-wlk-border rounded-md">
+                <i class="pi pi-play text-wlk-sage-dark"></i>
+            </span>
+        </div>
+
+        <div class="calendar-time flex items-start justify-between border-b border-wlk-border py-md">
+            <div class="calendar-time-label flex gap-xl">
+                <small class="calendar-time-value text-wlk-content-secondary">
+                    {{ formatEventTime(dateTime().dateEventEnd) }}
+                </small>
+                <span class="flex flex-col gap-">
+                    <small class="font-Semibold">
+                        Fin
+                    </small>
+                    <small class="text-label text-wlk-content-muted">
+                        Heure de fin l'événement
+                    </small>
+                </span>
+            </div>
+            <span class="flex items-center justify-center p-sm border border-wlk-border rounded-md">
+                <i class="pi pi-pause text-wlk-danger"></i>
+            </span>
+        </div>
+
+        <!-- <div class="calendar-time">
+            <span class="calendar-time-label">
+            Fin
+            </span>
+
+            <span class="calendar-time-value">
+            {{ formatEventTime(dateTime().dateEventEnd) }}
+            </span>
+        </div> -->
+    </div>
+
+</div>

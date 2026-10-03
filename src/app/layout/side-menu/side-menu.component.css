@@ -3,7 +3,7 @@
 }
 
 .sidebar {
-    width: 250px;
+    width: 200px;
     height: 100vh;
     background-color: var(--color-wlk-surface-soft);
     color: var(--color-wlk-content);
@@ -45,7 +45,8 @@
     gap: 10px;
     color: var(--color-wlk-content-muted);
     text-decoration: none;
-    padding: 10px;
+    padding-block: 6px;
+    padding-inline: 10px;
     border-radius: 8px;
     transition: background 0.2s;
     white-space: nowrap;

@@ -1,0 +1,107 @@
+.calendar {
+    width: 100%;
+    max-width: var(--container-3xl)
+}
+
+.calendar-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.2rem;
+}
+
+.calendar-day {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 66px;
+    border-radius: 9999px;
+    transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.calendar-day-name {
+    font-size: 0.75rem;
+    text-transform: capitalize;
+}
+
+.calendar-day-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-top: 0.25rem;
+    border-radius: 9999px;
+}
+
+.calendar-day-name,
+.calendar-day-number {
+    position: relative;
+    z-index: 1;
+}
+
+.calendar-day.event-day {
+    background: color-mix(in oklab, var(--color-wlk-border) 90%, transparent);
+}
+
+.calendar-day.event-day::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -0.25rem;
+    right: -0.25rem;
+    height: 48px;
+    transform: translateY(-50%);
+    background: color-mix(in oklab, var(--color-wlk-border) 90%, transparent);
+    z-index: 0;
+}
+
+.calendar-day.event-start::before {
+    left: 50%;
+}
+
+.calendar-day.event-end::before {
+    right: 50%;
+}
+
+.calendar-day.event-start.event-end::before {
+    display: none;
+}
+
+.calendar-day.event-day .calendar-day-number {
+    background: var(--color-wlk-primary);
+    color: white;
+    font-weight: 600;
+}
+
+
+
+
+/* .calendar-times {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+
+    border-top: 1px solid #e5e0dc;
+}
+
+.calendar-time {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.calendar-time-label {
+    font-size: 0.75rem;
+    color: #78716c;
+}
+
+.calendar-time-value {
+    font-size: 1.125rem;
+    font-weight: 600;
+} */

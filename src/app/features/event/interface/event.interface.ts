@@ -14,6 +14,7 @@ export interface IEvent {
     description: string,
     dateEventStart: string 
     dateEventEnd: string
+    timezone: string
     address: string
     estimatedGuests: number
     image: string

@@ -1,22 +1,47 @@
-<div class="sidebar" [class.collapsed]="isCollapsed">
-  
-    <button class="toggle-btn" (click)="toggleMenu()">
-        <i [class]=" isCollapsed ? 'pi pi-caret-right' : 'pi pi-caret-left'"></i>
-        <!-- {{ isCollapsed ? 'pi-caret-right' : 'pi-caret-left' }} -->
-    </button>
+<div class="sidebar" [class.collapsed]="isCollapsed()">
 
-    <nav class="menu-list">
+    <div class="w-full flex  items-end justify-center gap-xs">
+        <a href="/">
+            <img 
+                [src]="appLogo" 
+                alt=""
+                width="36"
+            >
+        </a>
+        @if(!isCollapsed()){
+            <span 
+                wlkEntryAnim
+                [delay]="100"
+                [threshold]="0.2"
+                class="font-display font-semibold mb-xs opacity-0">
+                Welkom
+            </span>
+        }
+    </div>
+  
+    <nav 
+        role="list"
+        aria-label="side-menu"
+        class="menu-list mt-xl">
         @for (item of menuItems; track $index) {
             <a  
+                [ariaLabel]="item.label"
                 [routerLink]="item.route" 
-                routerLinkActive="active" 
+                routerLinkActive="active cursor-default" 
                 class="menu-item"
                 >
                 <span class="icon flex items-center text-center h-5 min-w-4">
                     <i [class]="item.icon"></i>
                 </span>
-                @if (!isCollapsed) {
-                    <span class="label text-label">{{ item.label }}</span>
+                @if (!isCollapsed()) {
+                    <span 
+                        wlkEntryAnim
+                        [delay]="100"
+                        [threshold]="0.2"
+                        class="label text-label opacity-0"
+                        >
+                        {{ item.label }}
+                    </span>
                 }
             </a>
         }

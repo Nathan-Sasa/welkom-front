@@ -1,0 +1,123 @@
+<div
+    class=" w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md"
+    >
+    <div
+        aria-label="rsvp statistique"
+        class="lg:col-span- lg:flex hidden flex-col gap-md bg-wlk-surface-soft py-md rounded-xl overflow-hidden"
+        >
+        <span class="text-h4 px-lg">RSVP Analytics</span>
+        <wlk-chart-area 
+            [chartData]="rsvpAnalytic()" 
+            [loaderSize]="'scale-30'" 
+            [height]="250" 
+            class="w-full h-full relative"
+        ></wlk-chart-area>
+    </div>
+
+    <div 
+        aria-label="event carte"
+        class="border border-wlk-border rounded-xl relative overflow-hidden"
+        >
+        <!-- cover -->
+        <div
+            class="absolute w-full h-full flex items-end justify-end bg-wlk-primary-light/20"
+            >
+            <img 
+                src="assets/shapes/flowers.svg" 
+                alt="cover"
+            >    
+        </div>
+        <div
+            class="w-full h-full flex flex-col justify-betwee p-md"
+            >
+            <span
+                class="mb-xl"
+                >
+                <p class="text-h4 font-Semibold">Titre de l'événement actuel version longue</p>
+            </span>
+
+            <div
+                class="flex flex-col gap-md w-full relative"
+                >
+                <div 
+                    class="grid grid-cols-2 gap-big"
+                    >
+                    <span class="flex gap-md items-center">
+                        <span class="p-sm py-xs bg-wlk-border/30 border-2 border-wlk-border rounded-md">
+                            <i class="pi pi-users text-wlk-content-secondary"></i>
+                        </span>
+                        <small class="font-Semibold text-wlk-content-secondary">
+                            Invités
+                        </small>
+                    </span>
+                    <span class="font-Semibold flex items-center text-wlk-content-secondary">
+                        175
+                    </span>
+                </div>
+
+                <div 
+                    class="grid grid-cols-7 gap-md"
+                    >
+                    <span class="h-8 col-span-4 flex gap-md items-center">
+                        <span class="p-sm py-xs bg-wlk-border/30 border-2 border-wlk-border rounded-md">
+                            <i class="pi pi-clock text-wlk-content-secondary"></i>
+                        </span>
+                        <small class="font-Semibold text-wlk-content-secondary">
+                            Evénement
+                        </small>
+                    </span>
+                    <span class="h-8 font-Semibold col-span-3 flex items-center text-wlk-content-secondary">
+                        À venir
+                        <!-- switch -->
+                    </span>
+                </div>
+
+                <div 
+                    class="grid grid-cols-7 gap-md"
+                    >
+                    <span class="h-8 col-span-3 flex gap-md items-center">
+                        <span class="p-sm py-xs bg-wlk-border/30 border-2 border-wlk-border rounded-md">
+                            <i class="pi pi-clock text-wlk-content-secondary"></i>
+                        </span>
+                        <small class="font-Semibold text-wlk-content-secondary">
+                            Activation
+                        </small>
+                    </span>
+                    <span class="h-8 font-Semibold col-span-3 flex items-center text-wlk-content-secondary">
+                        En attente
+                        <!-- switch -->
+                    </span>
+                </div>
+            </div>
+
+            <small class="absolute bottom-md text-label">
+                Votre événement n'attend que vous l'<a class="text-wlk-primary cursor-pointer hover:underline">activer</a> 
+            </small>
+        </div>
+    </div>
+
+
+
+
+    <div
+        class="border border-wlk-border rounded-xl relative"
+        >
+        <wlk-calendar [dateTime]="dateTime()" />
+
+    </div>
+
+
+
+
+    <div
+        class="md:col-span-2 lg:hidden flex flex-col gap-md bg-wlk-surface-soft py-md rounded-xl"
+        >
+        <span class="text-h4 px-lg">RSVP Analytics</span>
+        <wlk-chart-area 
+            [chartData]="rsvpAnalytic()" 
+            [loaderSize]="'scale-30'" 
+            [height]="250" 
+            class="w-full h-full relative"
+        ></wlk-chart-area>
+    </div>
+</div>

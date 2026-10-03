@@ -1,69 +1,10 @@
-<div
-    class="flex flex-c items-start gap-2">
-    <div
-        class="flex items-center justify-start gap-sm group">
-        <button
-            (click)="themeAppService.setLightTheme(); choiceTheme = false"
-            [class.themeActive]="themeAppService.themeDisplay() === appTheme.Light"
-            [class.text-background]="themeAppService.themeDisplay() === appTheme.Light"
-            class="card-icon icon-theme items-center p-1.5 active:scale-90 transition-all duration-200 dark:text-clr-text-dark group-hover:border-clr-hover! easeTransition"
-
-            >
-            <!-- <lucide-icon 
-                [img]="icons.sun" 
-                class="my-icon text-lg max-lg:text-2xl"
-            ></lucide-icon> -->
-        </button>
-        <span 
-            [class.textThemeActive]="themeAppService.themeDisplay() === appTheme.Light"
-            (click)="themeAppService.setLightTheme(); choiceTheme = false"
-            class="flex text-mono text-clr-text dark:text-clr-text-dark cursor-pointer group-hover:text-clr-hover easeTransition"
-            >
-            Claire
-        </span>
-    </div>
-    
-    <div
-        class="flex items-center justify-start gap-sm group">
-        <button
-            (click)="themeAppService.setDarkTheme(); choiceTheme = false"
-            [class.themeActive]="themeAppService.themeDisplay() === appTheme.Dark"
-            [class.text-background]="themeAppService.themeDisplay() === appTheme.Dark"
-            class="card-icon icon-theme items-center p-1.5 active:scale-90 transition-all duration-200 dark:text-clr-text-dark group-hover:border-clr-hover! easeTransition"
-            >
-            <!-- <lucide-icon 
-                [img]="icons.moon" 
-                class="my-icon"
-                ></lucide-icon> -->
-        </button>
-        <span
-            [class.textThemeActive]="themeAppService.themeDisplay() === appTheme.Dark"
-            (click)="themeAppService.setDarkTheme(); choiceTheme = false"
-            class="flex text-mono text-clr-text dark:text-clr-text-dark cursor-pointer group-hover:text-clr-hover easeTransition"
-            >
-            Sombre
-        </span>
-    </div>
-    
-    <div
-        class="flex items-center justify-start gap-sm group">
-        <button
-            (click)="themeAppService.setSystemTheme(); choiceTheme = false"
-            [class.themeActive]="themeAppService.themeDisplay() === appTheme.System"
-            [class.text-background]="themeAppService.themeDisplay() === appTheme.System"
-            class="card-icon icon-theme items-center p-1.5 active:scale-90 transition-all duration-200 dark:text-clr-text-dark group-hover:border-clr-hover! easeTransition"
-            >
-            <!-- <lucide-icon 
-                [img]="icons.system" 
-                class="my-icon"
-            ></lucide-icon> -->
-        </button>
-        <span
-            (click)="themeAppService.setSystemTheme(); choiceTheme = false"
-            [class.textThemeActive]="themeAppService.themeDisplay() === appTheme.System"
-            class="flex text-mono text-clr-text dark:text-clr-text-dark cursor-pointer group-hover:text-clr-hover easeTransition"
-            >
-            Système
-        </span>
-    </div>
+<div class="">
+    <p-button
+        [icon]="icon"
+        severity="secondary"
+        routerLink="/auth"
+        (onClick)="changeMode()"
+        size="small" 
+        class="*:border-2 *:border-wlk-border!"
+    />
 </div>

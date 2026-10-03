@@ -9,7 +9,6 @@ import { EntryAnimDirective } from '../../../../shared/directives/entry-anim.dir
 	selector: 'wlk-catalogue-list',
 	imports: [
 		RouterLink,
-		Button,
 		EntryAnimDirective
 	],
 	templateUrl: './catalogue-list.component.html',
