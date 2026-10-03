@@ -25,6 +25,7 @@ export class ChartAreaComponent {
 		const colorFore = themeActuel === AppTheme.Dark ? '#98a2b369' : '#98a2b3cf'
 		const gridBorderColor = themeActuel === AppTheme.Dark ? '#9ca3af42' : '#9ca3af7b'
 	
+		// chart type '"line" | "area" | "bar" | "pie" | "donut" | "radialBar" | "scatter" | "bubble" | "heatmap" | "candlestick" | "boxPlot" | "violin" | "histogram" | "radar" | "polarArea" | "rangeBar"
 		return {
 			series: this.chartData(),
 			chart: {

@@ -1,22 +1,24 @@
 <div class="sidebar" [class.collapsed]="isCollapsed()">
 
     <div class="w-full flex  items-end justify-center gap-xs">
-        <a href="/">
+        <a  
+            routerLink="/home"
+            class="w-full flex  items-end justify-center gap-xs">
             <img 
                 [src]="appLogo" 
                 alt=""
                 width="36"
             >
+            @if(!isCollapsed()){
+                <span 
+                    wlkEntryAnim
+                    [delay]="100"
+                    [threshold]="0.2"
+                    class="font-display font-semibold mb-xs opacity-0">
+                    Welkom
+                </span>
+            }
         </a>
-        @if(!isCollapsed()){
-            <span 
-                wlkEntryAnim
-                [delay]="100"
-                [threshold]="0.2"
-                class="font-display font-semibold mb-xs opacity-0">
-                Welkom
-            </span>
-        }
     </div>
   
     <nav 

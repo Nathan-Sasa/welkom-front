@@ -5,23 +5,48 @@ import { IDashboard } from '../interface/dashboard.interfaces';
 import { DashboardService } from '../services/dashboard.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '../../../core/auth/services/auth.service';
+import { ErrorsComponent } from '../../../shared/components/errors/errors.component';
+import { IExceptions } from '../../../core/interfaces/exception.interface';
+import { MessageService } from 'primeng/api' 
+import { from } from 'rxjs';
+
+import { ButtonModule } from 'primeng/button';
+import { Dialog } from 'primeng/dialog'
+import { TagModule } from 'primeng/tag'
+import { ToastModule } from 'primeng/toast'
+import { EntryAnimDirective } from '../../../shared/directives/entry-anim.directive';
 
 @Component({
 	selector: 'app-dashboard.component',
 	imports: [
-		RsvpEventCalendarComponent
+		RsvpEventCalendarComponent,
+		ButtonModule,
+		Dialog,
+		ErrorsComponent,
+		TagModule,
+		ToastModule,
+		EntryAnimDirective
 	],
 	templateUrl: './dashboard.component.html',
 	styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
+	// provider: [MessageService]
 
-	private readonly dashboard = inject(DashboardService)
 	private readonly destroyRef = inject(DestroyRef)
-
 	protected auth = inject(AuthService).currentUser
+	private readonly dashboard = inject(DashboardService)
+	private readonly message = inject(MessageService)
 
 	protected data = signal<IDashboard>(<IDashboard>{})
+
+	protected keyModal: boolean = false
+	protected eventKey = signal<string>('')
+	protected keyFetching = false
+	protected error = signal<boolean>(false)
+	protected errorContent = signal<IExceptions | null >(null)
+	protected copyIcon = signal<boolean>(false)
+	protected successCopy = signal<boolean>(false)
 
 
 	simulate = {
@@ -40,9 +65,7 @@ export class DashboardComponent implements OnInit {
 	}
 
 	loadDashboard(): void {
-
 		const eventUuid = this.dashboard.getEventStorage$()
-
 		if (!eventUuid) return
 
 		this.dashboard.getDashboardData(eventUuid.uuid)
@@ -51,11 +74,85 @@ export class DashboardComponent implements OnInit {
 				next: (res) => {
 					this.data.set(res)
 					console.log('dashboard data : ', res)
+					console.log('event depuis storage : ', eventUuid)
 				},
 				error: (err) => {
 					console.log('dashboard error : ', err)
 				}
 			})
 
+	}
+
+	getSecurityKey(): void {
+
+		if (this.keyFetching) return
+
+		this.dashboard.getSecurityKey(this.data().event.uuid)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: (key) => {
+					this.eventKey.set(key.securityEventKey)
+					this.error.set(false)
+					console.log('event key : ', key?.securityEventKey)
+					this.keyFetching = false
+				},
+				error: (err) => {
+					this.keyFetching = true
+
+					const errorContent = {
+						error: {message: err.status === 500 ? 'Une erreur est survenue, veillez réessayez plus tard !' : err.error.message},
+						name: err.name,
+						status: err.status,
+					}
+					this.errorContent.set(errorContent)
+					this.error.set(true)
+
+					console.log('Key error : ', err)
+				}
+			})
+	}
+
+	copyToClipboard(){
+		if (!this.eventKey()) return
+
+		from(navigator.clipboard.writeText(this.eventKey()))
+			.subscribe(() => {
+				this.successCopy.set(true)
+				this.message.add({
+					severity: 'success',
+					summary: 'Copié',
+					detail: 'Clé copié dans le presse-papier'
+				})
+				setTimeout(() => {
+					this.successCopy.set(false)
+				}, 2000)
+			})
+	}
+
+
+	//methode test temporaire pour activer un event avant paiement
+	activateEvent(): void {
+		this.dashboard.activateEvent(this.data().event.uuid)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: (res) => {
+					this.keyFetching = false
+					this.getSecurityKey()
+					console.log('Active ok : ',res)
+					// this.error.set(false)
+					// this.errorContent.set(null)
+					this.loadDashboard()
+				},
+				error: (err) => {
+					console.log('active key error : ', err)
+					const errorContent = {
+						error: {message: err.status === 500 ? 'Une erreur est survenue, veillez réessayez plus tard !' : err.error.message},
+						name: err.name,
+						status: err.status,
+					}
+					this.errorContent.set(errorContent)
+					this.error.set(true)
+				}
+			})
 	}
 }

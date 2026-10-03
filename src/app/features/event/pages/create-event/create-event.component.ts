@@ -22,6 +22,7 @@ import { FileUpload } from 'primeng/fileupload'
 import { SelectModule } from 'primeng/select'
 import { ProgressSpinnerModule} from 'primeng/progressspinner'
 import { MessageModule } from 'primeng/message';
+import { DashboardService } from '../../../dashboard/services/dashboard.service';
 
 interface UploadEvent {
 	originalEvent: Event
@@ -52,6 +53,7 @@ export class CreateEventComponent {
 	private readonly destroyRef = inject(DestroyRef)
 	private readonly eventService = inject(EventService)
 	private readonly eventStorage = inject(CatalogueSelectionService)
+	private readonly eventDashboardStorage = inject(DashboardService)
 
 	protected eventUuid = signal<string | null>(this.eventStorage.getEventUuid())
 
@@ -152,6 +154,8 @@ export class CreateEventComponent {
 						this.created.set(true)
 						this.submittedMessage.set('Événement créé')
 						this.eventStorage.setEventUuid(res.uuid)
+						this.eventDashboardStorage.setEventStorage(res)
+						this.eventUuid.set(res.uuid)
 						console.log('create event res ok : ', res)
 					},
 					error: (err) => {

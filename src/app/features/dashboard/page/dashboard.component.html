@@ -1,13 +1,169 @@
 <section class="w-full">
+    <p-toast />
     <div
-        class="w-full mb-xl"
+        class="w-full mb-xl flex items-center justify-between"
         >
-        <span class="flex items-center text-h3 font-Semibold">
-            Bonjour
-            {{auth()?.first_name}}
-        </span>
+        <div
+            class="flex flex-col"
+            >
+            <span class="flex items-center text-h3 font-Semibold">
+                Bonjour
+                {{auth()?.first_name}}
+            </span>
+            <small class="text-wlk-content-muted">
+                Voici l'avant premiere de votre événement
+                <!-- {{data().event.title}} -->
+            </small>
+        </div>
+        <div>
+            <span class="flex items-center gap-sm">
+                <span class="font-Semibold">Clé de sécurité</span>
+                <p-button 
+                    severity="contrast"
+                    [outlined]="true"
+                    icon="pi pi-key"
+                    size="small"
+                    (onClick)="keyModal = true"
+                />
+            </span>
+        </div>
     </div>
     <wlk-rsvp-event-calendar 
         [dateTime]="data().event ? data().event : simulate"
     />
 </section>
+
+<p-dialog
+    header="Clé de sécutrité" 
+    [modal]="true" 
+    [(visible)]="keyModal" 
+    [style]="{ width: '50rem' }" 
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    >
+    <div
+        class="w-full flex items-center justify-end gap-sm"
+        >
+        <span 
+            class="min-w-44 px-md h-8.5 flex items-center text-label tracking-wide font-Medium rounded-md border border-wlk-content-muted"
+            [class.text-wlk-content-muted]="!eventKey()"
+            [class.selection:bg-transparent!]="!eventKey()"
+            [class.selection:text-wlk-content-muted]="!eventKey()"
+            >
+            {{eventKey() ? eventKey() : 'wlk-xxx-xxx-xxx-xx'}}
+        </span>
+        <span class="">
+            <button 
+                pButton
+                severity="contrast"
+                [outlined]="true"
+                (pointerenter)="eventKey()? copyIcon.set(true) : copyIcon.set(false)"
+                (pointerleave)="copyIcon.set(false)"
+                (click)="copyToClipboard()"
+                [disabled]="!eventKey()"
+                >
+                <i class="{{copyIcon() && !successCopy() ? 'pi pi-copy text-wlk-content-secondary' : 'pi pi-key'}} {{successCopy() ? 'pi pi-check text-wlk-sage-dark': 'pi pi-key'}}" ></i>    
+            </button>
+        </span>
+    </div>
+
+    <div
+        class="flex flex-col"
+        >
+        @defer (on viewport) {
+            <span>
+                @if(!keyFetching){
+                    {{getSecurityKey()}}
+                }
+            </span>
+        }@placeholder {
+            <span></span>
+        }
+    </div>
+
+    <div 
+        class="mt-lg">
+        @if (eventKey()) {
+            <div
+                class="flex flex-col gap-big"
+                >
+                <p-tag
+                    wlkEntryAnim
+                    [translateY]="15"
+                    [delay]="250"
+                    severity="info"
+                    class="opacity-0"
+                    >
+                    Votre clé de sécurité vous permet de donner accès à vos agents de faire la vérification de QR code des vos invités au momenet du checking sans avoir accès à votre espace organisateur. Ainsi, les perosnnes autorisées à vérfier vos invités sont ceux qui auront accès à cette clé. Gardez-la pour vous. Vous pouver régénérer une autre si vous vous souhaitez annuler l'actuelle clé.
+                </p-tag>
+                <span
+                    class="w-full flex  lg:flex-row items-center justify-between"
+                    >
+                    <p-button 
+                        severity="primary"
+                        size="small"
+                        icon="pi pi-play-circle"
+                        iconPos="right"
+                        label="Comment utiliser la clé"
+                    />
+                    <p-button 
+                        severity="primary"
+                        [outlined]="true"
+                        size="small"
+                        label="Régénérer la clé de sécurité"
+                    />
+                </span>
+            </div>
+        }
+
+        @if (!eventKey() && error()) {
+            @if (errorContent()?.status === 400) {
+                <div
+                    class="flex flex-col gap-big"
+                    >
+                    <div
+                        class="flex flex-col gap-md"
+                        >
+                        <p-tag
+                            wlkEntryAnim
+                            [translateY]="15"
+                            [delay]="250"
+                            severity="warn"
+                            class="opacity-0"
+                            >
+                            {{errorContent()?.error?.message}}
+                        </p-tag>
+                        <p-tag
+                            wlkEntryAnim
+                            [translateY]="15"
+                            [delay]="250"
+                            severity="info"
+                            class="opacity-0"
+                            >
+                            Votre clé de sécurité vous permet de donner accès à vos agents de faire la vérification de QR code des vos invités au momenet du checking sans avoir accès à votre espace organisateur. Ainsi, les perosnnes autorisées à vérfier vos invités sont ceux qui auront accès à cette clé. Gardez-la pour vous. Vous pouver régénérer une autre si vous vous souhaitez annuler l'actuelle clé.
+                        </p-tag>
+                    </div>
+                    <span
+                        class="w-full flex  lg:flex-row items-center justify-between"
+                        >
+                        <p-button 
+                            severity="primary"
+                            size="small"
+                            icon="pi pi-play-circle"
+                            iconPos="right"
+                            label="Comment utiliser la clé"
+                        />
+
+                        <!-- button test temploraire pour generer la clé de sécurité -->
+                        <p-button 
+                            severity="primary"
+                            [outlined]="true"
+                            size="small"
+                            label="Activer l'événement"
+                            (onClick)="activateEvent()"
+                        />
+                    </span>
+                </div>
+            }
+        }
+    </div>
+</p-dialog>

@@ -11,6 +11,7 @@ import { AuthService } from './core/auth/services/auth.service';
 // import { IUser } from './core/auth/interfaces/user.interface';
 import { catchError, firstValueFrom, of } from 'rxjs';
 
+import { MessageService } from 'primeng/api'
 import { providePrimeNG } from 'primeng/config';
 import { WelkomPreset } from './core/theme/welkom-preset';
 
@@ -67,8 +68,9 @@ export const appConfig: ApplicationConfig = {
 					darkModeSelector: '.dark',
 					cssLayer: false
 				}
-            }
+            },
         }),
 		{ provide: LOCALE_ID, useValue: 'fr-FR' },
+		MessageService
 	]
 };

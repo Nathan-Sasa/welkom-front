@@ -31,7 +31,13 @@
                                 >
                                 <i class="pi pi-calendar"></i>
                             </span>
-                            <span class="hidden lg:block">
+                            <span 
+                                [ngClass]="{
+                                    'text-wlk-primary': value === activeStep,
+                                    'text-wlk-sage-dark': value < activeStep,
+                                    'text-wlk-content-muted': value > activeStep
+                                }"
+                                class="hidden lg:block">
                                 Informations
                             </span>
                         </button>
@@ -59,7 +65,13 @@
                                 >
                                 <i class="pi pi-calendar"></i>
                             </span>
-                            <span class="hidden lg:block">
+                            <span 
+                                [ngClass]="{
+                                    'text-wlk-primary': value === activeStep,
+                                    'text-wlk-sage-dark': value < activeStep,
+                                    'text-wlk-content-muted': value > activeStep
+                                }"
+                                class="hidden lg:block">
                                 Secondary
                             </span>
                         </button>
@@ -87,7 +99,13 @@
                                 >
                                 <i class="pi pi-image"></i>
                             </span>
-                            <span class="hidden lg:block">
+                            <span 
+                                [ngClass]="{
+                                    'text-wlk-primary': value === activeStep,
+                                    'text-wlk-sage-dark': value < activeStep,
+                                    'text-wlk-content-muted': value > activeStep
+                                }"
+                                class="hidden lg:block">
                                 Image de couverture
                             </span>
                         </button>
@@ -122,8 +140,23 @@
                                 }
                                 <!-- <i [class]="created() ? 'pi pi-check' : 'pi pi-refresh'"></i> -->
                             </span>
-                            <span class="hidden lg:block">
-                                Création
+                            <span 
+                                [ngClass]="{
+                                    'text-wlk-primary': value === activeStep,
+                                    'text-wlk-content-muted': value > activeStep,
+                                    'text-wlk-sage-dark': created()
+                                }"
+                                class="hidden lg:block"
+                                >
+                                <!-- /* 'text-wlk-sage': value < activeStep, */ -->
+                                <!-- Création -->
+                                 @if(created()){
+                                    Créé
+                                }@else if(!created() && error()){
+                                    <i class="pi pi-refresh"></i>
+                                }@else{
+                                    Création
+                                }
                             </span>
                         </button>
                     </ng-template>
@@ -153,7 +186,7 @@
                                         for="title"
                                         class="flex flex-col"
                                         >
-                                        <small class="font-Semibold text-wlk-content-secondary">Titre de l'événement</small>
+                                        <span class="mb-xs font-Semibold text-wlk-content-secondary">Titre de l'événement</span>
                                         <input 
                                             pInputText
                                             type="text"
@@ -173,7 +206,7 @@
                                         for="description"
                                         class="flex flex-col"
                                         >
-                                        <small class="font-Semibold text-wlk-content-secondary">Description</small>
+                                        <span class="mb-xs font-Semibold text-wlk-content-secondary">Description</span>
                                         <input 
                                             pInputText
                                             type="text"
@@ -197,7 +230,7 @@
                                         for="dateEventStart"
                                         class="flex flex-col"
                                         >
-                                        <small class="font-Semibold text-wlk-content-secondary">Date & heure du début</small>
+                                        <span class="mb-xs font-Semibold text-wlk-content-secondary">Date & heure du début</span>
                                         <input 
                                             pInputText
                                             type="datetime-local"
@@ -216,7 +249,7 @@
                                         for="dateEventEnd"
                                         class="flex flex-col"
                                         >
-                                        <small class="font-Semibold text-wlk-content-secondary">Date & heure de la fin</small>
+                                        <span class="mb-xs font-Semibold text-wlk-content-secondary">Date & heure de la fin</span>
                                         <input 
                                             pInputText
                                             type="datetime-local"
@@ -253,7 +286,7 @@
                                         for="timezone"
                                         class="flex flex-col"
                                         >
-                                        <small class="font-Semibold text-wlk-content-secondary">Fuseau horaire</small>
+                                        <span class="mb-xs font-Semibold text-wlk-content-secondary">Fuseau horaire</span>
                                         <p-select
                                             inputId="timezone"
                                             [options]="timezones"
@@ -313,7 +346,7 @@
                                         for="address"
                                         class="flex flex-col"
                                         >
-                                        <span class="">Adresse de l'événement</span>
+                                        <span class="mb-xs font-Semibold text-wlk-content-secondary">Adresse de l'événement</span>
                                         <input 
                                             pInputText
                                             type="text"
@@ -333,7 +366,7 @@
                                         for="estimatedGuests"
                                         class="flex flex-col"
                                         >
-                                        <span class="">Nombre estimé d'invités</span>
+                                        <span class="mb-xs font-Semibold text-wlk-content-secondary">Nombre estimé d'invités</span>
                                         <input 
                                             pInputText
                                             type="number"
@@ -357,7 +390,8 @@
                                     icon="pi pi-arrow-left"
                                     iconPos="left"
                                     size="small"
-                                    severity="secondary"
+                                    severity="primary"
+                                    [outlined]="true"
                                 />
                                 <p-button 
                                     (onClick)="activateCallback(3)"
@@ -390,7 +424,7 @@
                                 <fieldset
                                     class="flex flex-col w-full relative"
                                     >
-                                    <span class="mb-md">
+                                    <span class="mb-xs font-Semibold text-wlk-content-secondary">
                                         Image cover 
                                         <small class="text-wlk-primary-light ml-md">optionnelle</small>
                                     </span>
@@ -428,7 +462,8 @@
                                     icon="pi pi-arrow-left"
                                     iconPos="left"
                                     size="small"
-                                    severity="secondary"
+                                    severity="primary"
+                                    [outlined]="true"
                                 />
                                 <p-button 
                                     (onClick)="activateCallback(4); submitEvent()"
@@ -491,7 +526,7 @@
                                                 >
                                                 <span class="flex flex-col items-center gap-sm">
                                                     <i class="pi pi-check text-wlk-sage text-5xl!"></i>
-                                                    <p class="text-wlk-primary">Félicaitation, votre événement a été créé !</p>
+                                                    <p class="text-wlk-primary">Félicitation, votre événement a été créé !</p>
                                                 </span>
                                             </div>
                                             <div
@@ -526,7 +561,8 @@
                                         icon="pi pi-arrow-left"
                                         iconPos="left"
                                         size="small"
-                                        severity="secondary"
+                                        severity="primary"
+                                        [outlined]="true"
                                     />
                                 </div>
                             }

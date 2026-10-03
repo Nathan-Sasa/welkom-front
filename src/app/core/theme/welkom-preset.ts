@@ -461,8 +461,8 @@ export const WelkomPreset = definePreset(Aura, {
             colorScheme: {
                 light: {
                     success: {
-                        background: '{surface.500}',
-                        color: '{sage.500}',
+                        background: '{sage.300}',
+                        color: '{sage.900}',
                         closeButton: {
                             hoverBackground: 'transparent',
                             focusRing: {
@@ -477,8 +477,8 @@ export const WelkomPreset = definePreset(Aura, {
                 },
                 dark: {
                     success: {
-                        background: '{surface.500}',
-                        color: '{sage.500}',
+                        background: '{sage.900}',
+                        color: '{sage.300}',
                         closeButton: {
                             hoverBackground: 'transparent',
                             focusRing: {

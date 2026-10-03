@@ -30,6 +30,9 @@ export const environment = {
         },
         dashboardUrl: {
             dashboard: eventPrefix
+        },
+        securityUrl: {
+            eventKey: eventPrefix,
         }
     }
 }
