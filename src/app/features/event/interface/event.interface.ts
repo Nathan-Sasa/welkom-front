@@ -1,4 +1,4 @@
-import { PaymentStatus } from "../../../core/interfaces/payment.interface"
+import { PaymentStatus } from "../../../core/types/payment.type"
 
 export const EVENT_STATUS = {
     DRAFT: 'DRAFT',

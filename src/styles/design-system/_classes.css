@@ -48,3 +48,24 @@ select:-webkit-autofill {
     background-color: var(--color-wlk-border);
     height: 48px;
 }
+
+.skeletonBg {
+    background: linear-gradient(
+        90deg,
+        var(--color-gray-300) 25%,
+        var(--color-gray-200) 50%,
+        var(--color-gray-300) 75%
+    );
+
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

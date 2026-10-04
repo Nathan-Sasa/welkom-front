@@ -20,11 +20,17 @@
         >
         <!-- cover -->
         <div
-            class="absolute w-full h-full flex items-end justify-end bg-wlk-primary-light/20"
+            class="absolute w-full h-full flex items-end justify-between bg-wlk-primary-light/20"
             >
             <img 
                 src="assets/shapes/flowers.svg" 
                 alt="cover"
+                width="48"
+            >    
+            <img 
+                src="assets/shapes/flowers.svg" 
+                alt="cover"
+                width="112"
             >    
         </div>
         <div
@@ -43,15 +49,15 @@
                     class="grid grid-cols-2 gap-big"
                     >
                     <span class="flex gap-md items-center">
-                        <span class="p-sm py-xs bg-wlk-border/30 border-2 border-wlk-border rounded-md">
+                        <span class="p-sm flex items-center justify-center bg-wlk-border/30 border border-wlk-border rounded-md">
                             <i class="pi pi-users text-wlk-content-secondary"></i>
                         </span>
                         <small class="font-Semibold text-wlk-content-secondary">
                             Invités
                         </small>
                     </span>
-                    <span class="font-Semibold flex items-center text-wlk-content-secondary">
-                        175
+                    <span class="pl-xs font-Semibold flex items-center text-label text-wlk-content-secondary">
+                        {{eventStatus().countGuests}}
                     </span>
                 </div>
 
@@ -59,40 +65,106 @@
                     class="grid grid-cols-7 gap-md"
                     >
                     <span class="h-8 col-span-4 flex gap-md items-center">
-                        <span class="p-sm py-xs bg-wlk-border/30 border-2 border-wlk-border rounded-md">
+                        <span class="p-sm flex items-center justify-center bg-wlk-border/30 border border-wlk-border rounded-md">
                             <i class="pi pi-clock text-wlk-content-secondary"></i>
                         </span>
                         <small class="font-Semibold text-wlk-content-secondary">
                             Evénement
                         </small>
                     </span>
-                    <span class="h-8 font-Semibold col-span-3 flex items-center text-wlk-content-secondary">
-                        À venir
-                        <!-- switch -->
-                    </span>
+                    @switch(eventStatus().status){
+                            @case ('PENDING') {
+                                <div class="col-span-3 flex items-center">
+                                    <span
+                                        class="h-fit w-fit rounded-lg font-Semibold flex items-center text-label text-wlk-content-secondary"
+                                        >
+                                        À venir
+                                    </span>
+                                </div>
+                            }
+                            @case ('CONFIRMED') {
+                                <div class="col-span-3 flex items-center gap-xs relative">
+                                    <span class="h-2 w-2 rounded-full absolute -left-md animate-ping duration-1000 bg-green-600"></span>
+                                    <span class="h-2 w-2 rounded-full absolute -left-md bg-green-600"></span>
+                                    <span
+                                        class="h-fit w-fit rounded-lg font-Semibold flex items-center text-label text-green-700"
+                                        >
+                                        En cours
+                                    </span>
+                                </div>
+                            }
+                            @case ('CANCELED') {
+                                <div class="col-span-3 flex items-center gap-xs relative">
+                                    <span
+                                        class="h-fit w-fit rounded-lg font-Semibold flex items-center text-label text-wlk-danger"
+                                        >
+                                        Annulé
+                                    </span>
+                                </div>
+                            }
+                            @case ('DRAFT') {
+                                <div class="col-span-3 flex items-center gap-xs relative">
+                                    <span
+                                        class="h-fit w-fit rounded-lg font-Semibold flex items-center text-label text-wlk-gold"
+                                        >
+                                        Passé
+                                    </span>
+                                </div>
+                            }
+                        }
                 </div>
 
                 <div 
                     class="grid grid-cols-7 gap-md"
                     >
                     <span class="h-8 col-span-4 flex gap-md items-center">
-                        <span class="p-sm py-xs bg-wlk-border/30 border-2 border-wlk-border rounded-md">
-                            <i class="pi pi-clock text-wlk-content-secondary"></i>
+                        <span class="p-sm flex items-center justify-center bg-wlk-border/30 border border-wlk-border rounded-md">
+                            <i class="pi pi-key text-wlk-content-secondary"></i>
                         </span>
                         <small class="font-Semibold text-wlk-content-secondary">
                             Activation
                         </small>
                     </span>
                     <span class="h-8 font-Semibold col-span-3 flex items-center text-wlk-content-secondary">
-                        En attente
-                        <!-- switch -->
+                        <!-- En attente -->
+                        @switch(eventStatus().paymentStatus){
+                            @case ('PENDING') {
+                                <div class="col-span-3 flex items-center">
+                                    <span
+                                        class="h-fit w-fit rounded-lg font-Semibold flex items-center text-label text-blue-500"
+                                        >
+                                        En attente
+                                    </span>
+                                </div>
+                            }
+                            @case ('PAYMENT_SUCCESS') {
+                                <div class="col-span-3 flex items-center gap-xs relative">
+                                    <span
+                                        class="h-fit w-fit rounded-lg font-Semibold flex items-center text-label text-wlk-sage-dark"
+                                        >
+                                        Activé
+                                    </span>
+                                </div>
+                            }
+                            @case ('PAYMENT_FAILED') {
+                                <div class="col-span-3 flex items-center gap-xs relative">
+                                    <span
+                                        class="h-fit w-fit rounded-lg font-Semibold flex items-center text-label text-wlk-danger"
+                                        >
+                                        Échoué
+                                    </span>
+                                </div>
+                            }
+                        }
                     </span>
                 </div>
             </div>
 
-            <small class="absolute bottom-md text-label font-semibold">
-                Votre événement n'attend que vous l'<a class="text-blue-500 cursor-pointer hover:underline">activer</a> 
-            </small>
+            @if (eventStatus().paymentStatus !== 'PAYMENT_SUCCESS') {
+                <small class="absolute bottom-md text-small font-semibold">
+                    Votre événement n'attend plus que vous l'<a class="text-blue-500 cursor-pointer hover:underline">activiez</a> 
+                </small>
+            }
         </div>
     </div>
 
@@ -100,7 +172,7 @@
 
 
     <div
-        class="border border-wlk-border rounded-xl relative"
+        class="border border-wlk-border rounded-xl relative bg-wlk-surface-soft"
         >
         <wlk-calendar [dateTime]="dateTime()" />
 

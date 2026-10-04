@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AppInfo } from '../../../../shared/utils/meta-data';
 
 import { BadgeModule } from 'primeng/badge';
-import { PaymentStatus } from '../../../../core/interfaces/payment.interface';
+import { PaymentStatus } from '../../../../core/types/payment.type';
 import { EntryAnimDirective } from '../../../../shared/directives/entry-anim.directive';
 import { DashboardService } from '../../../dashboard/services/dashboard.service';
 

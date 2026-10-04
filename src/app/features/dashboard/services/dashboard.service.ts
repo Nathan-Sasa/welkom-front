@@ -60,8 +60,8 @@ export class DashboardService {
     }
 
     //methode test temporaire pour generer une EventKey security-key/regenerat Régénération de la clé de sécurité d'un événement.
-    activateEvent(eventUuid: string): Observable<IEventKey>{
-        return this.http.post<IEventKey>(`${this.eventKeyApi}/${eventUuid}/activate`, {})
+    activateEvent(eventUuid: string): Observable<IEventResponse>{
+        return this.http.post<IEventResponse>(`${this.eventKeyApi}/${eventUuid}/activate`, {})
     }
 
 }

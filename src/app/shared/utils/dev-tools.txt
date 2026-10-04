@@ -1737,3 +1737,9 @@ Bien plus qu’un événement. Une expérience humaine.
 Événements · Invitations · Invités · Checking
 
 © 2026 Welkom. Tous droits réservés.
+
+
+Error backend ====================
+2026-10-03T23:55:01.513+01:00  WARN 70933 --- [welkom] [nio-8080-exec-2] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
