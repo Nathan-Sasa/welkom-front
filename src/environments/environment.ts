@@ -31,6 +31,9 @@ export const environment = {
         dashboardUrl: {
             dashboard: eventPrefix
         },
+        guestUrl: {
+            prefix: eventPrefix
+        },
         securityUrl: {
             eventKey: eventPrefix,
         }

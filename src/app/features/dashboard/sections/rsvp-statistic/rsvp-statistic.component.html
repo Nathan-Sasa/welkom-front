@@ -1,7 +1,111 @@
 <div
-    class="h-32 w-full border"
+    class="h-32 w-full"
     >
-    <div class="carousel">
-        
-    </div>
+    @if (rsvpStat()){
+        <div class="carousel py-xs!">
+            <figure
+                wlkEntryAnim
+                [translateY]="0"
+                [translateX]="15"
+                [delay]="200"
+                [threshold]="0.1"
+                class="carousel-item bg-wlk-surface-soft min-w-48 w-[23.5%] rounded-l-wlk-lg rounded-tr-wlk-lg rounded-br-sm overflow-hidden border border-wlk-primary/60 opacity-0 my-auto"
+                >
+                <div 
+                    class="w-full h-8 bg-wlk-primary/60 flex items-center pl-md">
+                    <span class="font-Semibold text-wlk-background">
+                        Total Rsvp
+                    </span>
+                </div>
+                <div
+                    class="w-full flex items-center justify-center text-wlk-content-secondary relative"
+                    >
+                    <span class="absolute top-1/2 -translate-y-1/2 left-8">
+                        <i class="pi pi-envelope text-h1! text-wlk-primary/20"></i>
+                    </span>
+                    <span class="text-hero">
+                        {{rsvpStat().total}}
+                    </span>
+                </div>
+            </figure>
+
+            <figure
+                wlkEntryAnim
+                [translateY]="0"
+                [translateX]="15"
+                [delay]="250"
+                [threshold]="0.1"
+                class="carousel-item bg-wlk-surface-soft min-w-48 w-[23.5%] rounded-r-wlk-lg rounded-tl-wlk-lg rounded-bl-sm overflow-hidden border border-[#7471706a] opacity-0 my-auto"
+                >
+                <div 
+                    class="w-full h-8 bg-[#7471706a] flex items-center pl-md">
+                    <span class="font-Semibold text-wlk-background">
+                        Rsvp en attente
+                    </span>
+                </div>
+                <div
+                    class="w-full flex items-center justify-center text-wlk-content-secondary relative"
+                    >
+                    <span class="absolute top-1/2 -translate-y-1/2 left-8">
+                        <i class="pi pi-clock text-h1! text-[#7471706a]/40"></i>
+                    </span>
+                    <span class="text-hero">
+                        {{rsvpStat().pending}}
+                    </span>
+                </div>
+            </figure>
+
+            <figure
+                wlkEntryAnim
+                [translateY]="0"
+                [translateX]="15"
+                [delay]="300"
+                [threshold]="0.1"
+                class="carousel-item bg-wlk-surface-soft min-w-48 w-[23.5%] rounded-l-wlk-lg rounded-tr-wlk-lg rounded-br-sm overflow-hidden border border-wlk-sage-dark/60 opacity-0 my-auto"
+                >
+                <div 
+                    class="w-full h-8 bg-wlk-sage-dark/60 flex items-center pl-md">
+                    <span class="font-Semibold text-wlk-background">
+                        Rsvp confirmés
+                    </span>
+                </div>
+                <div
+                    class="w-full flex items-center justify-center text-wlk-content-secondary relative"
+                    >
+                    <span class="absolute top-1/2 -translate-y-1/2 left-8">
+                        <i class="pi pi-check-circle text-h1! text-wlk-sage/40"></i>
+                    </span>
+                    <span class="text-hero">
+                        {{rsvpStat().confirm}}
+                    </span>
+                </div>
+            </figure>
+
+            <figure
+                wlkEntryAnim
+                [translateY]="0"
+                [translateX]="15"
+                [delay]="350"
+                [threshold]="0.1"
+                class="carousel-item bg-wlk-surface-soft min-w-48 w-[23.5%] rounded-r-wlk-lg rounded-tl-wlk-lg rounded-bl-sm overflow-hidden border border-wlk-danger/60 opacity-0 my-auto"
+                >
+                <div 
+                    class="w-full h-8 bg-wlk-danger/60 flex items-center pl-md">
+                    <span class="font-Semibold text-wlk-background">
+                        Rsvp déclinés
+                    </span>
+                </div>
+                <div
+                    class="w-full flex items-center justify-center text-wlk-content-secondary my-auto relative"
+                    >
+                    <span class="absolute top-1/2 -translate-y-1/2 left-8">
+                        <i class="pi pi-clock text-h1! text-wlk-danger/20"></i>
+                    </span>
+                    <span class="text-hero">
+                        {{rsvpStat().declined}}
+                    </span>
+                </div>
+            </figure>
+        </div>
+    }
 </div>

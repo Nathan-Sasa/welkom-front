@@ -1,0 +1,56 @@
+<div
+    role="listitem"
+    aria-label="guests list"
+    class="w-full flex-col border border-wlk-border rounded-lg overflow-hidden"
+    >
+    <div
+        class="w-full border-b border-wlk-border p-md grid grid-cols-17 gap-m"
+        >
+        @for (head of listHead; track head.id) {
+            <span class="first:col-span-1 nth-[2]:col-span-3 col-span-2 || nth-[4]:col-span-3 || nth-[5]:col-span-2 nth-[5]:pr-md || nth-[6]:col-span-2 nth-[6]:px-sm">
+                <small class="text-wlk-content font-Medium">
+                    {{head.name}}
+                </small>
+            </span>
+        }
+    </div>
+    <div
+        class="w-full p-m"
+        >
+        @for (guest of guests(); track $index) {
+            <div 
+                wlkEntryAnim
+                [delay]="200"
+                [translateY]="25"
+                class="opacity-0 w-full grid grid-cols-17 p-md  not-last:border-b not-last:border-wlk-border  hover:">
+                <!-- [class.bg-wlk-sage/50!]="guest().rsvpStatus === 'CONFIRM'"
+                [class.bg-wlk-danger/50!]="guest().rsvpStatus === 'DECLINED'" -->
+                <p-avatar 
+                    [label]="guest.firstName[0].toUpperCase() + guest.lastName[0].toUpperCase()"
+                    class="border! border-wlk-content-muted! *:text-label! text-wlk-content-secondary! font-Semibold! col-span-1"
+                />
+
+                <span class="text-label font-Medium col-span-3 flex items-center">
+                    {{guest.firstName}}
+                    {{guest.lastName}}
+                </span>
+
+                <span class="text-small font-Medium col-span-2 flex items-center">
+                    {{guest.telephone}}
+                </span>
+
+                <span class="text-small font-Medium col-span-3 flex items-center line-clamp-1">
+                    {{guest.email}}
+                </span>
+
+                <span class="text-small font-Medium col-span-2 flex items-center justify-">
+                    {{guest.category}}
+                </span>
+
+                <span class="text-small font-Medium col-span-2 flex items-center justify-">
+                    {{guest.tableUuid.slice(0, 8)}} - {{guest.category}}
+                </span>
+            </div>
+        }
+    </div>
+</div>

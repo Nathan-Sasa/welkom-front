@@ -1,0 +1,43 @@
+<article
+    [ariaLabel]="'invité'+ ' ' + guest().firstName+ ' '+guest().lastName"
+    class="w-full flex items-center justify-between"
+    >
+    <div
+        class="flex items-start gap-sm"
+        >
+        <p-avatar 
+            shape="square"
+            size="normal"
+            [label]="guest().firstName[0]+ ' '+guest().lastName[0]"
+            class="border! border-wlk-content-muted! *:text-label! text-wlk-content-secondary! font-Semibold!"
+            [class.bg-wlk-sage/50!]="guest().rsvpStatus === 'CONFIRM'"
+            [class.bg-wlk-danger/50!]="guest().rsvpStatus === 'DECLINED'"
+        />
+        <div
+            class="flex flex-col"
+            >
+            <span class="text-label font-Semibold">
+                {{guest().firstName}}
+                {{' '}}
+                {{guest().lastName}}
+            </span>
+            <small class="text-small text-wlk-content-muted">
+                {{guest().category}}
+            </small>
+        </div>
+    </div>
+    <span>
+        @switch(guest().rsvpStatus) {
+            @case ('PENDING') {
+                <small class="text-wlk-content-secondary">En attente</small>
+            }
+            @case ('CONFIRM') {
+                <small class="text-wlk-sage">Confirmé</small>
+            }
+            @case ('DECLINED') {
+                <small class="text-wlk-danger">Réeté</small>
+            }
+        }
+        <!-- {{guest().rsvpStatus}} -->
+    </span>
+</article> 

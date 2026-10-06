@@ -13,6 +13,13 @@ export interface IPieChartData {
     data: IPieChartDetails[]
 }
 
+export interface IChartRadial {
+    confirm: number
+    declined: number
+    pending: number
+    total: number
+}
+
 interface IPieChartDetails {
     x: string,
     y: number

@@ -6,6 +6,8 @@ export interface IDashboard {
     event: IEventDashboard
     eventStatus: IEventDashboardStatus
     rsvpStat: IRsvpDashboardStat
+    recentGuest: IRecentGuest[]
+    tables: ITableDashboard[]
 }
 
 export interface IEventDashboard {
@@ -29,4 +31,20 @@ export interface IEventDashboardStatus {
     countGuests: number
     status: EventStatus
     paymentStatus: PaymentStatus
+}
+
+export interface IRecentGuest {
+    uuid: string
+    firstName: string
+    lastName: string
+    category: string
+    email: string
+    telephone: string
+    rsvpStatus: string
+}
+
+export interface ITableDashboard {
+    tableName: string
+    maxSeats: number
+    countSeats: number
 }

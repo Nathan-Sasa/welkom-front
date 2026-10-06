@@ -7,6 +7,7 @@ export class EntryAnimDirective implements AfterViewInit, OnDestroy {
     @Input() delay = 200
     @Input() threshold = 0.5
     @Input() translateY = 5
+    @Input() translateX = 0
     @Input() speed = 300
 
     private hasAnimated = false
@@ -35,6 +36,7 @@ export class EntryAnimDirective implements AfterViewInit, OnDestroy {
                     // this.el.style.animation = `fadeIn 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275)`
                     this.el.style.setProperty(`--entryDelay`, `${this.delay}ms`)
                     this.el.style.setProperty('--entryTranslate', `${this.translateY}%`)
+                    this.el.style.setProperty('--entryTranslateX', `${this.translateX}%`)
                     this.el.style.setProperty('--entrySpeed', `${this.speed}ms`)
                     this.render.addClass(this.el, 'elVisible')
                     

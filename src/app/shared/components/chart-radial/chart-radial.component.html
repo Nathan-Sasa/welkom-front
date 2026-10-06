@@ -1,0 +1,25 @@
+<div
+    class="w-full h-full relative "
+    >
+    @if (chartRadialData()) {
+        <apx-chart
+            [series]="chartOptions().series!"
+            [chart]="chartOptions().chart!"
+            [plotOptions]="chartOptions().plotOptions!"
+            [labels]="chartOptions().labels!"
+            [stroke]="chartOptions().stroke!"
+            [colors]="chartOptions().colors!"
+            [theme]="chartOptions().theme!"
+            [legend]="chartOptions().legend!"
+        ></apx-chart>
+            <!-- [xaxis]="chartOptions().xaxis!" -->
+            <!-- [dataLabels]="chartOptions().dataLabels!" -->
+            <!-- [tooltip]="chartOptions().tooltip!" -->
+            <!-- [grid]="chartOptions().grid!" -->
+    } @else {
+        <div class="flex items-center justify-center w-full h-full text-gray-500">
+            Chargement des statistiques...
+            <!-- <app-loader-custom [class]="loaderSize()"></app-loader-custom> -->
+        </div>
+    }
+</div>

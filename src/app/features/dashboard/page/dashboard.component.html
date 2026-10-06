@@ -6,7 +6,7 @@
         <div
             class="flex flex-col"
             >
-            <span class="flex items-center text-h3 font-Semibold">
+            <span class="flex items-center text-h3 font-display">
                 Bonjour
                 {{auth()?.first_name}}
             </span>
@@ -14,10 +14,13 @@
                 <small class="text-wlk-content-muted">
                     Voici l'avant premiere de 
                 </small>
-                <small class="text-wlk-content-muted font-Semibold">
-                    {{data()!.event!.title}}
-                </small>
-
+                @if(data().event){
+                    <small class="text-wlk-content-muted font-Semibold">
+                        {{data().event.title}}
+                    </small>
+                }@else {
+                    <span class="h-2.5 w-44 rounded-md bg-wlk-content-muted animate-pulse"></span>
+                }
             </span>
         </div>
         <div>
@@ -33,12 +36,22 @@
             </span>
         </div>
     </div>
+
     <wlk-rsvp-statistic 
-    
+        [rsvpStat]="data().rsvpStat"
     />
+
     <wlk-rsvp-event-calendar 
+        [rsvpStatusRadial]="data().rsvpStat"
         [dateTime]="data().event ? data().event : simulate"
         [eventStatus]="data().event ? data().eventStatus : eventSimulate"
+    />
+
+    <wlk-guest-table 
+        [recentGuests]="data().recentGuest"
+        [tables]="data().tables"
+        [loadingData]="loadingData()"
+        [errorData]="errorData()"
     />
 </section>
 
@@ -135,57 +148,59 @@
                 </div>
             }
     
-    
-    
             @if (!eventKey() && error()) {
-                @if (errorContent()?.status === 400) {
-                    <div
-                        class="flex flex-col gap-big"
-                        >
+                @if (errorContent()){
+                    @if (errorContent().status === 400) {
                         <div
-                            class="flex flex-col gap-md"
+                            class="flex flex-col gap-big"
                             >
-                            <p-tag
-                                wlkEntryAnim
-                                [translateY]="15"
-                                [delay]="250"
-                                severity="warn"
-                                class="opacity-0"
+                            <div
+                                class="flex flex-col gap-md"
                                 >
-                                <i class="pi pi-exclamation-triangle"></i>
-                                {{errorContent()?.error?.message}}
-                            </p-tag>
-                            <p-tag
-                                wlkEntryAnim
-                                [translateY]="15"
-                                [delay]="250"
-                                severity="info"
-                                class="opacity-0"
+                                <p-tag
+                                    wlkEntryAnim
+                                    [translateY]="15"
+                                    [delay]="250"
+                                    severity="warn"
+                                    class="opacity-0"
+                                    >
+                                    <i class="pi pi-exclamation-triangle"></i>
+                                    <!-- @if(errorContent()){
+                                    } -->
+                                    {{errorContent().error.message}}
+                                </p-tag>
+                                <p-tag
+                                    wlkEntryAnim
+                                    [translateY]="15"
+                                    [delay]="250"
+                                    severity="info"
+                                    class="opacity-0"
+                                    >
+                                    Votre clé de sécurité vous permet de donner accès à vos agents de faire la vérification de QR code des vos invités au momenet du checking sans avoir accès à votre espace organisateur. Ainsi, les perosnnes autorisées à vérfier vos invités sont ceux qui auront accès à cette clé. Gardez-la pour vous. Vous pouver régénérer une autre si vous vous souhaitez annuler l'actuelle clé.
+                                </p-tag>
+                            </div>
+                            <span
+                                class="w-full flex  lg:flex-row items-center justify-between"
                                 >
-                                Votre clé de sécurité vous permet de donner accès à vos agents de faire la vérification de QR code des vos invités au momenet du checking sans avoir accès à votre espace organisateur. Ainsi, les perosnnes autorisées à vérfier vos invités sont ceux qui auront accès à cette clé. Gardez-la pour vous. Vous pouver régénérer une autre si vous vous souhaitez annuler l'actuelle clé.
-                            </p-tag>
+                                <p-button 
+                                    severity="primary"
+                                    size="small"
+                                    icon="pi pi-play-circle"
+                                    iconPos="right"
+                                    label="Comment utiliser la clé"
+                                />
+        
+                                <!-- button test temploraire pour generer la clé de sécurité -->
+                                <p-button 
+                                    severity="primary"
+                                    [outlined]="true"
+                                    size="small"
+                                    label="Activer l'événement"
+                                    (onClick)="activateEvent()"
+                                />
+                            </span>
                         </div>
-                        <span
-                            class="w-full flex  lg:flex-row items-center justify-between"
-                            >
-                            <p-button 
-                                severity="primary"
-                                size="small"
-                                icon="pi pi-play-circle"
-                                iconPos="right"
-                                label="Comment utiliser la clé"
-                            />
-    
-                            <!-- button test temploraire pour generer la clé de sécurité -->
-                            <p-button 
-                                severity="primary"
-                                [outlined]="true"
-                                size="small"
-                                label="Activer l'événement"
-                                (onClick)="activateEvent()"
-                            />
-                        </span>
-                    </div>
+                    }
                 }
                 <!-- @if (errorContent()?.status === 400) {
                     <div

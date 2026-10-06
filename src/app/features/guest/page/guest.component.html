@@ -1,0 +1,127 @@
+<section
+    class="w-full flex flex-col gap-md"
+    >
+    <div
+        class="w-full border-b border-wlk-border flex flex-col gap-x pb-md"
+        >
+        <div class="flex items-start justify-between">
+            <div>
+                <h2 class="text-h3 font-display">Liste d'invités</h2>
+                <small class="text-small text-wlk-content-secondary">Liste filtrable par noms, catégorie, rsvp status et l'état d'envoie d'invitations </small>
+            </div>
+            <div class="flex items-center gap-lg">
+                <p-button 
+                    label="Ajouter"
+                    size="small"
+                    icon="pi pi-plus"
+                    class="hidden lg:block"
+                />
+                <p-button 
+                    label="Import en PDF"
+                    size="small"
+                    icon="pi pi-file"
+                    class="hidden lg:block"
+                />
+                <p-button 
+                    icon="pi pi-plus"
+                    size="small"
+                    class="block lg:hidden"
+                />
+            </div>
+        </div>
+        <div
+            aria-label="toolbar"
+            role="toolbar"
+            class="flex flex-col gap-xl w-full relative"
+            >
+            <p-iconfield
+                wlkEntryAnim
+                [translateY]="25"
+                [threshold]="0.3"
+                class="w-full! opacity-0"
+                >
+                <p-inputicon class="pi pi-search" />
+                <!-- (input)=""  -->
+                <input 
+                    pInputText 
+                    type="search" 
+                    (input)="onTape($event)"
+                    placeholder="Recherche..." 
+                    class="w-full! h-16! text-display! bg-wlk-surface-soft!"
+                />
+                <!-- (focus)="searchFocus.set(true)"
+                (blur)="searchFocus.set(false)" -->
+            </p-iconfield>
+            <div
+                class="flex flex-col gap-sm"
+                >
+                <span class="text-h4 font-display">
+                    Filtre
+                </span>
+                <div
+                    class="grid grid-cols-4"
+                    >
+                    <p-select
+                        inputId="timezone"
+                        [options]="categories()"
+                        optionLabel="name"
+                        optionValue="value"
+                        [ngModel]="category()"
+                        (ngModelChange)="category.set($event)"
+                        [filter]="true"
+                        placeholder="Categories"
+                        class="bg-wlk-surface!"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="w-full"
+        >
+        @defer(on viewport){
+            @if(guestsLoading() && firstPage()){
+                <wlk-guest-skeleton-list />
+            }@else {
+                <wlk-guest-list 
+                    [guests]="guests()"
+                    [loading]="guestsLoading()"
+                />
+            }
+
+            @if(guestEmpty() && !searchFocus()){
+                <div class="w-full flex items-center justify-center py-big">
+                    <span>Aucun invité</span>
+                </div>
+            }
+
+            @if (guestEmpty() && searchFocus()){
+                <div class="w-full flex items-center justify-center py-big">
+                    <span>Aucun avec ce recherche</span>
+                </div>
+            }
+        }@placeholder {
+            <span>Chaergement des invités</span>
+        }
+
+        <div class="mx-auto w-5">
+            @if (!lastPage() && !fetching) {
+                @defer (on viewport) {
+                    <span>{{loadGuestsByEvent(false)}}</span>
+                }@placeholder {
+                    <div>
+                        Défiler pour charger plus d'événements.
+                    </div>
+                }
+            }
+            @if(fetching && !lastPage()) {
+                <p-progress-spinner 
+                    size="small"
+                />
+            }
+        </div>
+        
+    </div>
+
+</section>

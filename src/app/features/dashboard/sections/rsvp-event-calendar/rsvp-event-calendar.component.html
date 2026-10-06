@@ -3,20 +3,26 @@
     >
     <div
         aria-label="rsvp statistique"
-        class="lg:col-span- lg:flex hidden flex-col gap-md bg-wlk-surface-soft py-md rounded-xl overflow-hidden"
+        wlkEntryAnim
+        [threshold]="0.3"
+        [translateY]="15"
+        class="lg:col-span- lg:flex hidden flex-col gap-md bg-wlk-surface-soft py-md rounded-xl overflow-hidden opacity-0"
         >
-        <span class="text-h4 px-lg">RSVP Analytics</span>
-        <wlk-chart-area 
-            [chartData]="rsvpAnalytic()" 
+        <span class="text-h4 px-lg font-Semibold text-wlk-content-secondary">RSVP Analytics</span>
+        <wlk-chart-radial 
+            [chartRadialData]="rsvpStatusRadial()" 
             [loaderSize]="'scale-30'" 
             [height]="250" 
             class="w-full h-full relative"
-        ></wlk-chart-area>
+        />
     </div>
 
     <div 
         aria-label="event carte"
-        class="border border-wlk-border rounded-xl relative overflow-hidden"
+        wlkEntryAnim
+        [threshold]="0.3"
+        [translateY]="15"
+        class="border border-wlk-border rounded-xl relative overflow-hidden opacity-0"
         >
         <!-- cover -->
         <div
@@ -39,7 +45,7 @@
             <span
                 class="mb-xl"
                 >
-                <p class="text-h4 font-Semibold">Titre de l'événement actuel version longue</p>
+                <p class="text-h4 font-Semibold text-wlk-content-secondary">Titre de l'événement actuel version longue</p>
             </span>
 
             <div
@@ -52,11 +58,11 @@
                         <span class="p-sm flex items-center justify-center bg-wlk-border/30 border border-wlk-border rounded-md">
                             <i class="pi pi-users text-wlk-content-secondary"></i>
                         </span>
-                        <small class="font-Semibold text-wlk-content-secondary">
+                        <small class="font-Semibold ">
                             Invités
                         </small>
                     </span>
-                    <span class="pl-xs font-Semibold flex items-center text-label text-wlk-content-secondary">
+                    <span class="pl-xs font-Semibold flex items-center text-label ">
                         {{eventStatus().countGuests}}
                     </span>
                 </div>
@@ -68,7 +74,7 @@
                         <span class="p-sm flex items-center justify-center bg-wlk-border/30 border border-wlk-border rounded-md">
                             <i class="pi pi-clock text-wlk-content-secondary"></i>
                         </span>
-                        <small class="font-Semibold text-wlk-content-secondary">
+                        <small class="font-Semibold ">
                             Evénement
                         </small>
                     </span>
@@ -76,7 +82,7 @@
                             @case ('PENDING') {
                                 <div class="col-span-3 flex items-center">
                                     <span
-                                        class="h-fit w-fit rounded-lg font-Semibold flex items-center text-label text-wlk-content-secondary"
+                                        class="h-fit w-fit rounded-lg font-Semibold flex items-center text-label "
                                         >
                                         À venir
                                     </span>
@@ -121,7 +127,7 @@
                         <span class="p-sm flex items-center justify-center bg-wlk-border/30 border border-wlk-border rounded-md">
                             <i class="pi pi-key text-wlk-content-secondary"></i>
                         </span>
-                        <small class="font-Semibold text-wlk-content-secondary">
+                        <small class="font-Semibold ">
                             Activation
                         </small>
                     </span>
@@ -172,10 +178,13 @@
 
 
     <div
-        class="border border-wlk-border rounded-xl relative bg-wlk-surface-soft"
+        aria-label="event calendrier"
+        wlkEntryAnim
+        [threshold]="0.3"
+        [translateY]="15"
+        class="border border-wlk-border rounded-xl relative bg-wlk-surface-soft opacity-0"
         >
         <wlk-calendar [dateTime]="dateTime()" />
-
     </div>
 
 
@@ -184,12 +193,18 @@
     <div
         class="md:col-span-2 lg:hidden flex flex-col gap-md bg-wlk-surface-soft py-md rounded-xl"
         >
-        <span class="text-h4 px-lg">RSVP Analytics</span>
-        <wlk-chart-area 
+        <span class="text-h4 px-lg font-Semibold text-wlk-content-secondaryC">RSVP Analytics</span>
+        <wlk-chart-radial 
+            [chartRadialData]="rsvpStatusRadial()" 
+            [loaderSize]="'scale-30'" 
+            [height]="250" 
+            class="w-full h-full relative"
+        />
+        <!-- <wlk-chart-area 
             [chartData]="rsvpAnalytic()" 
             [loaderSize]="'scale-30'" 
             [height]="250" 
             class="w-full h-full relative"
-        ></wlk-chart-area>
+        ></wlk-chart-area> -->
     </div>
 </div>

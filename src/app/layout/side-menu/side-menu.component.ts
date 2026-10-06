@@ -1,7 +1,8 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AppInfo } from '../../shared/utils/meta-data';
 import { EntryAnimDirective } from '../../shared/directives/entry-anim.directive';
+import { DashboardService } from '../../features/dashboard/services/dashboard.service';
 
 @Component({
 	selector: 'wlk-side-menu',
@@ -16,6 +17,7 @@ import { EntryAnimDirective } from '../../shared/directives/entry-anim.directive
 export class SideMenuComponent {
 
 	appLogo = AppInfo.logo
+	eventUuid = inject(DashboardService).getEventStorage$()?.uuid
 
 	isCollapsed = computed<boolean>(() => {
 		return this.toggle()
@@ -25,9 +27,9 @@ export class SideMenuComponent {
 	toggle = input.required<boolean>()
 
 	menuItems = [
-		{ route: '/dashboard', icon: 'pi pi-objects-column text-label', label: 'Dashboard' },
+		{ route: `/dashboard/${this.eventUuid}`, icon: 'pi pi-objects-column text-label', label: 'Dashboard' },
+		{ route: `/guest/${this.eventUuid}`, icon: 'pi pi-user', label: 'Invités' },
 		{ route: '/catalogues', icon: 'pi pi-folder', label: 'Catalogues' },
-		{ route: '/profile', icon: 'pi pi-user', label: 'Profile' }
 	];
 
 	// getToggle = computed<boolean>(() => {

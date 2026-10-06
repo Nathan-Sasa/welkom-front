@@ -18,6 +18,8 @@ import { Dialog } from 'primeng/dialog'
 import { TagModule } from 'primeng/tag'
 import { ToastModule } from 'primeng/toast'
 import { ProgressSpinnerModule } from 'primeng/progressspinner'
+import { IChartData } from '../../../core/interfaces/chart-data.interface';
+import { GuestTableComponent } from '../sections/guest-table/guest-table.component';
 
 @Component({
 	selector: 'app-dashboard.component',
@@ -26,11 +28,12 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner'
 		RsvpEventCalendarComponent,
 		ButtonModule,
 		Dialog,
-		ErrorsComponent,
+		// ErrorsComponent,
 		TagModule,
 		ToastModule,
 		EntryAnimDirective,
 		ProgressSpinnerModule,
+		GuestTableComponent
 	],
 	templateUrl: './dashboard.component.html',
 	styleUrl: './dashboard.component.css',
@@ -44,6 +47,23 @@ export class DashboardComponent implements OnInit {
 	private readonly message = inject(MessageService)
 
 	protected data = signal<IDashboard>(<IDashboard>{})
+	protected loadingData = signal<boolean>(true)
+	protected errorData = signal<boolean>(false)
+	protected rsvpRadial = signal<IChartData[]>([
+    {
+        name: 'principal',
+        data: [
+            {
+                x: 'ventes',
+                y: 334040
+            },
+            {
+                x: 'achat',
+                y: 439024
+            }
+        ]
+    }
+])
 
 	protected keyModal: boolean = false
 	protected eventKey = signal<string>('')
@@ -84,10 +104,12 @@ export class DashboardComponent implements OnInit {
 			.subscribe({
 				next: (res) => {
 					this.data.set(res)
+					this.loadingData.set(false)
+					this.errorData.set(false)
 					console.log('dashboard data : ', res)
-					// console.log('event depuis storage : ', eventUuid)
 				},
 				error: (err) => {
+					this.errorData.set(true)
 					console.log('dashboard error : ', err)
 				}
 			})
@@ -95,10 +117,7 @@ export class DashboardComponent implements OnInit {
 	}
 
 	getSecurityKey(): void {
-
 		if (this.keyFetching) return
-
-		// this.loadKey.set(true)
 
 		this.dashboard.getSecurityKey(this.data().event.uuid)
 			.pipe(takeUntilDestroyed(this.destroyRef))
@@ -121,8 +140,6 @@ export class DashboardComponent implements OnInit {
 					}
 					this.errorContent.set(errorContent)
 					this.error.set(true)
-
-					// console.log('Key error : ', err)
 				}
 			})
 	}

@@ -1,0 +1,33 @@
+<article
+    [ariaLabel]="'Table'"
+    class="w-full flex items-center justify-between"
+    >
+    <div
+        class="flex items-start gap-sm"
+        >
+        <p-avatar 
+            [label]="table().tableName.slice(0,2).toUpperCase()"
+            shape="square"
+            size="normal"
+            class="border! border-wlk-content-muted! *:text-label! text-wlk-content-secondary! font-Semibold!"
+        />
+        <div
+            class="flex flex-col py-xs items-center"
+            >
+            <span class="font-Semibold text-label">
+                {{table().tableName}}
+            </span>
+        </div>
+    </div>
+    <div
+        class="flex items-center text-wlk-content-secondary"
+        >
+        <span class="text-label text-wlk-content-secondary font-Semibold">
+            {{table().countSeats}}
+        </span>
+        /
+        <span class="text-label text-wlk-content-secondary font-Semibold">
+            {{table().maxSeats}}
+        </span>
+    </div>
+</article>

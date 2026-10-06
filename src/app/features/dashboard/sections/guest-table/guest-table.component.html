@@ -1,0 +1,142 @@
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+    <div
+        wlkEntryAnim
+        [threshold]="0.3"
+        [translateY]="15" 
+        class="flex flex-col gap-md bg-wlk-surface-soft p-md rounded-xl opacity-0">
+        <div
+            class="flex flex-col border-b border-wlk-border"
+            >
+            <div class="flex items-center justify-between">
+                <span class="font-Semibold text-h4 text-wlk-content-secondary">
+                    Derniers invités
+                </span>
+                @if (!loadingData() && recentGuests().length > 0) {
+                    <p-button 
+                        [routerLink]="['/guest', eventUuid]"
+                        label="tous"
+                        [text]="true"
+                        size="small"
+                        [fluid]="true"
+                        icon="pi pi-list"
+                        iconPos="right"
+                    />
+                }
+            </div>
+            @if (!loadingData() && recentGuests().length > 0) {
+                <div
+                    class="flex items-center justify-between py-md px-sm"
+                    >
+                    <small class="font-Semibold text-wlk-content-secondary">
+                        Noms
+                    </small>
+                    <small class="font-Semibold text-wlk-content-secondary">
+                        Rsvp
+                    </small>
+                </div>
+            }
+        </div>
+        <div class="flex flex-col">
+            @if(loadingData()){
+                @for(i of [1, 2,3,4]; track $index){
+                    <wlk-guest-skeleton class="my-sm" />
+                }
+            }
+            @if (!loadingData() && recentGuests().length > 0) {
+                @for (guest of recentGuests().slice(0, 5); track $index) {
+                    <wlk-recent-guest-card 
+                        [routerLink]="['/guest/details', guest.uuid]"
+                        [guest]="guest"
+                        class="not-last:border-b not-last:border-wlk-border cursor-pointer hover:bg-wlk-content-muted/20 duration-300 p-sm"
+                    />
+                }
+            }
+            @if (!loadingData() && recentGuests().length < 1){
+                <span class="w-full flex flex-col justify-center items-center gap-md py-lg">
+                    <p-tag 
+                        severity="warn"
+                        >
+                        Vous n'avez aucun(e) invité(e)
+                    </p-tag>
+                </span>
+                <p-button 
+                    label="Inviter vos membres"
+                    size="small"
+                    class="mx-auto py-big"
+                />
+            }
+        </div>
+    </div>
+
+    <div
+        wlkEntryAnim
+        [threshold]="0.3"
+        [translateY]="15"
+        class="flex flex-col gap-md bg-wlk-surface-soft p-md rounded-xl opacity-0">
+        <div
+            class="flex flex-col border-b border-wlk-border"
+            >
+            <div class="flex items-center justify-between">
+                <span class="font-Semibold text-h4 text-wlk-content-secondary">
+                    Table vide
+                </span>
+                @if (!loadingData() && tables().length > 0) {
+                    <p-button 
+                        label="toutes"
+                        [text]="true"
+                        size="small"
+                        [fluid]="true"
+                        icon="pi pi-list"
+                        iconPos="right"
+                    />
+                }
+            </div>
+            @if (!loadingData() && tables().length > 0) {
+                <div
+                    class="flex items-center justify-between py-md px-sm"
+                    >
+                    <small class="font-Semibold text-wlk-content-secondary">
+                        Nom
+                    </small>
+                    <small class="font-Semibold text-wlk-content-secondary">
+                        Places
+                    </small>
+                </div>
+            }
+        </div>
+        <div class="flex flex-col">
+
+            @if (loadingData()){
+                @for(i of [1, 2,3,4]; track $index){
+                    <wlk-guest-skeleton class="my-sm" />
+                }
+            }
+
+            @if (!loadingData() && tables().length > 0) {
+                @for (table of tables(); track $index) {
+                    <wlk-table-card 
+                        [table]="table"
+                        class="not-last:border-b not-last:border-wlk-border cursor-pointer hover:bg-wlk-content-muted/20 duration-300 p-sm"
+                    />
+                }
+            }
+
+            @if (!loadingData() && tables().length < 1){
+                <span class="w-full flex flex-col justify-center items-center gap-md py-lg">
+                    <p-tag 
+                        severity="warn"
+                        >
+                        Vous n'avez aucune tablé créé.    
+                    </p-tag>
+                </span>
+            }
+
+            <p-button 
+                label="Créer une nouvelle table"
+                size="small"
+                class="mx-auto py-big"
+            />
+
+        </div>
+    </div>
+</div>

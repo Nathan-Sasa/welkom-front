@@ -9,7 +9,7 @@ export const DashboardRoutes: Routes = [
         canMatch: [roleGuard(ROLES.USER || ROLES.ADMIN || ROLES.SUPER_ADMIN) && dashboardGuard],
         children: [
             {
-                path: ':EventUuid',
+                path: ':eventUuid',
                 loadComponent: () => import('./page/dashboard.component').then(m => m.DashboardComponent)
             }
         ]
