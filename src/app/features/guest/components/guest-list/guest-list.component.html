@@ -7,7 +7,7 @@
         class="w-full border-b border-wlk-border p-md grid grid-cols-17 gap-m"
         >
         @for (head of listHead; track head.id) {
-            <span class="first:col-span-1 nth-[2]:col-span-3 col-span-2 || nth-[4]:col-span-3 || nth-[5]:col-span-2 nth-[5]:pr-md || nth-[6]:col-span-2 nth-[6]:px-sm">
+            <span class="first:col-span-1 nth-[2]:col-span-3 col-span-2 || nth-[4]:col-span-3 || nth-[5]:col-span-2 nth-[5]:pr-md || nth-[6]:col-span-2 nth-[6]:px-sm || nth-[7]:col-span-2 ||">
                 <small class="text-wlk-content font-Medium">
                     {{head.name}}
                 </small>
@@ -44,11 +44,20 @@
                 </span>
 
                 <span class="text-small font-Medium col-span-2 flex items-center justify-">
-                    {{guest.category}}
+                    {{frenchCategory(guest.category)}}
                 </span>
 
                 <span class="text-small font-Medium col-span-2 flex items-center justify-">
-                    {{guest.tableUuid.slice(0, 8)}} - {{guest.category}}
+                    {{guest.tableName}}
+                </span>
+
+                <span class="text-small font-Medium col-span-2 flex items-center justify- {{colorRsvp(guest.rsvpStatus)}}">
+                    {{frenchRsvp(guest.rsvpStatus)}}
+                </span>
+
+                <span class="text-small font-Medium col-span-1 flex items-center justify-">
+                    <!-- {{frenchRsvp(guest.rsvpStatus)}} -->
+                    {{guest.sendInvitationStatus}}
                 </span>
             </div>
         }

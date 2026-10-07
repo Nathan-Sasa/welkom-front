@@ -61,17 +61,21 @@
                 <div
                     class="grid grid-cols-4"
                     >
-                    <p-select
-                        inputId="timezone"
-                        [options]="categories()"
-                        optionLabel="name"
-                        optionValue="value"
-                        [ngModel]="category()"
-                        (ngModelChange)="category.set($event)"
-                        [filter]="true"
-                        placeholder="Categories"
-                        class="bg-wlk-surface!"
-                    />
+                    <span class="flex flex-col gap-xs">
+                        <small class="font-Semibold">Catégories</small>
+                        <p-select
+                            inputId="timezone"
+                            [options]="categories()"
+                            optionLabel="name"
+                            optionValue="value"
+                            [ngModel]="category()"
+                            (ngModelChange)="onCategoryFilter($event)"
+                            (onFilter)="onCategoryFilter($event)"
+                            [filter]="true"
+                            placeholder="Categories"
+                            class="bg-wlk-surface!"
+                        />
+                    </span>
                 </div>
             </div>
         </div>
@@ -98,7 +102,7 @@
 
             @if (guestEmpty() && searchFocus()){
                 <div class="w-full flex items-center justify-center py-big">
-                    <span>Aucun avec ce recherche</span>
+                    <span class="text-h4 text-wlk-content-muted">Aucun avec ce recherche</span>
                 </div>
             }
         }@placeholder {

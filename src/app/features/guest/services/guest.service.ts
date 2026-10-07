@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { environment } from '../../../../environments/environment';
 import { delay, Observable } from 'rxjs';
-import { IGuest } from '../interfaces/guest.interface';
+import { IGuest, IGuestDetails, IUpdateGuestDetails } from '../interfaces/guest.interface';
 import { Pagination } from '../../../core/interfaces/pagination.interface';
 
 @Injectable({
@@ -32,5 +32,13 @@ export class GuestService {
 		}
 
 		return this.http.get<Pagination<IGuest>>(`${this.guestApi}/${eventUuid}/guests`, {params}).pipe(delay(500))
+	}
+
+	getGuestDetails(eventUuid: string, guestUuid: string): Observable <IGuestDetails>{
+		return this.http.get<IGuestDetails>(`${this.guestApi}/${eventUuid}/guests/${guestUuid}`)
+	}
+
+	updateGuest(eventUuid: string, guestUuid: string, guestPayload: IUpdateGuestDetails): Observable<IGuestDetails>{
+		return this.http.patch<IGuestDetails>(`${this.guestApi}/${eventUuid}/guests/${guestUuid}`, guestPayload)
 	}
 }

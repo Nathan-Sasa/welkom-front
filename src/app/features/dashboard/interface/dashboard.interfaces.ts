@@ -1,4 +1,6 @@
+import { CategoriesType } from "../../../core/types/category.type"
 import { PaymentStatus } from "../../../core/types/payment.type"
+import { RsvpCategory, RsvpType } from "../../../core/types/rsvp.type"
 // import { RsvpStatus } from "../../../core/types/rsvp.type"
 import { EventStatus } from "../../event/interface/event.interface"
 
@@ -37,10 +39,10 @@ export interface IRecentGuest {
     uuid: string
     firstName: string
     lastName: string
-    category: string
+    category: CategoriesType
     email: string
     telephone: string
-    rsvpStatus: string
+    rsvpStatus: RsvpType
 }
 
 export interface ITableDashboard {

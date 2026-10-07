@@ -45,7 +45,7 @@
             @if (!loadingData() && recentGuests().length > 0) {
                 @for (guest of recentGuests().slice(0, 5); track $index) {
                     <wlk-recent-guest-card 
-                        [routerLink]="['/guest/details', guest.uuid]"
+                        [routerLink]="[ '/guest', eventUuid,'details', guest.uuid]"
                         [guest]="guest"
                         class="not-last:border-b not-last:border-wlk-border cursor-pointer hover:bg-wlk-content-muted/20 duration-300 p-sm"
                     />
@@ -131,11 +131,20 @@
                 </span>
             }
 
-            <p-button 
-                label="Créer une nouvelle table"
-                size="small"
-                class="mx-auto py-big"
-            />
+            @if(!loadingData() && tables().length < 1){
+                <span class="w-full flex flex-col justify-center items-center gap-md py-lg">
+                    <p-tag 
+                        severity="warn"
+                        >
+                        Vous n'avez aucune tablé créé.    
+                    </p-tag>
+                </span>
+                <p-button 
+                    label="Créer une nouvelle table"
+                    size="small"
+                    class="mx-auto py-big"
+                />
+            }
 
         </div>
     </div>

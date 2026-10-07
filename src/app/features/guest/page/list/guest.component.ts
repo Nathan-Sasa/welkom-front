@@ -1,22 +1,23 @@
 import { Component, DestroyRef, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { DashboardService } from '../../dashboard/services/dashboard.service';
-import { GuestService } from '../services/guest.service';
-import { IGuest } from '../interfaces/guest.interface'
+import { DashboardService } from '../../../dashboard/services/dashboard.service';
+import { GuestService } from '../../services/guest.service';
+import { IGuest } from '../../interfaces/guest.interface'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { RoleDirective } from '../../../shared/directives/role/role.directive';
+import { RoleDirective } from '../../../../shared/directives/role/role.directive';
 // import { ToolbarModule } from 'primeng/toolbar'
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { EntryAnimDirective } from '../../../shared/directives/entry-anim.directive';
+import { EntryAnimDirective } from '../../../../shared/directives/entry-anim.directive';
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
-import { CategoriesType, CATEGORY_STATUS, GuestCategory, categoryLabels } from '../../../core/types/category.type';
-import { GuestListComponent } from '../components/guest-list/guest-list.component';
+import { CategoriesType, CATEGORY_STATUS, GuestCategory, categoryLabels } from '../../../../core/types/category.type';
+import { GuestListComponent } from '../../components/guest-list/guest-list.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { debounceTime, distinctUntilChanged, Subject, Subscription } from 'rxjs';
-import { GuestSkeletonListComponent } from '../components/guest-skeleton-list/guest-skeleton-list.component';
+import { GuestSkeletonListComponent } from '../../components/guest-skeleton-list/guest-skeleton-list.component';
+import { Router } from '@angular/router';
 
 interface guestCategories {
     id: number
@@ -44,6 +45,7 @@ interface guestCategories {
 export class GuestComponent implements OnInit, OnDestroy {
 
 	private readonly eventUuid = inject(DashboardService).getEventStorage$()?.uuid
+    private readonly router = inject(Router)
 
     private readonly destroyRef = inject(DestroyRef)
     private guestService = inject(GuestService)
@@ -59,29 +61,38 @@ export class GuestComponent implements OnInit, OnDestroy {
     protected guestEmpty = signal<boolean>(false)
 
 
+    private searchTerm = signal<string>('')
     private searchSubject = new Subject<string>()
 	private searchSubscription!: Subscription
     protected searchFocus = signal<boolean>(false)
 
-    category = signal<CategoriesType[]>(['FRIENDS'])
+    category = signal<CategoriesType>('')
     categories = signal<guestCategories[]>([
+        {id: 5, name: categoryLabels.ALL, value: CATEGORY_STATUS.ALL},
         {id: 1, name: categoryLabels.FAMILY, value: CATEGORY_STATUS.FAMILY},
         {id: 2, name: categoryLabels.FRIENDS, value: CATEGORY_STATUS.FRIENDS},
         {id:3, name: categoryLabels.COLLEAGUES, value: CATEGORY_STATUS.COLLEAGUES},
-        {id: 4, name: categoryLabels.OTHER, value: CATEGORY_STATUS.OTHER}
+        {id: 4, name: categoryLabels.OTHER, value: CATEGORY_STATUS.OTHER},
     ])
 
     private categorySubject = new Subject<CategoriesType>()
     private categorySubscription!: Subscription
+    private categoryTerm = signal<CategoriesType>('')
+    
 
     ngOnInit(): void {
         console.log('event uuid : ', this.eventUuid)
         this.loadGuestsByEvent(true)
 
         this.subscriptionSearch()
+        this.subscriptionCategory()
     }
 
-    loadGuestsByEvent(initializer: boolean = false, search: string = '', category: string = ''): void {
+    loadGuestsByEvent(
+        initializer: boolean = false, 
+        search: string = this.searchTerm(), 
+        category: CategoriesType = this.categoryTerm()
+    ): void {
 
         if(this.fetching) return
 		if (!initializer && this.lastPage()) return
@@ -101,7 +112,7 @@ export class GuestComponent implements OnInit, OnDestroy {
             this.size,
             search,
             category
-            )
+        )
 
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
@@ -124,6 +135,9 @@ export class GuestComponent implements OnInit, OnDestroy {
                     this.fetching = false
                     this.guestsLoading.set(false)
                     console.log('guest guest : ', res)
+                },
+                error: (err) => {
+                    console.log('guest list error : ', err)
                 }
             })
     }
@@ -135,12 +149,55 @@ export class GuestComponent implements OnInit, OnDestroy {
 			distinctUntilChanged()
 		).subscribe({
             next: (value) => {
+                this.searchTerm.set(value)
                 if (value) {
-                    this.loadGuestsByEvent(true, value, '')
+                    this.loadGuestsByEvent(true, value, this.categoryTerm())
                     this.searchFocus.set(true)
+                    this.router.navigate([], {
+                        queryParams: {
+                            search: value,
+                            category: this.categoryTerm() !== '' ? this.categoryTerm() : null
+                        }
+                    })
                 }else {
-                    this.loadGuestsByEvent(true, '', '')
-                    this.searchFocus.set(false)
+                    this.loadGuestsByEvent(true, '', this.categoryTerm())
+                    this.router.navigate([], {
+                        queryParams: {
+                            search: null,
+                            category: this.categoryTerm() !== '' ? this.categoryTerm() : null
+                        }
+                    })
+
+                    setTimeout(()=> this.searchFocus.set(false), 1500 )
+                    // this.searchFocus.set(false)
+                }
+            }
+        })
+    }
+
+    subscriptionCategory(){
+        this.categorySubscription = this.categorySubject.pipe(
+            debounceTime(300),
+            distinctUntilChanged()
+        ).subscribe({
+            next: (category) => {
+                this.categoryTerm.set(category)
+                this.loadGuestsByEvent(true, this.searchTerm(), category)
+                // console.log('category : ', category)
+                if(category){
+                    this.router.navigate([], {
+                        queryParams: {
+                            search: this.searchTerm() !== '' ? this.searchTerm() : null,
+                            category: category
+                        }
+                    })
+                }else {
+                    this.router.navigate([], {
+                        queryParams: {
+                            search: this.searchTerm() !== '' ? this.searchTerm() : null,
+                            category: null
+                        }
+                    })
                 }
             }
         })
@@ -152,10 +209,19 @@ export class GuestComponent implements OnInit, OnDestroy {
 		this.searchSubject.next(element.value)
 	}
 
+    onCategoryFilter(category: any): void {
+        const asCategoryType = category as CategoriesType
+        this.categorySubject.next(asCategoryType) 
+    }
+
 
     ngOnDestroy(): void {
 		if (this.searchSubscription) {
 			this.searchSubscription.unsubscribe()
 		}
+
+        if (this.categorySubscription){
+            this.categorySubscription.unsubscribe()
+        }
 	}
 }

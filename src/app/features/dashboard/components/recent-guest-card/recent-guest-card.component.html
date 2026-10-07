@@ -22,12 +22,12 @@
                 {{guest().lastName}}
             </span>
             <small class="text-small text-wlk-content-muted">
-                {{guest().category}}
+                {{frenchCategory(guest().category)}}
             </small>
         </div>
     </div>
     <span>
-        @switch(guest().rsvpStatus) {
+        <!-- @switch(guest().rsvpStatus) {
             @case ('PENDING') {
                 <small class="text-wlk-content-secondary">En attente</small>
             }
@@ -35,9 +35,11 @@
                 <small class="text-wlk-sage">Confirmé</small>
             }
             @case ('DECLINED') {
-                <small class="text-wlk-danger">Réeté</small>
+                <small class="text-wlk-danger">Décliné</small>
             }
-        }
-        <!-- {{guest().rsvpStatus}} -->
+        } -->
+            <small class=" {{colorRsvp(guest().rsvpStatus)}} {{backgroundRsvp(guest().rsvpStatus)}} p-xs">
+                {{frenchRsvp(guest().rsvpStatus)}}
+            </small>
     </span>
 </article> 

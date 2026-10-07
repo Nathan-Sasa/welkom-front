@@ -18,8 +18,22 @@ export const GuestRoutes: Routes = [
         children: [
             {
                 path:':eventUuid',
-                loadComponent: ()=> import('../guest/page/guest.component').then(m=> m.GuestComponent),
+                // loadComponent: ()=> import('./page/list/guest.component').then(m=> m.GuestComponent),
+                children: [
+                    {
+                        path: '',
+                        loadComponent: ()=> import('./page/list/guest.component').then(m=> m.GuestComponent),
+                    },
+                    {
+                        path: 'details/:guestUuid',
+                        loadComponent: () => import('./page/details/guest-details.component').then(m => m.GuestDetailsComponent)
+                    }
+                ]
             },
+            // {
+            //     path: 'details/:guestUuid',
+            //     loadComponent: () => import('./page/details/guest-details.component').then(m => m.GuestDetailsComponent)
+            // }
         ]
     },
     // {
