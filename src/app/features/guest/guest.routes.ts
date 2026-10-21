@@ -27,6 +27,16 @@ export const GuestRoutes: Routes = [
                     {
                         path: 'details/:guestUuid',
                         loadComponent: () => import('./page/details/guest-details.component').then(m => m.GuestDetailsComponent)
+                    },
+                    {
+                        path: 'add',
+                        title: 'Ajouter',
+                        loadComponent: () => import('./page/add/guest-add.component').then(m => m.GuestAddComponent)
+                    },
+                    {
+                        path: 'import',
+                        title: 'importer',
+                        loadComponent: () => import('./page/import/import.component').then(m => m.ImportComponent)
                     }
                 ]
             },

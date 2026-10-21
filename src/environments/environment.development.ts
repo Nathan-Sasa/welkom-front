@@ -36,6 +36,9 @@ export const environment = {
         },
         securityUrl: {
             eventKey: eventPrefix,
+        },
+        tableUrl: {
+            prefix: eventPrefix
         }
     }
 }

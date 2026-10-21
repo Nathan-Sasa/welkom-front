@@ -1,15 +1,18 @@
-import { Component, computed, inject, input, output } from '@angular/core';
+import { Component, computed, EventEmitter, inject, input, output, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AppInfo } from '../../shared/utils/meta-data';
 import { EntryAnimDirective } from '../../shared/directives/entry-anim.directive';
 import { DashboardService } from '../../features/dashboard/services/dashboard.service';
+
+import { DrawerModule } from 'primeng/drawer';
 
 @Component({
 	selector: 'wlk-side-menu',
 	imports: [
 		RouterLink,
 		RouterLinkActive,
-		EntryAnimDirective
+		EntryAnimDirective,
+		DrawerModule
 	],
 	templateUrl: './side-menu.component.html',
 	styleUrl: './side-menu.component.css',
@@ -22,8 +25,6 @@ export class SideMenuComponent {
 	isCollapsed = computed<boolean>(() => {
 		return this.toggle()
 	});
-
-	// toggle = output<boolean>();
 	toggle = input.required<boolean>()
 
 	menuItems = [

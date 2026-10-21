@@ -9,6 +9,7 @@
             label="Retour"
             [text]="true"
             icon="pi pi-arrow-left"
+            (onClick)="goBack()"
         />
     </div>
     <div
@@ -19,6 +20,8 @@
                 class="flex flex-col justify-center items-center gap-md  bg-wlk-surface-soft p-md rounded-lg"
                 >
                 <p-avatar 
+                    wlkEntryAnim
+                    [translateY]="15"
                     [label]="guest().firstName.slice(0,1).toUpperCase() + guest().lastName.slice(0,1).toUpperCase()"
                     shape="square"
                     size="xlarge"

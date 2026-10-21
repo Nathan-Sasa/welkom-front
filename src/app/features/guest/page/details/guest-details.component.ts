@@ -1,5 +1,5 @@
 import { Component, computed, DestroyRef, effect, inject, input, signal } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
+import { FormsModule } from '@angular/forms'
 import { GuestService } from '../../services/guest.service';
 import { IGuestDetails, IUpdateGuestDetails } from '../../interfaces/guest.interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -7,11 +7,12 @@ import { EntryAnimDirective } from '../../../../shared/directives/entry-anim.dir
 import { toBackgroundRsvp, toColorRsvp, toFrenchRsvp } from '../../../../shared/utils/rsvpTranslate';
 import { CategoriesType, CATEGORY_STATUS, categoryLabels } from '../../../../core/types/category.type';
 import { RsvpCategory, RsvpType } from '../../../../core/types/rsvp.type';
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { toFrenchCategory } from '../../../../shared/utils/guestCategoriesTranslate';
 
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
-import { toFrenchCategory } from '../../../../shared/utils/guestCategoriesTranslate';
 import { DividerModule } from 'primeng/divider';
 import { InplaceModule } from 'primeng/inplace';
 import { InputTextModule } from 'primeng/inputtext';
@@ -27,7 +28,6 @@ interface guestCategories {
 @Component({
 	selector: 'wlk-guest-details',
 	imports: [
-		ReactiveFormsModule,
 		FormsModule,
 		EntryAnimDirective,
 		ButtonModule,
@@ -46,6 +46,8 @@ export class GuestDetailsComponent {
 
 	private readonly guestService = inject(GuestService)
 	private readonly destroyRef = inject(DestroyRef)
+	private readonly location = inject(Location) 
+	private readonly router = inject(Router)
 
 	eventUuid = input<string>()
 	guestUuid = input<string>()
@@ -101,11 +103,6 @@ export class GuestDetailsComponent {
 		return !rsvp || rsvp === this.guest()?.rsvp
 	})
 
-
-	// guestForm = new FormGroup({
-	// 	firstName: new FormControl(''),
-	// })
-
 	constructor(){
 		effect(() => {
 			const event = this.eventUuid()
@@ -134,6 +131,14 @@ export class GuestDetailsComponent {
 
 			}
 		})
+	}
+
+	goBack(): void {
+		if(window.history.length > 1){
+			this.location.back()
+		} else {
+			this.router.navigate(['/'])
+		}
 	}
 
 	frenchCategory(category: CategoriesType): string {
@@ -186,6 +191,5 @@ export class GuestDetailsComponent {
 				}
 			})	
 	}
-
 
 }

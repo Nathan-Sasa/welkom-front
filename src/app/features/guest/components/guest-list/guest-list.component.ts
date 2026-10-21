@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { IGuest } from '../../interfaces/guest.interface';
 import { Avatar } from 'primeng/avatar';
 import { EntryAnimDirective } from '../../../../shared/directives/entry-anim.directive';
@@ -6,12 +6,17 @@ import { toFrenchCategory } from '../../../../shared/utils/guestCategoriesTransl
 import { CategoriesType } from '../../../../core/types/category.type';
 import { RsvpCategory, RsvpType } from '../../../../core/types/rsvp.type';
 import { toBackgroundRsvp, toColorRsvp, toFrenchRsvp } from '../../../../shared/utils/rsvpTranslate';
+import { Router, RouterLink } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { DashboardService } from '../../../dashboard/services/dashboard.service';
 
 @Component({
 	selector: 'wlk-guest-list',
 	imports: [
 		Avatar,
-		EntryAnimDirective
+		EntryAnimDirective,
+		ButtonModule,
+		RouterLink
 	],
 	templateUrl: './guest-list.component.html',
 	styleUrl: './guest-list.component.css',
@@ -20,6 +25,8 @@ export class GuestListComponent {
 
 	guests = input.required<IGuest[]>()
 	loading = input.required<boolean>()
+
+	protected eventUuid = inject(DashboardService).getEventStorage$()?.uuid
 
 	listHead = [
 		{ id: 1, name: '' },
@@ -30,6 +37,7 @@ export class GuestListComponent {
 		{ id: 6, name: 'Table' },
 		{ id: 7, name: 'Rsvp' },
 		{ id: 8, name: 'Invitation' },
+		{id: 9, name: '' }
 	]
 
 	frenchCategory(category: CategoriesType): string {

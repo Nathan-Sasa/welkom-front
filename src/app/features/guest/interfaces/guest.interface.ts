@@ -1,5 +1,17 @@
 import { CategoriesType } from "../../../core/types/category.type"
 import { RsvpType } from "../../../core/types/rsvp.type"
+import { IGuestContactImported } from "./guest-imported"
+
+export interface IGuestRequest {
+    firstName: string
+    lastName: string
+    email: string
+    telephone: string
+    category: CategoriesType
+}
+export interface IGuestRequestBatch {
+    guests: IGuestContactImported[]
+}
 
 export interface IGuest{
     uuid: string

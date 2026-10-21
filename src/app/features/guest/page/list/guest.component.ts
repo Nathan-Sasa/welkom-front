@@ -17,7 +17,10 @@ import { GuestListComponent } from '../../components/guest-list/guest-list.compo
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { debounceTime, distinctUntilChanged, Subject, Subscription } from 'rxjs';
 import { GuestSkeletonListComponent } from '../../components/guest-skeleton-list/guest-skeleton-list.component';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+
+import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDial } from 'primeng/speeddial';
 
 interface guestCategories {
     id: number
@@ -28,8 +31,9 @@ interface guestCategories {
 @Component({
     selector: 'wlk-guest',
     imports: [
-        ButtonModule,
         FormsModule,
+        // RouterLink,
+        ButtonModule,
         IconFieldModule,
         InputIcon,
         InputTextModule,
@@ -37,7 +41,8 @@ interface guestCategories {
         SelectModule,
         GuestListComponent,
         GuestSkeletonListComponent,
-        ProgressSpinnerModule
+        ProgressSpinnerModule,
+        SpeedDial,
 	],
     templateUrl: './guest.component.html',
     styleUrl: './guest.component.css',
@@ -78,6 +83,27 @@ export class GuestComponent implements OnInit, OnDestroy {
     private categorySubject = new Subject<CategoriesType>()
     private categorySubscription!: Subscription
     private categoryTerm = signal<CategoriesType>('')
+
+    items: MenuItem[] | null ;
+
+    constructor(private readonly messageService: MessageService) {
+        this.items = [
+            {
+                icon: 'pi pi-plus',
+                label: 'Ajouter un invité',
+                command: () => {
+                    this.toGuestAdd()
+                }
+            },
+            {
+                icon: 'pi pi-download',
+                label: 'Importer des invités',
+                command: () => {
+                    this.toGuestImport()
+                }
+            }
+        ]
+    }
     
 
     ngOnInit(): void {
@@ -86,6 +112,15 @@ export class GuestComponent implements OnInit, OnDestroy {
 
         this.subscriptionSearch()
         this.subscriptionCategory()
+
+    }
+
+    toGuestAdd(): void {
+        void this.router.navigate(['/guest',this.eventUuid, 'add'])
+    }
+
+    toGuestImport(): void {
+        void this.router.navigate(['/guest', this.eventUuid, 'import'])
     }
 
     loadGuestsByEvent(

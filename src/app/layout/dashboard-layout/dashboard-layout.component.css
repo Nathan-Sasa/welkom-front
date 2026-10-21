@@ -58,3 +58,22 @@
     padding: 20px;
     overflow-y: auto;
 }
+
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-wlk-content-muted);
+    text-decoration: none;
+    padding-block: 6px;
+    padding-inline: 10px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.menu-item:hover, .menu-item.active {
+    background-color: var(--color-wlk-primary);
+    color: var(--color-wlk-content);
+}

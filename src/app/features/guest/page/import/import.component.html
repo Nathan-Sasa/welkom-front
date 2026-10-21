@@ -1,0 +1,394 @@
+<section class="w-full relative">
+    <header
+        class="w-full flex items-start justify-between"
+        >
+        <div class="flex flex-col gap-md">
+            <div class="flex items-center gap-sm">
+                <p-button 
+                    label="retour"
+                    size="small"
+                    icon="pi pi-arrow-left"
+                    [text]="true"
+                    (onClick)="goBack()"
+                />
+                <h1 class="text-h2 font-displary">
+                    Importer des invités
+                </h1>
+            </div>
+            <div>
+                <p class="max-w-2xl leading-6 text-wlk-content-secondary">
+                    Importez vos contacts depuis votre téléphone ou un fichier exporté.
+                    Vous pourrez vérifier les informations avant de créer vos invités.
+            </p>
+            </div>
+        </div>
+        <div>
+            <button
+                pButton
+                type="button"
+                size="small"
+                severity="secondary"
+                (click)="removeFile()"
+                >
+                Réinitialiser
+            </button>
+        </div>
+    </header>
+
+    <div class="w-full  space-y-6 mt-section-y">
+        <section class="rounded-2xl border border-wlk-border bg-wlk-surface p-md">
+            @if(!selectedFile()){
+                <div class="mb-5">
+                    <h2 class="text-h4 font-display">
+                        Choisir un fichier
+                    </h2>
+                    <p class="text-label text-wlk-content-secondary">
+                        Formats acceptés : VCF et CSV.
+                    </p>
+                </div>
+                <label
+                    for="guest-file"
+                    class="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-wlk-border px-5 py-big text-center transition hover:border-wlk-primary hover:bg-wlk-surface-soft"
+                    >
+                    <span 
+                        class="mb-3" 
+                        aria-hidden="true"
+                        >
+                        <!-- 📂 -->
+                        <i class="pi pi-folder-open text-h2! text-wlk-content-muted"></i>
+                    </span>
+                    <span class="font-Medium">
+                        Sélectionner un fichier
+                    </span>
+                    <span class="mt-2 text-label text-wlk-content-secondary">
+                        Depuis votre téléphone ou votre ordinateur
+                    </span>
+                    <input
+                        id="guest-file"
+                        type="file"
+                        accept=".vcf,.csv,text/vcard,text/csv"
+                        class="sr-only"
+                        (change)="onFileSelected($event)"
+                    />
+                </label>
+            }
+            <!-- Erreur -->
+            @if (errorMessage(); as error) {
+                <p
+                    role="alert"
+                    class="mt-4 rounded-lg bg-wlk-surface-soft/20 p-3 text-sm text-wlk-danger"
+                    >
+                    {{ error }}
+                </p>
+            }
+            <!-- Fichier sélectionné -->
+            @if (selectedFile(); as file) {
+                <div
+                    class="mt-5 flex items-center gap-3 rounded-xl border border-wlk-border p-4"
+                    >
+                    <span 
+                        aria-hidden="true"
+                        class="*:text-h2! *:text-wlk-content-secondary" 
+                        >
+                        <i [class]="file.name.toLowerCase().endsWith('.vcf') ? 'pi pi-user' : 'pi pi-file'"></i>
+                        <!-- {{ file.name.toLowerCase().endsWith('.vcf') ? '👤' : '📊' }} -->
+                    </span>
+                    <div class="min-w-0 flex-1">
+                        <p class="truncate font-Medium text-wlk-content-secondary">
+                            {{ file.name }}
+                        </p>
+                        <p class="mt-1 text-sm text-wlk-content-muted">
+                            {{ (file.size / 1024).toFixed(1) }} Ko
+                        </p>
+                    </div>
+                    <button
+                        pButton
+                        type="button"
+                        size="small"
+                        severity="danger"
+                        [outlined]="true"
+                        (click)="removeFile()"
+                        aria-label="Retirer le fichier sélectionné"
+                        >
+                        Retirer
+                    </button>
+                </div>
+                <p class="mt-4 text-sm text-wlk-content-secondary">
+                    Fichier sélectionné. L’analyse des contacts sera ajoutée à la prochaine étape.
+                </p>
+            }
+        </section>
+    </div>
+
+    @if (importedContacts().length > 0) {
+        <div class="flex items-start justify-between mt-xl sticky -top-5 py-lg z-20 bg-wlk-background">
+            <div class="flex flex-col">
+                <h2 class="text-lg font-Medium text-h4">
+                    Contacts détectés
+                </h2>
+                <span class="text-label text-wlk-content-secondary">
+                    {{ importedContacts().length }} contact(s) trouvé(s).
+                </span>
+                @if(duplicateContactsCount() > 0){
+                    <span class="flex flex-col text-label text-wlk-content-secondar text-wlk-warning">
+                        <p class="">
+                            {{duplicateContactsCount() }} contact(s) avec un doublons potentiel
+                        </p>
+                        <!-- <p class="ml-sm text-small">
+                            - Vérifiez ces contacts. Vous pouvez conserver les deux si nécessaire.
+                        </p> -->
+                    </span>
+                }
+                @if(invalidContactsCount() > 0){
+                    <span class="text-label text-wlk-content-secondar text-wlk-danger">
+                        <p>
+                            {{invalidContactsCount() }} contact(s) à corrigé
+                        </p>
+                        <p class="ml-sm text-small">
+                            - Vérifiez les noms et les adresses email avant de poursuivre.
+                        </p>
+                    </span>
+                }
+            </div>
+            <p-button
+                label="Enregistrer"
+                size="small"
+                (onClick)="saveImportedGuest()"
+                [disabled]="!canSubmit()"
+            />
+        </div>
+        
+        <section class="space-y-4 mt-sm w-full">
+            <div class="w-full lg:max-w-228 xl:max-w-258 overflow-x-auto overflow-y-visible mx-auto rounded-lg border border-wlk-border">
+                <table 
+                    aria-label="Liste de vos contacts"
+                    class="w-full min-w-150 text-left text-sm">
+                    <thead class="bg-wlk-background border-b-2 border-wlk-border font-Medium sticky top-0 w-full">
+                        <tr>
+                            <th class="px-4 py-3 font-medium text-label">Nº</th>
+                            <th class="px-4 pl-7 py-3 font-medium text-label">Prénom</th>
+                            <th class="px-4 pl-7 py-3 font-medium text-label">Nom</th>
+                            <th class="px-4 pl-7 py-3 font-medium text-label">Email</th>
+                            <th class="px-4 pl-7 py-3 font-medium text-label">Téléphone</th>
+                            <th class="px-4 py-3 font-medium text-label">Relation</th>
+                            <th class="px-4 py-3 font-medium text-label">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-wlk-border w-full">
+                        @for (contact of importedContacts(); track $index) {
+                            <tr 
+                                [ariaLabel]="'invité '+contact.firstName+' '+contact.lastName+', '+ contact.category "
+                                class="even:bg-wlk-surface-soft/25 dark:even:bg-wlk-surface-soft/50"
+                                >
+                                <td class="px-lg py-3 relative">
+                                    @if (isDuplicateContact($index)) {
+                                        <span 
+                                            role="status"
+                                            class="text-small font-Semibold text-wlk-warning absolute left-lg top-xs w-64 flex gap-sm" 
+                                            >
+                                            <!-- <i class="pi pi-exclamation-triangle text-small!"></i> -->
+                                            Potentiel doublon
+                                        </span>
+                                    }
+                                    <span class="text-label">
+                                        {{$index +1}}
+                                    </span>
+                                </td>
+                                <td class="pr-sm py-3 relative">
+                                      @if (isContactNameMissing(contact)) {
+                                        <span 
+                                            role="alert"
+                                            class="text-small text-wlk-danger absolute left-xl bottom-xs w-56"
+                                            >
+                                            Un prénom ou un nom est nécessaire.
+                                        </span>
+                                    }
+                                    <p-inplace class="">
+                                        <ng-template #display class="h-big! border!">
+                                            <span
+                                                class="flex items-center gap-sm font-display text-small"
+                                                >
+                                                {{contact.firstName || '—'}}
+                                                <p-button 
+                                                    size="small"
+                                                    [text]="true"
+                                                    icon="pi pi-pencil"
+                                                />
+                                            </span>
+                                        </ng-template>
+                                        <ng-template #content let-closeCallback="closeCallback">
+                                            <span class="inline-flex gap-2">
+                                                <input 
+                                                    type="text" 
+                                                    pInputText 
+                                                    [ngModel]="contact.firstName"
+                                                    (ngModelChange)="updateContact($index, 'firstName' , $event)"
+                                                    [pAutoFocus]="true" 
+                                                    class="text-small! w-26!"
+                                                />
+                                                <button 
+                                                    type="button" 
+                                                    pButton 
+                                                    (click)="closeCallback($event)" 
+                                                    text severity="success"
+                                                    size="small"
+                                                    >
+                                                    <i class="pi pi-check" pButtonIcon></i>
+                                                </button>
+                                            </span>
+                                        </ng-template>
+                                    </p-inplace>
+                                </td>
+                                <td class="px-sm py-3 relative">
+                                    <p-inplace>
+                                        <ng-template #display>
+                                            <span
+                                                class="flex items-center gap-sm font-display text-small"
+                                                >
+                                                {{contact.lastName || '—'}}
+                                                
+                                                <p-button 
+                                                    size="small"
+                                                    [text]="true"
+                                                    icon="pi pi-pencil"
+                                                />
+                                            </span>
+                                        </ng-template>
+                                        <ng-template #content let-closeCallback="closeCallback">
+                                            <span class="inline-flex gap-2">
+                                                <input 
+                                                    type="text" 
+                                                    pInputText 
+                                                    [ngModel]="contact.lastName"
+                                                    (ngModelChange)="updateContact($index, 'lastName' ,$event)"
+                                                    [pAutoFocus]="true" 
+                                                    class="text-small!"
+                                                />
+                                                <button 
+                                                    type="button" 
+                                                    pButton 
+                                                    (click)="closeCallback($event)" 
+                                                    text severity="success"
+                                                    size="small"
+                                                    >
+                                                    <i class="pi pi-check" pButtonIcon></i>
+                                                </button>
+                                            </span>
+                                        </ng-template>
+                                    </p-inplace>
+                                </td>
+                                <td class="px-sm py-3 relative">
+                                    @if (isEmailInvalid(contact.email)) {
+                                        <p 
+                                            role="alert"
+                                            class="text-small text-wlk-danger absolute left-xl bottom-xs w-56"
+                                            >
+                                            L’adresse email semble invalide.
+                                        </p>
+                                    }
+                                    <p-inplace>
+                                        <ng-template #display>
+                                            <span
+                                                class="flex items-center gap-sm font-display text-small"
+                                                >
+                                                {{contact.email || '—'}}
+                                                <p-button 
+                                                    size="small"
+                                                    [text]="true"
+                                                    icon="pi pi-pencil"
+                                                />
+                                            </span>
+                                        </ng-template>
+                                        <ng-template #content let-closeCallback="closeCallback">
+                                            <span class="inline-flex gap-2">
+                                                <input 
+                                                    type="text" 
+                                                    pInputText 
+                                                    [ngModel]="contact.email"
+                                                    (ngModelChange)="updateContact($index, 'email', $event)"
+                                                    [pAutoFocus]="true" 
+                                                    class="text-small!"
+                                                />
+                                                <button 
+                                                    type="button" 
+                                                    pButton 
+                                                    (click)="closeCallback($event)" 
+                                                    text severity="success"
+                                                    size="small"
+                                                    >
+                                                    <i class="pi pi-check" pButtonIcon></i>
+                                                </button>
+                                            </span>
+                                        </ng-template>
+                                    </p-inplace>
+                                </td>
+                                <td class="px-sm py-3">
+                                    <p-inplace>
+                                        <ng-template #display>
+                                            <span
+                                                class="flex items-center gap-sm font-display text-small"
+                                                >
+                                                {{contact.telephone || '—'}}
+                                                <p-button 
+                                                    size="small"
+                                                    [text]="true"
+                                                    icon="pi pi-pencil"
+                                                />
+                                            </span>
+                                        </ng-template>
+                                        <ng-template #content let-closeCallback="closeCallback">
+                                            <span class="inline-flex gap-2">
+                                                <input 
+                                                    type="text" 
+                                                    pInputText 
+                                                    [ngModel]="contact.telephone"
+                                                    (ngModelChange)="updateContact($index, 'telephone', $event)"
+                                                    [pAutoFocus]="true" 
+                                                    class="text-small! w-32!"
+                                                />
+                                                <button 
+                                                    type="button" 
+                                                    pButton 
+                                                    (click)="closeCallback($event)" 
+                                                    text severity="success"
+                                                    size="small"
+                                                    >
+                                                    <i class="pi pi-check" pButtonIcon></i>
+                                                </button>
+                                            </span>
+                                        </ng-template>
+                                    </p-inplace>
+                                </td>
+                                <td class="px-sm py-3">
+                                    <p-select
+                                        inputId="category"
+                                        [options]="categories()"
+                                        optionLabel="name"
+                                        optionValue="value"
+                                        [ngModel]="contact.category"
+                                        (ngModelChange)="updateContactCategory($index, $event)"
+                                        [filter]="true"
+                                        placeholder="Categories"
+                                        class="bg-wlk-surface! min-w-32! text-small! *:text-small!"
+                                    />
+                                </td>
+                                <td class="px-lg py-3 text-right">
+                                    <p-button
+                                        icon="pi pi-trash"
+                                        size="small"
+                                        [text]="true"
+                                        aria-label="Supprimer le contact"
+                                        (onClick)="removeContact($index)"
+                                    />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+        </section>
+    }
+</section>
