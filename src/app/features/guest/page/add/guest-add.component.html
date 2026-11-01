@@ -11,8 +11,166 @@
         />
     </div>
     <div
-        class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+        class="w-full grid grid-cols-1 gap-lg"
         >
+        <div
+            class="flex items-center justify-center"
+            >
+            <p-avatar 
+                [label]="initialAvatar()"
+                size="xlarge"
+                class="border! border-wlk-content-muted! *:text-h3! text-wlk-content-secondary! font-Semibold!"
+            />
+        </div>
 
+        <div
+            class="col-span-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-wlk-surface-soft gap-md gap-y-xl lg:gap-y-big p-md rounded-md"
+            >
+            <fieldset
+                class="flex relative justify-center"
+                >
+                <label 
+                    for="firstname"
+                    class="w-full flex flex-col gap-sm">
+                    <span>Prénom</span>
+                    <p-iconfield
+                        class="w-full!"
+                        >
+                        <p-inputicon class="pi pi-user" />
+                        <input 
+                            aria-label="prénom de l'invité"
+                            pInputText
+                            type="text"
+                            [ngModel]="firstName()"
+                            (ngModelChange)="firstName.set($event)"
+                            class="w-full!"
+                        >
+                    </p-iconfield>
+                </label>
+            </fieldset>
+
+            <fieldset
+                class="flex relative justify-center"
+                >
+                <label 
+                    for="lastName"
+                    class="w-full flex flex-col gap-sm">
+                    <span>Nom</span>
+                    <p-iconfield
+                        class="w-full!"
+                        >
+                        <p-inputicon class="pi pi-user" />
+                        <input 
+                            aria-label="nom de famille de l'invité"
+                            pInputText
+                            type="text"
+                            [ngModel]="lastName()"
+                            (ngModelChange)="lastName.set($event)"
+                            class="w-full!"
+                        >
+                    </p-iconfield>
+                </label>
+            </fieldset>
+
+            <fieldset
+                class="flex relative justify-center"
+                >
+                <label 
+                    for="lastName"
+                    class="w-full flex flex-col gap-sm">
+                    <span>Relation</span>
+                    <p-iconfield
+                        class="w-full!"
+                        >
+                        <p-inputicon class="pi pi-users" />
+                        <p-select
+                            aria-label="relation de l'invité"
+                            inputId="category"
+                            [options]="categories()"
+                            optionLabel="name"
+                            optionValue="value"
+                            [ngModel]="category()"
+                            (ngModelChange)="category.set($event)"
+                            [filter]="true"
+                            placeholder="Categories"
+                            class="pl-xl! w-full!"
+                        />
+                    </p-iconfield>
+                </label>
+            </fieldset>
+
+            <fieldset
+                class="flex relative justify-center"
+                >
+                <label 
+                    for="email"
+                    class="w-full flex flex-col gap-sm">
+                    <span>Email</span>
+                    <p-iconfield
+                        class="w-full!"
+                        >
+                        <p-inputicon class="pi pi-envelope" />
+                        <input 
+                            aria-label="email"
+                            pInputText
+                            type="text"
+                            [ngModel]="email()"
+                            (ngModelChange)="email.set($event)"
+                            class="w-full!"
+                        >
+                    </p-iconfield>
+                </label>
+            </fieldset>
+            
+            <fieldset
+                class="flex relative justify-center"
+                >
+                <label 
+                    for="telephone"
+                    class="w-full flex flex-col gap-sm">
+                    <span>Téléphone</span>
+                    <p-iconfield
+                        class="w-full!"
+                        >
+                        <p-inputicon class="pi pi-mobile" />
+                        <input 
+                            aria-label="telephone"
+                            pInputText
+                            type="text"
+                            [ngModel]="telephone()"
+                            (ngModelChange)="telephone.set($event)"
+                            class="w-full!"
+                        >
+                    </p-iconfield>
+                </label>
+            </fieldset>
+
+            <fieldset
+                class="flex relative justify-center"
+                >
+                <label 
+                    for="lastName"
+                    class="w-full flex flex-col gap-sm">
+                    <span>Table</span>
+                    <p-iconfield
+                        class="w-full!"
+                        >
+                        <p-inputicon class="pi pi-users" />
+                        <p-select
+                            aria-label="relation de l'invité"
+                            inputId="category"
+                            [options]="categories()"
+                            optionLabel="name"
+                            optionValue="value"
+                            [ngModel]="table()"
+                            (ngModelChange)="table.set($event)"
+                            [filter]="true"
+                            placeholder="Table"
+                            class="pl-xl! w-full!"
+                        />
+                    </p-iconfield>
+                </label>
+            </fieldset>
+        </div>
     </div>
 </section>

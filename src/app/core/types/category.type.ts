@@ -23,3 +23,9 @@ export const categoryLabels = {
     OTHER: 'Autres',
     ALL: 'Tous',
 }
+
+export interface guestCategories {
+    id: number
+    name: (typeof categoryLabels)[keyof typeof categoryLabels]
+    value: CategoriesType
+}
