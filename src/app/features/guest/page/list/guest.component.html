@@ -93,7 +93,11 @@
         >
         @defer(on viewport){
             @if(guestsLoading() && firstPage()){
-                <wlk-guest-skeleton-list />
+                <wlk-guest-skeleton-list 
+                    [hasHeader]="true" 
+                    [nbList]="[1,2,3]"
+                    [hasBorder]="true"
+                />
             }@else {
                 <wlk-guest-list 
                     [guests]="guests()"
@@ -109,32 +113,36 @@
 
             @if (guestEmpty() && searchFocus()){
                 <div class="w-full flex items-center justify-center py-big">
-                    <span class="text-h4 text-wlk-content-muted">Aucun avec ce recherche</span>
+                    <span class="text-h4 text-wlk-content-muted">Aucun(e) invité(e) trouvé avec cette recherche.</span>
                 </div>
             }
         }@placeholder {
-            <span>Chaergement des invités</span>
+            <span>Chargement des invités</span>
         }
 
-        <div class="mx-auto w-5">
-            @if (!lastPage() && !fetching) {
-                @defer (on viewport) {
-                    <span>{{loadGuestsByEvent(false)}}</span>
-                }@placeholder {
-                    <div>
-                        Défiler pour charger plus d'événements.
-                    </div>
-                }
+        <!-- <div class="mx-auto w-full h-44 border"> -->
+            @if (!fetching() && !lastPage()) {
+                <div class="mx-auto w-full">
+                    @defer (on viewport) {
+                        <wlk-infinite-scroll-trigger (visible)="loadGuestsByEvent(false)" />
+                    }@placeholder {
+                        <div>
+                            Défiler pour charger plus d'événements.
+                        </div>
+                    }
+                </div>
             }
-            @if(fetching && !lastPage()) {
-                <p-progress-spinner 
-                    size="small"
-                />
+            @if(fetching() && !lastPage()) {
+                <div class="mx-auto w-full">
+                    <wlk-guest-skeleton-list 
+                        [hasHeader]="false"
+                        [nbList]="[1,2]"
+                        [hasBorder]="false"
+                    />
+                </div>
             }
-        </div>
-        
+        <!-- </div> -->
     </div>
-
 </section>
 
 

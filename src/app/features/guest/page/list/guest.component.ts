@@ -18,6 +18,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { debounceTime, distinctUntilChanged, Subject, Subscription } from 'rxjs';
 import { GuestSkeletonListComponent } from '../../components/guest-skeleton-list/guest-skeleton-list.component';
 import { Router, RouterLink } from '@angular/router';
+import { InfiniteScrollTriggerComponent } from '../../../../shared/components/infinite-scroll-trigger/infinite-scroll-trigger.component';
 
 import { MenuItem, MessageService } from 'primeng/api';
 import { SpeedDial } from 'primeng/speeddial';
@@ -43,6 +44,7 @@ interface guestCategories {
         GuestSkeletonListComponent,
         ProgressSpinnerModule,
         SpeedDial,
+        InfiniteScrollTriggerComponent,
 	],
     templateUrl: './guest.component.html',
     styleUrl: './guest.component.css',
@@ -61,7 +63,8 @@ export class GuestComponent implements OnInit, OnDestroy {
     private readonly size: number = 10
     protected readonly firstPage = signal<boolean>(true)
     protected lastPage= signal<boolean>(true)
-    protected fetching: boolean = false
+    // protected fetching: boolean = false
+    protected fetching = signal<boolean>(false)
     protected guestsLoading = signal<boolean>(true)
     protected guestEmpty = signal<boolean>(false)
 
@@ -107,12 +110,9 @@ export class GuestComponent implements OnInit, OnDestroy {
     
 
     ngOnInit(): void {
-        console.log('event uuid : ', this.eventUuid)
         this.loadGuestsByEvent(true)
-
         this.subscriptionSearch()
         this.subscriptionCategory()
-
     }
 
     toGuestAdd(): void {
@@ -129,17 +129,25 @@ export class GuestComponent implements OnInit, OnDestroy {
         category: CategoriesType = this.categoryTerm()
     ): void {
 
-        if(this.fetching) return
-		if (!initializer && this.lastPage()) return
+        console.log('call api : ', this.lastPage(), initializer)
 
-		this.fetching = true
-
+        if(this.fetching() || (!initializer && this.lastPage())) return
+		// if (!initializer && this.lastPage()) return
+        
+        
+		// this.fetching = true
+		this.fetching.set(true)
+        
 		if(initializer) {
-			this.page = 0
+            this.page = 0
+            this.guestsLoading.set(true)
 		}
 
+        if (!initializer && !this.lastPage()) {
+            console.log('second call api : ', this.lastPage(), initializer)
+        }
+
         if (!this.eventUuid) return
-        this.guestsLoading.set(true)
 
         this.guestService.getGuestsByEvent(
             this.eventUuid, 
@@ -147,29 +155,36 @@ export class GuestComponent implements OnInit, OnDestroy {
             this.size,
             search,
             category
-        )
-
-            .pipe(takeUntilDestroyed(this.destroyRef))
+        ).pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: (res) => {
-                    this.guestEmpty.set(res.content.length > 0 ? false : true)
+                    this.guestEmpty.set(res.empty)
 
                     if (initializer){
                         this.guests.set(res.content)
                     }else{
                         this.guests.set([...this.guests(), ...res.content])
+                        // console.log('second call api : ', this.lastPage())
+                        console.log('second call data : ', res.content)
                     }
 
-                    this.firstPage.set(res.first === true)
-				    this.lastPage.set(res.last === true)
+                    this.firstPage.set(res.first)
+				    this.lastPage.set(res.last)
 
                     if(!this.lastPage()){
                         this.page ++
                     }
 
-                    this.fetching = false
+                    // this.fetching = false
                     this.guestsLoading.set(false)
-                    console.log('guest guest : ', res)
+                    // console.log('guest guest : ', res)
+
+                    console.log('first :', this.firstPage())
+                    console.log('last :', this.lastPage())
+                },
+                complete: ()=> {
+                    this.fetching.set(false)
+                    console.log('fetching :', this.fetching())
                 },
                 error: (err) => {
                     console.log('guest list error : ', err)

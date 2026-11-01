@@ -1,23 +1,26 @@
 <div
     role="listitem"
-    aria-label="guests list"
-    class="w-full flex-col border border-wlk-border rounded-lg overflow-hidden"
+    aria-label="guests list skeleton"
+    [class.border]="hasBorder()"
+    class="w-full flex-col border-wlk-border rounded-lg overflow-hidden"
     >
-    <div
-        class="w-full border-b border-wlk-border p-md grid grid-cols-17 gap-m"
-        >
-        @for (head of listHead; track head.id) {
-            <span class="first:col-span-1 nth-[2]:col-span-3 col-span-2 || nth-[4]:col-span-3 || nth-[5]:col-span-2 nth-[5]:pr-md || nth-[6]:col-span-2 nth-[6]:px-sm">
-                <small class="text-wlk-content font-Medium">
-                    {{head.name}}
-                </small>
-            </span>
-        }
-    </div>
+    @if(hasHeader()){
+        <div
+            class="w-full border-b border-wlk-border p-md grid grid-cols-17 gap-m"
+            >
+            @for (head of listHead; track head.id) {
+                <span class="first:col-span-1 nth-[2]:col-span-3 col-span-2 || nth-[4]:col-span-3 || nth-[5]:col-span-2 nth-[5]:pr-md || nth-[6]:col-span-2 nth-[6]:px-sm">
+                    <small class="text-wlk-content font-Medium">
+                        {{head.name}}
+                    </small>
+                </span>
+            }
+        </div>
+    }
     <div
         class="w-full p-m"
         >
-        @for (guest of [1,2]; track $index) {
+        @for (guest of nbList(); track $index) {
             <div 
                 wlkEntryAnim
                 [delay]="200"

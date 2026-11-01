@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { EntryAnimDirective } from '../../../../shared/directives/entry-anim.directive';
 import { AvatarModule } from 'primeng/avatar';
+
+type headerListType = true | 'none'
 
 @Component({
     selector: 'wlk-guest-skeleton-list',
@@ -12,6 +14,10 @@ import { AvatarModule } from 'primeng/avatar';
     styleUrl: './guest-skeleton-list.component.css',
 })
 export class GuestSkeletonListComponent {
+
+	hasHeader = input.required<boolean>()
+	nbList = input.required<number[]>()
+	hasBorder = input.required<boolean>()
 
 	listHead = [
 		{ id: 1, name: '' },

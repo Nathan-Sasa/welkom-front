@@ -18,4 +18,5 @@ export class TableService {
 	getTablesName(): Observable<ITableName[]>{
 		return this.http.get<ITableName[]>(`${this.tableApiPrefix}/${this.eventUuid}/table-name`)
 	}
+
 }

@@ -30,7 +30,8 @@ export class SideMenuComponent {
 	menuItems = [
 		{ route: `/dashboard/${this.eventUuid}`, icon: 'pi pi-objects-column text-label', label: 'Dashboard' },
 		{ route: `/guest/${this.eventUuid}`, icon: 'pi pi-user', label: 'Invités' },
-		{ route: '/catalogues', icon: 'pi pi-folder', label: 'Catalogues' },
+		{ route: `/tables/${this.eventUuid}`, icon: 'pi pi-user', label: 'Tables' },
+		// { route: '/catalogues', icon: 'pi pi-folder', label: 'Catalogues' },
 	];
 
 	// getToggle = computed<boolean>(() => {
