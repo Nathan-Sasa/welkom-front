@@ -8,7 +8,7 @@ export interface ITableRequest {
     maxSeats: number
 }
 
-export interface ITableCreatedResponse {
+export interface ITableResponse {
     id: string
     tableName: string
     maxSeats: number

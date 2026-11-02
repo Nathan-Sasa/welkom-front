@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { IExceptions } from '../../../../core/interfaces/exception.interface';
 import { TableService } from '../../service/table.service';
 import { Router } from '@angular/router';
-import { ITableCreatedResponse, ITableRequest } from '../../interface/table.interfaces';
+import { ITableResponse, ITableRequest } from '../../interface/table.interfaces';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorsComponent } from '../../../../shared/components/errors/errors.component';
 
@@ -35,7 +35,7 @@ export class TablesComponent {
 	headerText: string = 'Ajouter une nouvelle table'
 	buttonInitialText = 'Ajouter la table'
 
-	tableCreatedResponse = signal<ITableCreatedResponse>(<ITableCreatedResponse>{})
+	tableCreatedResponse = signal<ITableResponse>(<ITableResponse>{})
 
 	tableNameField = signal<string>('')
 	maxSeatField = signal<number>(1)
