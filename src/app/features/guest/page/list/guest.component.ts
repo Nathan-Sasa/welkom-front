@@ -164,8 +164,6 @@ export class GuestComponent implements OnInit, OnDestroy {
                         this.guests.set(res.content)
                     }else{
                         this.guests.set([...this.guests(), ...res.content])
-                        // console.log('second call api : ', this.lastPage())
-                        console.log('second call data : ', res.content)
                     }
 
                     this.firstPage.set(res.first)
@@ -175,16 +173,10 @@ export class GuestComponent implements OnInit, OnDestroy {
                         this.page ++
                     }
 
-                    // this.fetching = false
                     this.guestsLoading.set(false)
-                    // console.log('guest guest : ', res)
-
-                    console.log('first :', this.firstPage())
-                    console.log('last :', this.lastPage())
                 },
                 complete: ()=> {
                     this.fetching.set(false)
-                    console.log('fetching :', this.fetching())
                 },
                 error: (err) => {
                     console.log('guest list error : ', err)

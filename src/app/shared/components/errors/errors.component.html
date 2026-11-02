@@ -1,5 +1,5 @@
 <div
-    class=""
+    class="w-full"
     >
     @switch(wlkError().status) {
         @case(500){
@@ -8,6 +8,17 @@
                 >
                 <span class="font-Semibold">{{wlkError().error.message}}</span>
             </div>
+        }
+        @case(409){
+            <p-tag
+                wlkEntryAnim
+                [translateY]="15"
+                [delay]="250"
+                severity="warn"
+                class="opacity-0 w-full!"
+                >
+                {{wlkError().error.message}}
+            </p-tag>
         }
     }
 </div>

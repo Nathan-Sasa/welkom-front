@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { DashboardService } from '../../dashboard/services/dashboard.service';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { ITableName } from '../interface/table.interfaces';
+import { ITableCreatedResponse, ITableName, ITableRequest } from '../interface/table.interfaces';
 
 @Injectable({
     providedIn: 'root',
@@ -14,6 +14,11 @@ export class TableService {
 	private readonly eventUuid = inject(DashboardService).getEventStorage$()?.uuid
 	
 	private readonly tableApiPrefix = environment.apisUrl.tableUrl.prefix
+
+
+	createTable(payload: ITableRequest): Observable<ITableCreatedResponse>{
+		return this.http.post<ITableCreatedResponse>(`${this.tableApiPrefix}/${this.eventUuid}/table`, payload)
+	}
 
 	getTablesName(): Observable<ITableName[]>{
 		return this.http.get<ITableName[]>(`${this.tableApiPrefix}/${this.eventUuid}/table-name`)

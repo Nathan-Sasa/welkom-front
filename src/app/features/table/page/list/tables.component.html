@@ -16,7 +16,120 @@
                 icon="pi pi-plus"
                 iconPos="left"
                 size="small"
+                (onClick)="toggleHasTableDialog()"
+                class="*:line-clamp-1!"
             />
         </div>
     </div>
 </section>
+
+<p-dialog
+    [header]="submittedMessage()"
+    [(visible)]="hasTableDialog"
+    [modal]="true" 
+    [style]="{ width: '50rem' }" 
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    >
+    <div 
+        class="w-full flex flex-col gap-md mx-auto"
+        >
+        <fieldset
+            [disabled]="isSubmitting()"
+            class="w-full flex p-xs"
+            >
+            <label 
+                for="tableName"
+                class="w-full flex flex-col lg:flex-row lg:justify-between lg:items-center gap-sm"
+                >
+                <span class="font-Semibold text-label lg:text-h4">Nom de la table</span>
+                <input 
+                    pInputText
+                    type="text"
+                    class="w-full! lg:w-1/2!"
+                    [ngModel]="tableNameField()"
+                    (ngModelChange)="tableNameField.set($event); assigningGuest.set(false); error.set(false)"
+                >
+            </label>
+        </fieldset>
+        
+        <fieldset
+            [disabled]="isSubmitting()"
+            class="w-full flex p-xs"
+            >
+            <label 
+                for="tableName"
+                class="w-full flex flex-col lg:flex-row lg:justify-between lg:items-center gap-sm"
+                >
+                <span class="font-Semibold text-label lg:text-h4">Nombre de places</span>
+                <input 
+                    pInputText
+                    type="number"
+                    class="w-full! lg:w-1/2!"
+                    [ngModel]="maxSeatField()"
+                    (ngModelChange)="maxSeatField.set($event); assigningGuest.set(false); error.set(false)"
+                    min="1"
+                    step="5"
+                >
+            </label>
+        </fieldset>
+    </div>
+
+    <div class="w-full flex items-center justify-center p-md">
+        <p-button 
+            [label]="buttonSubmitText()"
+            size="small"
+            [loading]="loading()"
+            [disabled]="isFormInvalid()"
+            (onClick)="submitTable()"
+            [icon]="created() ? 'pi pi-check' : ''"
+        />
+    </div>
+
+    @if(assigningGuest()){
+        @if(tableCreatedResponse()){
+            <p-divider class="w-full my-sm" />
+            <div
+                class="w-full flex flex-col gap-md relative"
+                >
+                <span class="absolute right-4 top-0">
+                    <p-button 
+                        icon="pi pi-check"
+                        [text]="true"
+                        size="small"
+                        severity="danger"
+                        (onClick)="assigningGuest.set(false)"
+                    />
+                    <!-- <i class="pi pi-check"></i> -->
+                </span>
+                <div class="flex items-center gap-md">
+                    <span class="font-Medium text-label">Table :</span>
+                    <span class="font-display text-label font-medium">{{tableCreatedResponse().tableName}}</span>
+                </div>
+                <div class="flex items-center gap-md">
+                    <span class="font-Medium text-label">Nombre des places :</span>
+                    <span class="font-display text-label font-medium">{{tableCreatedResponse().maxSeats}}</span>
+                </div>
+                <div class="flex items-center gap-md">
+                    <span class="font-Medium text-label">Nombre des places restante :</span>
+                    <span class="font-display text-label font-medium">{{tableCreatedResponse().maxSeats}}</span>
+                </div>
+                <div
+                    class="w-full flex items-center justify-center"
+                    >
+                    <p-button 
+                        label="Assigner un(e) invité(e)"
+                        size="small"
+                    />
+                </div>
+            </div>
+        }
+    }
+
+    @if(error()){
+        <div class="w-full mt-lg">
+            <wlk-errors 
+                [wlkError]="errorContent()"
+            />
+        </div>
+    }
+</p-dialog>
