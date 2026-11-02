@@ -60,13 +60,14 @@ export class GuestComponent implements OnInit, OnDestroy {
     protected guests = signal<IGuest[]>([]) 
 
     protected page: number = 0
-    private readonly size: number = 10
+    private readonly size: number = 20
     protected readonly firstPage = signal<boolean>(true)
     protected lastPage= signal<boolean>(true)
-    // protected fetching: boolean = false
     protected fetching = signal<boolean>(false)
     protected guestsLoading = signal<boolean>(true)
     protected guestEmpty = signal<boolean>(false)
+
+    protected totalGuest = signal<number>
 
 
     private searchTerm = signal<string>('')
@@ -142,10 +143,6 @@ export class GuestComponent implements OnInit, OnDestroy {
             this.page = 0
             this.guestsLoading.set(true)
 		}
-
-        if (!initializer && !this.lastPage()) {
-            console.log('second call api : ', this.lastPage(), initializer)
-        }
 
         if (!this.eventUuid) return
 
