@@ -1,0 +1,28 @@
+<div
+    role="listitem"
+    aria-label="tables list skeleton"
+    >
+    <div
+        class="w-full p-sm"
+        >
+        @for (table of nbList(); track $index) {
+            <div
+                wlkEntryAnim
+                [delay]="200"
+                [translateY]="25"
+                class="opacity-0 w-full grid grid-cols-2 p-md py-lg  not-last:border-b not-last:border-wlk-border  hover:"
+                >
+                <span class="flex items-center gap-md">
+                    <p-avatar 
+                        [label]=""
+                        class="border! border-wlk-content-muted! *:text-label! text-wlk-content-secondary! font-Semibold! col-span-1 bg-wlk-content-muted/30 animate-pulse"
+                    />
+                    <span 
+                        class="flex items-center h-3 w-32 bg-wlk-content-muted/30 animate-pulse"
+                        >
+                    </span>
+                </span>
+            </div>
+        }
+    </div>
+</div>

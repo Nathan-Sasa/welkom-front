@@ -20,3 +20,8 @@ interface guestsTable {
     firstName: string
     lastName: string
 }
+
+export interface IAssignTableGuest {
+    tableName: string,
+    guestUuid: string
+}

@@ -45,8 +45,8 @@ export class GuestService {
 		return this.http.patch<IGuestDetails>(`${this.guestApi}/${eventUuid}/guests/${guestUuid}`, guestPayload)
 	}
 
-	createGuest(eventUuid: string, payload: IGuestRequest): Observable<IGuest>{
-		return this.http.post<IGuest>(`${this.guestApi}/guests`, payload)
+	createGuest(payload: IGuestRequest): Observable<IGuest>{
+		return this.http.post<IGuest>(`${this.guestApi}/${this.eventUuid}/guests`, payload)
 	}
 
 	createGuestBatch(payload: IGuestRequestBatch): Observable<IGuest[]>{

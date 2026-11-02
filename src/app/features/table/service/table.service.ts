@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { DashboardService } from '../../dashboard/services/dashboard.service';
 import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs';
-import { ITableResponse, ITableName, ITableRequest } from '../interface/table.interfaces';
+import { delay, Observable } from 'rxjs';
+import { ITableResponse, ITableName, ITableRequest, IAssignTableGuest } from '../interface/table.interfaces';
 
 @Injectable({
     providedIn: 'root',
@@ -20,10 +20,16 @@ export class TableService {
 		return this.http.post<ITableResponse>(`${this.tableApiPrefix}/${this.eventUuid}/table`, payload)
 	}
 
-	// getTableList(): Observable
+	getTableList(): Observable<ITableResponse[]>{
+		return this.http.get<ITableResponse[]>(`${this.tableApiPrefix}/${this.eventUuid}/table`).pipe(delay(500))
+	}
 
 	getTablesName(): Observable<ITableName[]>{
 		return this.http.get<ITableName[]>(`${this.tableApiPrefix}/${this.eventUuid}/table-name`)
+	}
+
+	assignGuestTable(payload: IAssignTableGuest, tableUuid: string): Observable <ITableResponse>{
+		return this.http.post<ITableResponse>(`${this.tableApiPrefix}/${this.eventUuid}/table/${tableUuid}`, payload)
 	}
 
 }

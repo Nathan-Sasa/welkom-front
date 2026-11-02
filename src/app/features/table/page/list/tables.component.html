@@ -21,6 +21,85 @@
             />
         </div>
     </div>
+    <div
+        class="w-full mt-xl"
+        >
+        @if(!loadingTables()){
+            @if(tables().length > 0){
+                <p-accordion 
+                    value="0"
+                    class="overflow-y-scroll"
+                    >
+                    @for(table of tables(); track $index){
+                        <p-accordion-panel 
+                            [value]="table.tableName"
+                            wlkEntryAnim
+                            [delay]="200"
+                            [translateY]="25"
+                            class="opacity-0"
+                            >
+                            <p-accordion-header >
+                                <ng-template 
+                                    #toggleicon 
+                                    let-active="active"
+                                    >
+                                    <div class="flex items-center gap-md">
+                                        <p-avatar 
+                                            [label]="table.tableName.slice(0, 2)"
+                                            size="normal"
+                                            class="border! border-wlk-content-muted! *:text-base! text-wlk-content-secondary! font-Semibold!"
+                                        />
+                                        <span class="font-Medium text-h4">{{table.tableName}}</span>
+                                    </div>
+    
+                                    @if (active) {
+                                        <i class="pi pi-minus"></i>
+                                    } @else {
+                                        <i class="pi pi-plus"></i>
+                                    }
+                                </ng-template>
+                            </p-accordion-header>
+                            <p-accordion-content>
+                                <div
+                                    class="flex flex-col"
+                                    >
+                                    @if(table.guest.length > 0){
+                                        @for(guest of table.guest; track $index){
+                                            <div class="flex items-center gap-md">
+                                                <span class="text-label font-display">{{guest.firstName}}</span>
+                                                <span class="text-label font-display">{{guest.lastName}}</span>
+                                            </div>
+                                        }
+                                    }@else {
+                                        <div
+                                            class="w-full flex flex-col items-center justify-center gap-md"
+                                            >
+                                            <p-tag
+                                                severity="secondary"
+                                                >
+                                                Table vide
+                                            </p-tag>
+                                            <p-button 
+                                                label="ajouter un(e) invité(e)"
+                                                size="small"
+                                                [text]="true"
+                                            />
+                                        </div>
+                                    }
+                                </div>
+                            </p-accordion-content>
+                        </p-accordion-panel>
+    
+                    }
+                </p-accordion>
+            }
+        }@else{
+            <wlk-table-skeleton-list 
+                [nbList]="[1, 2, 3]"
+            />
+        }
+
+    </div>
 </section>
 
 <p-dialog

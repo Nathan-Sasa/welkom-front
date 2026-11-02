@@ -28,6 +28,7 @@
             >
             <fieldset
                 class="flex relative justify-center"
+                [disabled]="submitting()"
                 >
                 <label 
                     for="firstname"
@@ -51,6 +52,7 @@
 
             <fieldset
                 class="flex relative justify-center"
+                [disabled]="submitting()"
                 >
                 <label 
                     for="lastName"
@@ -74,6 +76,7 @@
 
             <fieldset
                 class="flex relative justify-center"
+                [disabled]="submitting()"
                 >
                 <label 
                     for="lastName"
@@ -101,6 +104,7 @@
 
             <fieldset
                 class="flex relative justify-center"
+                [disabled]="submitting()"
                 >
                 <label 
                     for="email"
@@ -124,6 +128,7 @@
             
             <fieldset
                 class="flex relative justify-center"
+                [disabled]="submitting()"
                 >
                 <label 
                     for="telephone"
@@ -147,6 +152,7 @@
 
             <fieldset
                 class="flex relative justify-center"
+                [disabled]="submitting()"
                 >
                 <label 
                     for="lastName"
@@ -158,8 +164,8 @@
                         <p-inputicon class="pi pi-users" />
                         <p-select
                             aria-label="relation de l'invité"
-                            inputId="category"
-                            [options]="categories()"
+                            inputId="table"
+                            [options]="tables()"
                             optionLabel="name"
                             optionValue="value"
                             [ngModel]="table()"
@@ -172,5 +178,36 @@
                 </label>
             </fieldset>
         </div>
+        <div class="w-full flex justify-center py-md">
+            <p-button 
+                label="Ajouter l'invité(e)"
+                size="small"
+                (onClick)="submitGuest()"
+                [disabled]="isFormInvalid()"
+            />
+        </div>
+
+        @if(submitting()){
+            <div 
+                class="w-full flex justify-center">
+                <span 
+                    wlkEntryAnim
+                    [translateY]="50"
+                    [delay]="300"
+                    class="text-wlk-content-muted animate-pulse duration-500">
+                    {{submittingMessage()}}
+                </span>
+            </div>
+        }
+
+        @if(submittingError() && !submitting()){
+            <div
+                class="w-full"
+                >
+                <wlk-errors 
+                    [wlkError]="errorContent()"
+                />
+            </div>
+        }
     </div>
 </section>
