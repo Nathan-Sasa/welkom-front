@@ -91,6 +91,16 @@
     <div
         class="w-full"
         >
+        <div class="w-full py-md">
+            <span class="text-label font-Medium text-wlk-content-secondary flex gap-sm">
+                <span>
+                    total des invités trouvés 
+                </span>
+                <span class="text-wlk-content">
+                    {{totalGuest()}}
+                </span>
+            </span>
+        </div>
         @defer(on viewport){
             @if(guestsLoading() && firstPage()){
                 <wlk-guest-skeleton-list 
@@ -117,7 +127,9 @@
                 </div>
             }
         }@placeholder {
-            <span>Chargement des invités</span>
+            <div class="w-full flex items-center justify-center p-md">
+                <span>Chargement des invités</span>
+            </div>
         }
 
         <!-- <div class="mx-auto w-full h-44 border"> -->

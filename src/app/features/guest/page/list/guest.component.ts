@@ -67,7 +67,7 @@ export class GuestComponent implements OnInit, OnDestroy {
     protected guestsLoading = signal<boolean>(true)
     protected guestEmpty = signal<boolean>(false)
 
-    protected totalGuest = signal<number>
+    protected totalGuest = signal<number>(0)
 
 
     private searchTerm = signal<string>('')
@@ -156,6 +156,7 @@ export class GuestComponent implements OnInit, OnDestroy {
             .subscribe({
                 next: (res) => {
                     this.guestEmpty.set(res.empty)
+                    this.totalGuest.set(res.totalElements)
 
                     if (initializer){
                         this.guests.set(res.content)
@@ -171,6 +172,8 @@ export class GuestComponent implements OnInit, OnDestroy {
                     }
 
                     this.guestsLoading.set(false)
+
+                    console.log('res guest list : ', res)
                 },
                 complete: ()=> {
                     this.fetching.set(false)
