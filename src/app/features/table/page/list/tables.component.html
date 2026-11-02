@@ -65,10 +65,11 @@
                                     >
                                     @if(table.guest.length > 0){
                                         @for(guest of table.guest; track $index){
-                                            <div class="flex items-center gap-md">
-                                                <span class="text-label font-display">{{guest.firstName}}</span>
-                                                <span class="text-label font-display">{{guest.lastName}}</span>
+                                            <div class="flex items-center gap-md ml-big">
+                                                <span class="text-label font-display font-semibold">{{guest.firstName}}</span>
+                                                <span class="text-label font-display font-semibold">{{guest.lastName}}</span>
                                             </div>
+                                            <p-divider class="w-full my-xs" />
                                         }
                                     }@else {
                                         <div

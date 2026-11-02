@@ -20,5 +20,16 @@
                 {{wlkError().error.message}}
             </p-tag>
         }
+        @case (403) {
+            <p-tag
+                wlkEntryAnim
+                [translateY]="15"
+                [delay]="250"
+                severity="warn"
+                class="opacity-0 w-full!"
+                >
+                {{wlkError().error.message}}
+            </p-tag>
+        }
     }
 </div>

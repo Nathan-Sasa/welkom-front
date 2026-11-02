@@ -43,7 +43,7 @@
                             pInputText
                             type="text"
                             [ngModel]="firstName()"
-                            (ngModelChange)="firstName.set($event)"
+                            (ngModelChange)="firstName.set($event); submit.set('none'); submittingError.set(false)"
                             class="w-full!"
                         >
                     </p-iconfield>
@@ -67,7 +67,7 @@
                             pInputText
                             type="text"
                             [ngModel]="lastName()"
-                            (ngModelChange)="lastName.set($event)"
+                            (ngModelChange)="lastName.set($event); submit.set('none'); submittingError.set(false)"
                             class="w-full!"
                         >
                     </p-iconfield>
@@ -93,7 +93,7 @@
                             optionLabel="name"
                             optionValue="value"
                             [ngModel]="category()"
-                            (ngModelChange)="category.set($event)"
+                            (ngModelChange)="category.set($event); submit.set('none'); submittingError.set(false)"
                             [filter]="true"
                             placeholder="Categories"
                             class="pl-xl! w-full!"
@@ -119,7 +119,7 @@
                             pInputText
                             type="text"
                             [ngModel]="email()"
-                            (ngModelChange)="email.set($event)"
+                            (ngModelChange)="email.set($event); submit.set('none'); submittingError.set(false)"
                             class="w-full!"
                         >
                     </p-iconfield>
@@ -143,7 +143,7 @@
                             pInputText
                             type="text"
                             [ngModel]="telephone()"
-                            (ngModelChange)="telephone.set($event)"
+                            (ngModelChange)="telephone.set($event); submit.set('none'); submittingError.set(false)"
                             class="w-full!"
                         >
                     </p-iconfield>
@@ -163,13 +163,13 @@
                         >
                         <p-inputicon class="pi pi-users" />
                         <p-select
-                            aria-label="relation de l'invité"
+                            aria-label="assigner une table à l'invité"
                             inputId="table"
                             [options]="tables()"
                             optionLabel="name"
                             optionValue="value"
                             [ngModel]="table()"
-                            (ngModelChange)="table.set($event)"
+                            (ngModelChange)="table.set($event); submit.set('none'); submittingError.set(false)"
                             [filter]="true"
                             placeholder="Table"
                             class="pl-xl! w-full!"
@@ -187,16 +187,73 @@
             />
         </div>
 
-        @if(submitting()){
-            <div 
-                class="w-full flex justify-center">
-                <span 
-                    wlkEntryAnim
-                    [translateY]="50"
-                    [delay]="300"
-                    class="text-wlk-content-muted animate-pulse duration-500">
-                    {{submittingMessage()}}
+        <div class="w-full min-h-4">
+            @if(submitting()){
+                <div 
+                    class="w-full flex justify-center">
+                    <span 
+                        wlkEntryAnim
+                        [translateY]="50"
+                        [delay]="300"
+                        class="opacity-0 text-wlk-content-muted animate-pulse duration-500">
+                        {{submittingMessage()}}
+                    </span>
+                </div>
+            }
+        </div>
+
+
+        @if (submit() === 'submit') {
+            <div class="w-full flex flex-col justify-start">
+                <span class="flex items-center gap-xs">
+                    <p-avatar 
+                        shape="circle"
+                        size="normal"
+                        [icon]="createGuestStateIcon()"
+                        [ngClass]="{
+                            'border-wlk-content-muted/10! text-wlk-content-muted! bg-wlk-surface-soft/20!' : guestCreated() === 'creating',
+                            'border-wlk-sage! text-wlk-sage! bg-wlk-surface-soft/50!': guestCreated() === 'created',
+                            'border-wlk-danger/60! text-wlk-danger/60! bg-wlk-surface-soft/60!': guestCreated() === 'error'
+                        }"
+                        class="border text-label scale-70"
+                    />
+                    <p
+                        [ngClass]="{
+                            'text-wlk-content-muted' : guestCreated() === 'creating',
+                            'text-wlk-sage': guestCreated() === 'created',
+                            'text-wlk-danger/50': guestCreated() === 'error'
+                        }"
+                        class="text-label text-display"
+                        >
+                        {{creatingGuestMessage()}}
+                    </p>
                 </span>
+
+                @if(isCreateTable()){
+                    <span class="flex items-center gap-sm">
+                    <p-avatar 
+                        shape="circle"
+                        size="normal"
+                        [icon]="assignTableStateIcon()"
+                        [ngClass]="{
+                            'border-wlk-content-muted/10! text-wlk-content-muted! bg-wlk-surface-soft/20!' : assigningTable() === 'assigning',
+                            'border-wlk-sage! text-wlk-sage! bg-wlk-surface-soft/50!': assigningTable() === 'assigned',
+                            'border-wlk-danger/60! text-wlk-danger/60! bg-wlk-surface-soft/60!': assigningTable() === 'error'
+                        }"
+                        class="border text-label scale-70"
+                    />
+                    <p
+                        [ngClass]="{
+                            'text-wlk-content-muted' : assigningTable() === 'assigning',
+                            'text-wlk-sage': assigningTable() === 'assigned',
+                            'text-wlk-danger/50': assigningTable() === 'error'
+                        }"
+                        class="text-label text-display"
+                        >
+                        {{assigningTableMessage()}}
+                    </p>
+                </span>
+                }
             </div>
         }
 
