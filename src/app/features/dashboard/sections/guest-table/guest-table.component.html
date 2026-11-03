@@ -45,7 +45,7 @@
             @if (!loadingData() && recentGuests().length > 0) {
                 @for (guest of recentGuests().slice(0, 5); track $index) {
                     <wlk-recent-guest-card 
-                        [routerLink]="[ '/guest', eventUuid,'details', guest.uuid]"
+                        [routerLink]="[ '/event', eventUuid, 'guests', guest.uuid]"
                         [guest]="guest"
                         class="not-last:border-b not-last:border-wlk-border cursor-pointer hover:bg-wlk-content-muted/20 duration-300 p-sm"
                     />
@@ -83,6 +83,7 @@
                 @if (!loadingData() && tables().length > 0) {
                     <p-button 
                         label="toutes"
+                        [routerLink]="['/event', eventUuid, 'tables']"
                         [text]="true"
                         size="small"
                         [fluid]="true"
@@ -115,6 +116,7 @@
             @if (!loadingData() && tables().length > 0) {
                 @for (table of tables().slice(0, 5); track $index) {
                     <wlk-table-card 
+                        [routerLink]="['/event', eventUuid, 'tables', table.id]"
                         [table]="table"
                         class="not-last:border-b not-last:border-wlk-border cursor-pointer hover:bg-wlk-content-muted/20 duration-300 p-sm"
                     />

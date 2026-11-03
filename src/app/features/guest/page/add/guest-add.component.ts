@@ -49,7 +49,7 @@ export class GuestAddComponent implements OnInit {
 	private readonly location = inject(Location)
 	private readonly router = inject(Router)
 	private readonly destroyRef = inject(DestroyRef)
-	// private readonly eventUuid = inject(DashboardService).getEventStorage$()?.uuid
+	private readonly eventUuid = inject(DashboardService).getEventStorage$()?.uuid
 	private readonly guestService = inject(GuestService)
 	private readonly tableService = inject(TableService)
 
@@ -103,7 +103,7 @@ export class GuestAddComponent implements OnInit {
 	}
 
 	loadTable(): void {
-		this.tableService.getTableSpace()
+		this.tableService.getTableSpace(this.eventUuid)
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: (tables) => {
@@ -149,7 +149,7 @@ export class GuestAddComponent implements OnInit {
 			category: this.category()
 		}
 
-		this.guestService.createGuest(guestPayload)
+		this.guestService.createGuest(guestPayload, this.eventUuid)
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: (res) => {
@@ -177,7 +177,7 @@ export class GuestAddComponent implements OnInit {
 								guestUuid: res.uuid
 							}
 	
-							this.tableService.assignGuestTable(guestAssignPayload, this.table().uuid)
+							this.tableService.assignGuestTable(guestAssignPayload, this.eventUuid, this.table().uuid)
 								.pipe(takeUntilDestroyed(this.destroyRef))
 								.subscribe({
 									next: () => {

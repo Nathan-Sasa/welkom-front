@@ -117,11 +117,11 @@ export class GuestComponent implements OnInit, OnDestroy {
     }
 
     toGuestAdd(): void {
-        void this.router.navigate(['/guest',this.eventUuid, 'add'])
+        void this.router.navigate(['/event',this.eventUuid, 'guests','add'])
     }
 
     toGuestImport(): void {
-        void this.router.navigate(['/guest', this.eventUuid, 'import'])
+        void this.router.navigate(['/event', this.eventUuid, 'guests','import'])
     }
 
     loadGuestsByEvent(
@@ -130,13 +130,8 @@ export class GuestComponent implements OnInit, OnDestroy {
         category: CategoriesType = this.categoryTerm()
     ): void {
 
-        console.log('call api : ', this.lastPage(), initializer)
-
         if(this.fetching() || (!initializer && this.lastPage())) return
-		// if (!initializer && this.lastPage()) return
-        
-        
-		// this.fetching = true
+
 		this.fetching.set(true)
         
 		if(initializer) {
@@ -173,7 +168,7 @@ export class GuestComponent implements OnInit, OnDestroy {
 
                     this.guestsLoading.set(false)
 
-                    console.log('res guest list : ', res)
+                    // console.log('res guest list : ', res)
                 },
                 complete: ()=> {
                     this.fetching.set(false)

@@ -106,14 +106,13 @@ export class DashboardComponent implements OnInit {
 					this.data.set(res)
 					this.loadingData.set(false)
 					this.errorData.set(false)
-					console.log('dashboard data : ', res)
+					// console.log('dashboard data : ', res)
 				},
 				error: (err) => {
 					this.errorData.set(true)
 					console.log('dashboard error : ', err)
 				}
 			})
-
 	}
 
 	getSecurityKey(): void {

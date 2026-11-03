@@ -28,8 +28,8 @@ export class DashboardService {
 
 
 	setEventStorage(event: IEventResponse): void {
-        this.getEventStorage$.set(event)
         localStorage.setItem(this.storageKey, JSON.stringify(event))
+        this.getEventStorage$.set(event)
     }
 
     // getEventStorage$(): IEventResponse | null {

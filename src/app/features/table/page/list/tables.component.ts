@@ -2,7 +2,7 @@ import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angula
 import { FormsModule } from '@angular/forms';
 import { IExceptions } from '../../../../core/interfaces/exception.interface';
 import { TableService } from '../../service/table.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ITableResponse, ITableRequest } from '../../interface/table.interfaces';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorsComponent } from '../../../../shared/components/errors/errors.component';
@@ -16,6 +16,7 @@ import { Avatar } from 'primeng/avatar';
 import { TagModule } from 'primeng/tag'
 import { TableSkeletonListComponent } from '../../components/table-skeleton-list/table-skeleton-list.component';
 import { EntryAnimDirective } from '../../../../shared/directives/entry-anim.directive';
+import { DashboardService } from '../../../dashboard/services/dashboard.service';
 
 @Component({
 	selector: 'wlk-tables',
@@ -30,7 +31,8 @@ import { EntryAnimDirective } from '../../../../shared/directives/entry-anim.dir
 		Avatar,
 		TagModule,
 		TableSkeletonListComponent,
-		EntryAnimDirective
+		EntryAnimDirective,
+		RouterLink
 	],
 	templateUrl: './tables.component.html',
 	styleUrl: './tables.component.css',
@@ -39,6 +41,7 @@ export class TablesComponent implements OnInit {
 
 	destroyRef = inject(DestroyRef)
 	tableService = inject(TableService)
+	eventUuid = inject(DashboardService).getEventStorage$()?.uuid
 	router = inject(Router)
 
 	protected tables = signal<ITableResponse[]>([])
@@ -81,17 +84,17 @@ export class TablesComponent implements OnInit {
 	}
 
 	loadTables(): void {
-		this.tableService.getTableList()
+		this.tableService.getTableList(this.eventUuid)
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: (res) => {
 					this.tables.set(res)
-					console.log('Table list : ', this.tables())
+					// console.log('Table list : ', this.tables())
 				},
 				complete: ()=> {
 					this.loadingTables.set(false)
 					this.errorReceiveTables.set(false)
-					console.log('completed call api')
+					// console.log('completed call api')
 				},
 				error: (err) => {
 					this.loadingTables.set(false)
@@ -135,12 +138,12 @@ export class TablesComponent implements OnInit {
 			maxSeats: this.maxSeatField()
 		}
 
-		this.tableService.createTable(payloadTable)
+		this.tableService.createTable(payloadTable, this.eventUuid)
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: (res) => {
 					this.tableCreatedResponse.set(res)
-					
+
 					const inTables: ITableResponse[] = [
 						{
 							id: res.id,

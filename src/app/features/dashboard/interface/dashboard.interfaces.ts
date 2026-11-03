@@ -46,6 +46,7 @@ export interface IRecentGuest {
 }
 
 export interface ITableDashboard {
+    id: string
     tableName: string
     maxSeats: number
     countSeats: number

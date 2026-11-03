@@ -1,0 +1,43 @@
+<section
+    class="flex flex-col"
+    >
+    <div>
+        <span>Table</span>
+    </div>
+    <div>
+        <p-tabs 
+            value="0" 
+            class=""> 
+            <div class="w-fit mx-auto">
+                <p-tablist
+                    wlkEntryAnim
+                    [delay]="100"
+                    [threshold]="0.5"
+                    [translateY]="20"  
+                    class="opacity-0"
+                    >
+                    <p-tab value="0">
+                        Liste d'invités
+                    </p-tab>
+                    <p-tab value="1">
+                        Plan de table
+                    </p-tab>
+                </p-tablist>
+            </div>
+            <p-tabpanels>
+                <p-tabpanel 
+                    value="0"
+                    class="flex flex-col gap-md"
+                    >La list des complete des invites
+                </p-tabpanel>
+                <p-tabpanel 
+                    value="1"
+                    class="flex flex-col gap-md"
+                    >
+                    Le plan de la table
+                </p-tabpanel>
+            </p-tabpanels>
+        </p-tabs>
+    </div>
+
+</section>

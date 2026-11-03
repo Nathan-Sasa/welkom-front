@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { environment } from '../../../../environments/environment';
 import { delay, Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { DashboardService } from '../../dashboard/services/dashboard.service';
 })
 export class GuestService {
 	private readonly http = inject(HttpClient)
-	private readonly eventUuid = inject(DashboardService).getEventStorage$()?.uuid
+	private readonly eventUuid =  signal(inject(DashboardService).getEventStorage$()?.uuid)
 	private readonly guestApi = environment.apisUrl.guestUrl.prefix
 
 	getGuestsByEvent(
@@ -45,8 +45,8 @@ export class GuestService {
 		return this.http.patch<IGuestDetails>(`${this.guestApi}/${eventUuid}/guests/${guestUuid}`, guestPayload)
 	}
 
-	createGuest(payload: IGuestRequest): Observable<IGuest>{
-		return this.http.post<IGuest>(`${this.guestApi}/${this.eventUuid}/guests`, payload)
+	createGuest(payload: IGuestRequest, eventUuid: string | undefined): Observable<IGuest>{
+		return this.http.post<IGuest>(`${this.guestApi}/${eventUuid}/guests`, payload)
 	}
 
 	createGuestBatch(payload: IGuestRequestBatch): Observable<IGuest[]>{

@@ -68,7 +68,7 @@ export class GuestDetailsComponent {
 	getEventUuid = signal<string>('')
 	getGuestUuid = signal<string>('')
 	
-	protected guest = signal<Partial<IGuestDetails>>(<IGuestDetails>{})
+	protected guest = signal<IGuestDetails>(<IGuestDetails>{})
 	protected loading = signal<boolean>(true)
 	protected submitting = signal<boolean>(false)
 	protected submitted = signal<submittedState>('none')
@@ -77,6 +77,19 @@ export class GuestDetailsComponent {
 
 	protected updatingGuest = signal<updatingGuest>('none')
 	updatingMessage = signal<string>('')
+
+	guestAvatar = computed(() => {
+		if (this.guest().firstName && this.guest().lastName){
+			return this.guest().firstName[0].toUpperCase() + this.guest().lastName[0].toUpperCase()
+		} else if (this.guest().firstName && !this.guest().lastName){
+			return this.guest().firstName[0].toUpperCase()
+		} else if (!this.guest().firstName && this.guest().lastName){
+			return this.guest().lastName[0].toUpperCase()
+		}
+		else {
+			return ''
+		}
+	})
 
 	firstNameField = signal<string>('')
 	firstNameFieldInvalid = computed(() => {
@@ -241,7 +254,7 @@ export class GuestDetailsComponent {
 	}
 
 	loadTable(): void {
-		this.tableService.getTableSpace()
+		this.tableService.getTableSpace(this.getEventUuid())
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: (tables) => {
@@ -278,7 +291,7 @@ export class GuestDetailsComponent {
 			tableName: this.table().tableName,
 			guestUuid: this.guestUuid() as string
 		}
-		this.tableService.assignGuestTable(guestAssignPayload, this.table().uuid)
+		this.tableService.assignGuestTable(guestAssignPayload,this.getEventUuid(), this.table().uuid)
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: () => {
@@ -291,9 +304,11 @@ export class GuestDetailsComponent {
 						this.submittingError.set(false)
 					}, 1000)
 
-					// this.guest.set({
-					// 	tableName: this.table().tableName
-					// })
+					// setTimeout(() => {
+					// 	this.guest.set({
+					// 		tableName: this.table().tableName
+					// 	})
+					// },1200)
 					console.log('assigned table ')
 				},
 				error: (err) => {

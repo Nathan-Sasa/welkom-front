@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, effect } from '@angular/core';
 import { DashboardService } from '../../dashboard/services/dashboard.service';
 import { environment } from '../../../../environments/environment';
 import { delay, Observable } from 'rxjs';
@@ -11,29 +11,38 @@ import { ITableResponse, ITableName, ITableRequest, IAssignTableGuest } from '..
 export class TableService {
   
 	private readonly http = inject(HttpClient)
-	private readonly eventUuid = inject(DashboardService).getEventStorage$()?.uuid
+	private readonly getEventUuid = signal<string | undefined>(inject(DashboardService).getEventStorage$()?.uuid)
+	private readonly eventUuid = signal<string | undefined>(this.getEventUuid())
 	
 	private readonly tableApiPrefix = environment.apisUrl.tableUrl.prefix
 
-
-	createTable(payload: ITableRequest): Observable<ITableResponse>{
-		return this.http.post<ITableResponse>(`${this.tableApiPrefix}/${this.eventUuid}/table`, payload)
+	constructor(){
+		effect(() =>{
+			const effectEventUuid = this.getEventUuid()
+			this.eventUuid.set(effectEventUuid)
+		})
 	}
 
-	getTableList(): Observable<ITableResponse[]>{
-		return this.http.get<ITableResponse[]>(`${this.tableApiPrefix}/${this.eventUuid}/table`).pipe(delay(500))
+
+	createTable(payload: ITableRequest, eventUuid: string | undefined): Observable<ITableResponse>{
+		return this.http.post<ITableResponse>(`${this.tableApiPrefix}/${eventUuid}/table`, payload)
 	}
 
-	getTablesName(): Observable<ITableName[]>{
-		return this.http.get<ITableName[]>(`${this.tableApiPrefix}/${this.eventUuid}/table-name`)
+	getTableList(eventUuid: string | undefined): Observable<ITableResponse[]>{
+		// console.log('event by table service : ', this.getEventUuid())
+		return this.http.get<ITableResponse[]>(`${this.tableApiPrefix}/${eventUuid}/table`).pipe(delay(500))
 	}
 
-	getTableSpace(): Observable<ITableName[]>{
-		return this.http.get<ITableName[]>(`${this.tableApiPrefix}/${this.eventUuid}/table/space`)
+	getTablesName(eventUuid: string | undefined): Observable<ITableName[]>{
+		return this.http.get<ITableName[]>(`${this.tableApiPrefix}/${eventUuid}/table-name`)
 	}
 
-	assignGuestTable(payload: IAssignTableGuest, tableUuid: string): Observable <ITableResponse>{
-		return this.http.post<ITableResponse>(`${this.tableApiPrefix}/${this.eventUuid}/table/${tableUuid}`, payload)
+	getTableSpace(eventUuid: string | undefined): Observable<ITableName[]>{
+		return this.http.get<ITableName[]>(`${this.tableApiPrefix}/${eventUuid}/table/space`)
+	}
+
+	assignGuestTable(payload: IAssignTableGuest,eventUuid: string | undefined, tableUuid: string): Observable <ITableResponse>{
+		return this.http.post<ITableResponse>(`${this.tableApiPrefix}/${eventUuid}/table/${tableUuid}`, payload)
 	}
 
 }

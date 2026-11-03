@@ -34,11 +34,11 @@ export const routes: Routes = [
                 loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.DashboardRoutes)
             },
             {
-                path: 'guest',
+                path: 'event',
                 loadChildren: () => import('./features/guest/guest.routes').then(m => m.GuestRoutes)
             },
             {
-                path: 'tables',
+                path: 'event',
                 loadChildren: () => import('./features/table/table.routes').then(m => m.TableRoutes)
             }
         ]

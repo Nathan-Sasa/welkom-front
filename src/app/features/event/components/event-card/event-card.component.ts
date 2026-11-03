@@ -88,9 +88,7 @@ export class EventCardComponent {
 
 	goDashboard(event: IEventResponse){
 		if(!event) return
-
 		this.dashboard.setEventStorage(event)
-		console.log('event storage : ', event)
 		this.router.navigate(['/dashboard', event.uuid])
 	}
 }

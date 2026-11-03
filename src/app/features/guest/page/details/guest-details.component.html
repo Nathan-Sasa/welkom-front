@@ -12,609 +12,599 @@
             (onClick)="goBack()"
         />
     </div>
-    <div
-        class="w-full flex flex-col justify-center items-center gap-md  bg-wlk-surface-soft p-md rounded-lg"
-        >
-        <div class="w-full flex items-center justify-start gap-md">
-            <p-avatar 
-                wlkEntryAnim
-                [translateY]="15"
-                [label]="guest().firstName!.slice(0,1).toUpperCase() + guest().lastName!.slice(0,1).toUpperCase()"
-                shape="square"
-                size="xlarge"
-                class="border! border-wlk-content-muted! *:text-h2! text-wlk-content-secondary! font-Semibold!"
-            />
-            <span class="text-h1 font-Semibold text-wlk-content-secondary">
-                {{guest().firstName}}
-                {{' '}}
-                {{guest().lastName}}
-            </span>
-        </div>
+    @if(guest()){
         <div
-            class="flex flex-col w-full items-center"
+            class="w-full flex flex-col justify-center items-center gap-md  bg-wlk-surface-soft p-md rounded-lg"
             >
-            <div
-                class="w-full hidden lg:grid grid-cols-2 justify-center items-start gap-md  bg-wlk-surface-soft p-md rounded-lg"
-                >
-                <span class="flex flex-col gap-sm">
-                    <span class="flex items-center gap-sm">
-                        <p-avatar 
-                            icon="pi pi-mobile"
-                            shape="square"
-                            size="normal"
-                            class="border! border-wlk-content-muted! text-wlk-content-secondary! font-Semibold!"
-                        />
-                        <small class="text-wlk-content-secondary font-Medium">
-                            Téléphone
-                        </small>
-                    </span>
-                    <p-inplace>
-                        <ng-template 
-                            #display
-                            >
-                            <span
-                                class="flex items-center gap-sm font-display"
-                                >
-                                {{guest().telephone}}
-                                <p-button 
-                                    size="small"
-                                    [text]="true"
-                                    icon="pi pi-pencil"
-                                />
-                            </span>
-                        </ng-template>
-                        <ng-template 
-                            #content 
-                            let-closeCallback="closeCallback"
-                            >
-                            <span class="inline-flex gap-2">
-                                <input 
-                                    type="text" 
-                                    pInputText 
-                                    [ngModel]="telephoneField()"
-                                    (ngModelChange)="telephoneField.set($event)"
-                                    [pAutoFocus]="true" 
-                                />
-                                <button 
-                                    type="button" 
-                                    pButton 
-                                    (click)="closeCallback($event)" 
-                                    text severity="danger"
-                                    size="small"
-                                    >
-                                    <i class="pi pi-times" pButtonIcon></i>
-                                </button>
-                                @if (!telephoneFieldInvalid()){
-                                    <button 
-                                        type="button" 
-                                        pButton 
-                                         (click)="closeCallback($event); updateGuestDetails()" 
-                                        text severity="success"
-                                        size="small"
-                                        >
-                                        <i class="pi pi-check" pButtonIcon></i>
-                                    </button>
-                                }
-                            </span>
-                        </ng-template>
-                    </p-inplace>
-                </span>   
-                <span class="flex flex-col gap-sm">
-                    <span class="flex items-center gap-sm">
-                        <p-avatar 
-                            icon="pi pi-envelope"
-                            shape="square"
-                            size="normal"
-                            class="border! border-wlk-content-muted! text-wlk-content-secondary! font-Semibold!"
-                        />
-                        <small class="text-wlk-content-secondary font-Medium">
-                            Email
-                        </small>
-                    </span>
-                    <p-inplace>
-                        <ng-template 
-                            #display
-                            >
-                            <span
-                                class="flex items-center gap-sm font-display"
-                                >
-                                {{guest().email}}
-                                <p-button 
-                                    size="small"
-                                    [text]="true"
-                                    icon="pi pi-pencil"
-                                />
-                            </span>
-                        </ng-template>
-                        <ng-template 
-                            #content 
-                            let-closeCallback="closeCallback"
-                            >
-                            <span class="inline-flex gap-2">
-                                <input 
-                                    type="text" 
-                                    pInputText 
-                                    [ngModel]="emailField()"
-                                    (ngModelChange)="emailField.set($event)"
-                                    [pAutoFocus]="true" 
-                                />
-                                <button 
-                                    type="button" 
-                                    pButton 
-                                    (click)="closeCallback($event)" 
-                                    text severity="danger"
-                                    size="small"
-                                    >
-                                    <i class="pi pi-times" pButtonIcon></i>
-                                </button>
-                                @if (!emailFieldInvalid()){
-                                    <button 
-                                        type="button" 
-                                        pButton 
-                                        (click)="closeCallback($event); updateGuestDetails()" 
-                                        text 
-                                        severity="success"
-                                        size="small"
-                                        >
-                                        <i class="pi pi-check" pButtonIcon></i>
-                                    </button>
-                                }
-                            </span>
-                        </ng-template>
-                    </p-inplace>
-                </span>    
-            </div>
-            <p-divider class="w-full my-sm" />
-            <span
-                class="flex items-center gap-sm text"
-                >
-                <small class="text-wlk-content-secondary">
-                    Invité le
-                    {{guest().addedAt | date: 'dd MMMM yyyy'}}
-                </small>
-            </span>
-        </div>
-    </div>
-    <div
-        class="flex flex-col lg:flex-ro gap-md items-start"
-        >
-        <div class=" w-full lg:w-1/3 flex lg:hidden flex-col gap-md">
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 justify-center items-start gap-md  bg-wlk-surface-soft p-md rounded-lg"
-                >
-                <span 
+            <div class="w-full flex items-center justify-start gap-md">
+                <p-avatar 
                     wlkEntryAnim
                     [translateY]="15"
-                    class="flex flex-col ">
-                    <span class="flex items-center gap-sm">
-                        <p-avatar 
-                            icon="pi pi-mobile"
-                            shape="square"
-                            size="normal"
-                            class="border! border-wlk-content-muted! *:text-label! text-wlk-content-secondary! font-Semibold!"
-                        />
-                        <small class="text-wlk-content-secondary font-Medium">
-                            Téléphone
-                        </small>
-                    </span>
-                    <p-inplace>
-                        <ng-template 
-                            #display
-                            >
-                            <span
-                                class="flex items-center gap-sm font-display"
-                                >
-                                {{guest().telephone}}
-                                <p-button 
-                                    size="small"
-                                    [text]="true"
-                                    icon="pi pi-pencil"
-                                />
-                            </span>
-                        </ng-template>
-                        <ng-template 
-                            #content 
-                            let-closeCallback="closeCallback"
-                            >
-                            <span class="inline-flex gap-2 mt-sm">
-                                <input 
-                                    type="text" 
-                                    pInputText 
-                                    [ngModel]="telephoneField()"
-                                    (ngModelChange)="telephoneField.set($event)"
-                                    [pAutoFocus]="true" 
-                                />
-                                <button 
-                                    type="button" 
-                                    pButton 
-                                    (click)="closeCallback($event)" 
-                                    text severity="danger"
-                                    size="small"
-                                    >
-                                    <i class="pi pi-times" pButtonIcon></i>
-                                </button>
-                                @if (!telephoneFieldInvalid()){
-                                    <button 
-                                        type="button" 
-                                        pButton 
-                                         (click)="closeCallback($event); updateGuestDetails()" 
-                                        text severity="success"
-                                        size="small"
-                                        >
-                                        <i class="pi pi-check" pButtonIcon></i>
-                                    </button>
-                                }
-                            </span>
-                        </ng-template>
-                    </p-inplace>
-                    <div class="block md:hidden ">
-                        <p-divider class="w-full my-xs!" />
-                    </div>
-                </span>   
-                <span 
-                    wlkEntryAnim
-                    [translateY]="15"
-                    class="flex flex-col">
-                    <span class="flex items-center gap-sm">
-                        <p-avatar 
-                            icon="pi pi-envelope"
-                            shape="square"
-                            size="normal"
-                            class="border! border-wlk-content-muted! *:text-label! text-wlk-content-secondary! font-Semibold!"
-                        />
-                        <small class="text-wlk-content-secondary font-Medium">
-                            Email
-                        </small>
-                    </span>
-                    <p-inplace>
-                        <ng-template 
-                            #display
-                            >
-                            <span
-                                class="flex items-center gap-sm font-display"
-                                >
-                                {{guest().email}}
-                                <p-button 
-                                    size="small"
-                                    [text]="true"
-                                    icon="pi pi-pencil"
-                                />
-                            </span>
-                        </ng-template>
-                        <ng-template 
-                            #content 
-                            let-closeCallback="closeCallback"
-                            >
-                            <span class="inline-flex gap-2 mt-sm">
-                                <input 
-                                    type="text" 
-                                    pInputText 
-                                    [ngModel]="emailField()"
-                                    (ngModelChange)="emailField.set($event)"
-                                    [pAutoFocus]="true" 
-                                />
-                                <button 
-                                    type="button" 
-                                    pButton 
-                                    (click)="closeCallback($event)" 
-                                    text severity="danger"
-                                    size="small"
-                                    >
-                                    <i class="pi pi-times" pButtonIcon></i>
-                                </button>
-                                @if (!emailFieldInvalid()){
-                                    <button 
-                                        type="button" 
-                                        pButton 
-                                        (click)="closeCallback($event); updateGuestDetails()" 
-                                        text 
-                                        severity="success"
-                                        size="small"
-                                        >
-                                        <i class="pi pi-check" pButtonIcon></i>
-                                    </button>
-                                }
-                            </span>
-                        </ng-template>
-                    </p-inplace>
-                </span>    
-            </div>
-        </div>
-
-
-        <div class="w-full flex flex-col items-center gap-md  bg-wlk-surface-soft p-md rounded-lg">
-            <!-- <span class="text-h4 font-Semibold text-wlk-content-secondary">
-                Informations
-            </span> -->
-            <div class="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-md">
-                <span 
-                    wlkEntryAnim
-                    [translateY]="15"
-                    class="flex flex-col">
-                    <span class="flex items-center gap-sm">
-                        <p-avatar 
-                            icon="pi pi-user"
-                            shape="square"
-                            size="normal"
-                            class="border! border-wlk-content-muted! text-wlk-content-secondary! font-Semibold!"
-                        />
-                        <small class="text-wlk-content-secondary font-Medium">
-                            Catégorie
-                        </small>
-                    </span>
-                    <p-inplace>
-                        <ng-template 
-                            #display
-                            >
-                            <span
-                                class="flex items-center gap-sm font-display"
-                                >
-                                {{frenchCategory(guest().category!)}}
-                                <p-button 
-                                    size="small"
-                                    [text]="true"
-                                    icon="pi pi-pencil"
-                                />
-                            </span>
-                        </ng-template>
-                        <ng-template 
-                            #content 
-                            let-closeCallback="closeCallback"
-                            >
-                            <span class="inline-flex gap-2 mt-sm">
-                                <p-select
-                                    inputId="category"
-                                    [options]="categories()"
-                                    optionLabel="name"
-                                    optionValue="value"
-                                    [ngModel]="categoryField()"
-                                    (ngModelChange)="categoryField.set($event)"
-                                    [filter]="true"
-                                    placeholder="Categories"
-                                    class="bg-wlk-surface! min-w-44!"
-                                />
-                                <button 
-                                    type="button" 
-                                    pButton 
-                                    (click)="closeCallback($event)" 
-                                    text severity="danger"
-                                    size="small"
-                                    >
-                                    <i class="pi pi-times" pButtonIcon></i>
-                                </button>
-                                @if (!categoryFieldInvalid()){
-                                    <button 
-                                        type="button" 
-                                        pButton 
-                                         (click)="closeCallback($event); updateGuestDetails()" 
-                                        text severity="success"
-                                        size="small"
-                                        >
-                                        <i class="pi pi-check" pButtonIcon></i>
-                                    </button>
-                                }
-                            </span>
-                        </ng-template>
-                    </p-inplace>
-                    <div class="block md:hidden ">
-                        <p-divider class="w-full my-xs!" />
-                    </div>
-                </span>   
-                
-                <span 
-                    wlkEntryAnim
-                    [translateY]="15"
-                    class="flex flex-col">
-                    <span class="flex items-center gap-sm">
-                        <p-avatar 
-                            icon="pi pi-user"
-                            shape="square"
-                            size="normal"
-                            class="border! border-wlk-content-muted! text-wlk-content-secondary! font-Semibold!"
-                        />
-                        <small class="text-wlk-content-secondary font-Medium">
-                            Table
-                        </small>
-                    </span>
-                    <p-inplace>
-                        <ng-template 
-                            #display
-                            >
-                            <span
-                                class="flex items-center gap-sm font-display"
-                                (click)="loadTable()"
-                                >
-                                {{guest().tableName || 'Ajouter'}}
-                                <p-button 
-                                    size="small"
-                                    [text]="true"
-                                    [icon]=" guest().tableName ? 'pi pi-pencil' : 'pi pi-plus'"
-                                />
-                            </span>
-                        </ng-template>
-                        <ng-template 
-                            #content 
-                            let-closeCallback="closeCallback"
-                            >
-                            <span class="inline-flex gap-2 mt-sm">
-                                <p-select
-                                    inputId="table"
-                                    [options]="tables()"
-                                    optionLabel="name"
-                                    optionValue="value"
-                                    [ngModel]="table()"
-                                    (ngModelChange)="table.set($event)"
-                                    [filter]="true"
-                                    placeholder="Table"
-                                    class="bg-wlk-surface! min-w-44!"
-                                />
-                                <button 
-                                    type="button" 
-                                    pButton 
-                                    (click)="closeCallback($event)" 
-                                    text severity="danger"
-                                    size="small"
-                                    >
-                                    <i class="pi pi-times" pButtonIcon></i>
-                                </button>
-                                @if (!tableFieldInvalid()){
-                                    <button 
-                                        type="button" 
-                                        pButton 
-                                         (click)="closeCallback($event); assignTable()" 
-                                        text severity="success"
-                                        size="small"
-                                        >
-                                        <i class="pi pi-check" pButtonIcon></i>
-                                    </button>
-                                }
-                            </span>
-                        </ng-template>
-                    </p-inplace>
-                    <div class="block md:hidden ">
-                        <p-divider class="w-full my-xs!" />
-                    </div>
+                    [label]="guestAvatar()"
+                    shape="square"
+                    size="xlarge"
+                    class="border! border-wlk-content-muted! *:text-h2! text-wlk-content-secondary! font-Semibold!"
+                />
+                <span class="text-h1 font-Semibold text-wlk-content-secondary">
+                    {{guest().firstName}}
+                    {{' '}}
+                    {{guest().lastName}}
                 </span>
-
-                <span 
-                    wlkEntryAnim
-                    [translateY]="15"
-                    class="flex flex-col">
-                    <span class="flex items-center gap-sm">
-                        <p-avatar 
-                            icon="pi pi-send"
-                            shape="square"
-                            size="normal"
-                            class="border! border-wlk-content-muted! text-wlk-content-secondary! font-Semibold!"
-                        />
-                        <small class="text-wlk-content-secondary font-Medium">
-                            Rsvp
-                        </small>
-                    </span>
-                    <p-inplace>
-                        <ng-template 
-                            #display
-                            >
-                            <span
-                                class="flex items-center gap-sm font-display"
+            </div>
+            <div
+                class="flex flex-col w-full items-center"
+                >
+                <div
+                    class="w-full hidden lg:grid grid-cols-2 justify-center items-start gap-md  bg-wlk-surface-soft p-md rounded-lg"
+                    >
+                    <span class="flex flex-col gap-sm">
+                        <span class="flex items-center gap-sm">
+                            <p-avatar 
+                                icon="pi pi-mobile"
+                                shape="square"
+                                size="normal"
+                                class="border! border-wlk-content-muted! text-wlk-content-secondary! font-Semibold!"
+                            />
+                            <small class="text-wlk-content-secondary font-Medium">
+                                Téléphone
+                            </small>
+                        </span>
+                        <p-inplace>
+                            <ng-template 
+                                #display
                                 >
-                                {{frenchCategory(guest().category!)}}
-                                <p-button 
-                                    size="small"
-                                    [text]="true"
-                                    icon="pi pi-pencil"
-                                />
-                            </span>
-                        </ng-template>
-                        <ng-template 
-                            #content 
-                            let-closeCallback="closeCallback"
-                            >
-                            <span class="inline-flex gap-2 mt-sm">
-                                <p-select
-                                    inputId="category"
-                                    [options]="categories()"
-                                    optionLabel="name"
-                                    optionValue="value"
-                                    [ngModel]="categoryField()"
-                                    (ngModelChange)="categoryField.set($event)"
-                                    [filter]="true"
-                                    placeholder="Categories"
-                                    class="bg-wlk-surface! min-w-44!"
-                                />
-                                <button 
-                                    type="button" 
-                                    pButton 
-                                    (click)="closeCallback($event)" 
-                                    text severity="danger"
-                                    size="small"
+                                <span
+                                    class="flex items-center gap-sm font-display"
                                     >
-                                    <i class="pi pi-times" pButtonIcon></i>
-                                </button>
-                                @if (!categoryFieldInvalid()){
+                                    {{guest().telephone}}
+                                    <p-button 
+                                        size="small"
+                                        [text]="true"
+                                        icon="pi pi-pencil"
+                                    />
+                                </span>
+                            </ng-template>
+                            <ng-template 
+                                #content 
+                                let-closeCallback="closeCallback"
+                                >
+                                <span class="inline-flex gap-2">
+                                    <input 
+                                        type="text" 
+                                        pInputText 
+                                        [ngModel]="telephoneField()"
+                                        (ngModelChange)="telephoneField.set($event)"
+                                        [pAutoFocus]="true" 
+                                    />
                                     <button 
                                         type="button" 
                                         pButton 
-                                         (click)="closeCallback($event); updateGuestDetails()" 
-                                        text severity="success"
+                                        (click)="closeCallback($event)" 
+                                        text severity="danger"
                                         size="small"
                                         >
-                                        <i class="pi pi-check" pButtonIcon></i>
+                                        <i class="pi pi-times" pButtonIcon></i>
                                     </button>
-                                }
-                            </span>
-                        </ng-template>
-                    </p-inplace>
+                                    @if (!telephoneFieldInvalid()){
+                                        <button 
+                                            type="button" 
+                                            pButton 
+                                             (click)="closeCallback($event); updateGuestDetails()" 
+                                            text severity="success"
+                                            size="small"
+                                            >
+                                            <i class="pi pi-check" pButtonIcon></i>
+                                        </button>
+                                    }
+                                </span>
+                            </ng-template>
+                        </p-inplace>
+                    </span>   
+                    <span class="flex flex-col gap-sm">
+                        <span class="flex items-center gap-sm">
+                            <p-avatar 
+                                icon="pi pi-envelope"
+                                shape="square"
+                                size="normal"
+                                class="border! border-wlk-content-muted! text-wlk-content-secondary! font-Semibold!"
+                            />
+                            <small class="text-wlk-content-secondary font-Medium">
+                                Email
+                            </small>
+                        </span>
+                        <p-inplace>
+                            <ng-template 
+                                #display
+                                >
+                                <span
+                                    class="flex items-center gap-sm font-display"
+                                    >
+                                    {{guest().email}}
+                                    <p-button 
+                                        size="small"
+                                        [text]="true"
+                                        icon="pi pi-pencil"
+                                    />
+                                </span>
+                            </ng-template>
+                            <ng-template 
+                                #content 
+                                let-closeCallback="closeCallback"
+                                >
+                                <span class="inline-flex gap-2">
+                                    <input 
+                                        type="text" 
+                                        pInputText 
+                                        [ngModel]="emailField()"
+                                        (ngModelChange)="emailField.set($event)"
+                                        [pAutoFocus]="true" 
+                                    />
+                                    <button 
+                                        type="button" 
+                                        pButton 
+                                        (click)="closeCallback($event)" 
+                                        text severity="danger"
+                                        size="small"
+                                        >
+                                        <i class="pi pi-times" pButtonIcon></i>
+                                    </button>
+                                    @if (!emailFieldInvalid()){
+                                        <button 
+                                            type="button" 
+                                            pButton 
+                                            (click)="closeCallback($event); updateGuestDetails()" 
+                                            text 
+                                            severity="success"
+                                            size="small"
+                                            >
+                                            <i class="pi pi-check" pButtonIcon></i>
+                                        </button>
+                                    }
+                                </span>
+                            </ng-template>
+                        </p-inplace>
+                    </span>    
+                </div>
+                <p-divider class="w-full my-sm" />
+                <span
+                    class="flex items-center gap-sm text"
+                    >
+                    <small class="text-wlk-content-secondary">
+                        Invité le
+                        {{guest().addedAt | date: 'dd MMMM yyyy'}}
+                    </small>
                 </span>
             </div>
         </div>
 
-        <div class="w-full min-h-4">
-            @if(submitting()){
-                <div 
-                    class="w-full flex justify-center">
+        <div
+            class="flex flex-col lg:flex-ro gap-md items-start"
+            >
+            <div class=" w-full lg:w-1/3 flex lg:hidden flex-col gap-md">
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 justify-center items-start gap-md  bg-wlk-surface-soft p-md rounded-lg"
+                    >
                     <span 
                         wlkEntryAnim
-                        [translateY]="50"
-                        [delay]="300"
-                        class="opacity-0 text-wlk-content-muted animate-pulse duration-500">
-                        {{updatingMessage()}}
+                        [translateY]="15"
+                        class="flex flex-col ">
+                        <span class="flex items-center gap-sm">
+                            <p-avatar 
+                                icon="pi pi-mobile"
+                                shape="square"
+                                size="normal"
+                                class="border! border-wlk-content-muted! *:text-label! text-wlk-content-secondary! font-Semibold!"
+                            />
+                            <small class="text-wlk-content-secondary font-Medium">
+                                Téléphone
+                            </small>
+                        </span>
+                        <p-inplace>
+                            <ng-template 
+                                #display
+                                >
+                                <span
+                                    class="flex items-center gap-sm font-display"
+                                    >
+                                    {{guest().telephone}}
+                                    <p-button 
+                                        size="small"
+                                        [text]="true"
+                                        icon="pi pi-pencil"
+                                    />
+                                </span>
+                            </ng-template>
+                            <ng-template 
+                                #content 
+                                let-closeCallback="closeCallback"
+                                >
+                                <span class="inline-flex gap-2 mt-sm">
+                                    <input 
+                                        type="text" 
+                                        pInputText 
+                                        [ngModel]="telephoneField()"
+                                        (ngModelChange)="telephoneField.set($event)"
+                                        [pAutoFocus]="true" 
+                                    />
+                                    <button 
+                                        type="button" 
+                                        pButton 
+                                        (click)="closeCallback($event)" 
+                                        text severity="danger"
+                                        size="small"
+                                        >
+                                        <i class="pi pi-times" pButtonIcon></i>
+                                    </button>
+                                    @if (!telephoneFieldInvalid()){
+                                        <button 
+                                            type="button" 
+                                            pButton 
+                                             (click)="closeCallback($event); updateGuestDetails()" 
+                                            text severity="success"
+                                            size="small"
+                                            >
+                                            <i class="pi pi-check" pButtonIcon></i>
+                                        </button>
+                                    }
+                                </span>
+                            </ng-template>
+                        </p-inplace>
+                        <div class="block md:hidden ">
+                            <p-divider class="w-full my-xs!" />
+                        </div>
+                    </span>   
+                    <span 
+                        wlkEntryAnim
+                        [translateY]="15"
+                        class="flex flex-col">
+                        <span class="flex items-center gap-sm">
+                            <p-avatar 
+                                icon="pi pi-envelope"
+                                shape="square"
+                                size="normal"
+                                class="border! border-wlk-content-muted! *:text-label! text-wlk-content-secondary! font-Semibold!"
+                            />
+                            <small class="text-wlk-content-secondary font-Medium">
+                                Email
+                            </small>
+                        </span>
+                        <p-inplace>
+                            <ng-template 
+                                #display
+                                >
+                                <span
+                                    class="flex items-center gap-sm font-display"
+                                    >
+                                    {{guest().email}}
+                                    <p-button 
+                                        size="small"
+                                        [text]="true"
+                                        icon="pi pi-pencil"
+                                    />
+                                </span>
+                            </ng-template>
+                            <ng-template 
+                                #content 
+                                let-closeCallback="closeCallback"
+                                >
+                                <span class="inline-flex gap-2 mt-sm">
+                                    <input 
+                                        type="text" 
+                                        pInputText 
+                                        [ngModel]="emailField()"
+                                        (ngModelChange)="emailField.set($event)"
+                                        [pAutoFocus]="true" 
+                                    />
+                                    <button 
+                                        type="button" 
+                                        pButton 
+                                        (click)="closeCallback($event)" 
+                                        text severity="danger"
+                                        size="small"
+                                        >
+                                        <i class="pi pi-times" pButtonIcon></i>
+                                    </button>
+                                    @if (!emailFieldInvalid()){
+                                        <button 
+                                            type="button" 
+                                            pButton 
+                                            (click)="closeCallback($event); updateGuestDetails()" 
+                                            text 
+                                            severity="success"
+                                            size="small"
+                                            >
+                                            <i class="pi pi-check" pButtonIcon></i>
+                                        </button>
+                                    }
+                                </span>
+                            </ng-template>
+                        </p-inplace>
+                    </span>    
+                </div>
+            </div>
+    
+    
+            <div class="w-full flex flex-col items-center gap-md  bg-wlk-surface-soft p-md rounded-lg">
+                <div class="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-md">
+                    <span 
+                        wlkEntryAnim
+                        [translateY]="15"
+                        class="flex flex-col">
+                        <span class="flex items-center gap-sm">
+                            <p-avatar 
+                                icon="pi pi-user"
+                                shape="square"
+                                size="normal"
+                                class="border! border-wlk-content-muted! text-wlk-content-secondary! font-Semibold!"
+                            />
+                            <small class="text-wlk-content-secondary font-Medium">
+                                Catégorie
+                            </small>
+                        </span>
+                        <p-inplace>
+                            <ng-template 
+                                #display
+                                >
+                                <span
+                                    class="flex items-center gap-sm font-display"
+                                    >
+                                    {{frenchCategory(guest().category)}}
+                                    <p-button 
+                                        size="small"
+                                        [text]="true"
+                                        icon="pi pi-pencil"
+                                    />
+                                </span>
+                            </ng-template>
+                            <ng-template 
+                                #content 
+                                let-closeCallback="closeCallback"
+                                >
+                                <span class="inline-flex gap-2 mt-sm">
+                                    <p-select
+                                        inputId="category"
+                                        [options]="categories()"
+                                        optionLabel="name"
+                                        optionValue="value"
+                                        [ngModel]="categoryField()"
+                                        (ngModelChange)="categoryField.set($event)"
+                                        [filter]="true"
+                                        placeholder="Categories"
+                                        class="bg-wlk-surface! min-w-44!"
+                                    />
+                                    <button 
+                                        type="button" 
+                                        pButton 
+                                        (click)="closeCallback($event)" 
+                                        text severity="danger"
+                                        size="small"
+                                        >
+                                        <i class="pi pi-times" pButtonIcon></i>
+                                    </button>
+                                    @if (!categoryFieldInvalid()){
+                                        <button 
+                                            type="button" 
+                                            pButton 
+                                             (click)="closeCallback($event); updateGuestDetails()" 
+                                            text severity="success"
+                                            size="small"
+                                            >
+                                            <i class="pi pi-check" pButtonIcon></i>
+                                        </button>
+                                    }
+                                </span>
+                            </ng-template>
+                        </p-inplace>
+                        <div class="block md:hidden ">
+                            <p-divider class="w-full my-xs!" />
+                        </div>
+                    </span>   
+                    
+                    <span 
+                        wlkEntryAnim
+                        [translateY]="15"
+                        class="flex flex-col">
+                        <span class="flex items-center gap-sm">
+                            <p-avatar 
+                                icon="pi pi-user"
+                                shape="square"
+                                size="normal"
+                                class="border! border-wlk-content-muted! text-wlk-content-secondary! font-Semibold!"
+                            />
+                            <small class="text-wlk-content-secondary font-Medium">
+                                Table
+                            </small>
+                        </span>
+                        <p-inplace>
+                            <ng-template 
+                                #display
+                                >
+                                <span
+                                    class="flex items-center gap-sm font-display"
+                                    (click)="loadTable()"
+                                    >
+                                    {{guest().tableName || 'Ajouter'}}
+                                    <p-button 
+                                        size="small"
+                                        [text]="true"
+                                        [icon]=" guest().tableName ? 'pi pi-pencil' : 'pi pi-plus'"
+                                    />
+                                </span>
+                            </ng-template>
+                            <ng-template 
+                                #content 
+                                let-closeCallback="closeCallback"
+                                >
+                                <span class="inline-flex gap-2 mt-sm">
+                                    <p-select
+                                        inputId="table"
+                                        [options]="tables()"
+                                        optionLabel="name"
+                                        optionValue="value"
+                                        [ngModel]="table()"
+                                        (ngModelChange)="table.set($event)"
+                                        [filter]="true"
+                                        placeholder="Table"
+                                        class="bg-wlk-surface! min-w-44!"
+                                    />
+                                    <button 
+                                        type="button" 
+                                        pButton 
+                                        (click)="closeCallback($event)" 
+                                        text severity="danger"
+                                        size="small"
+                                        >
+                                        <i class="pi pi-times" pButtonIcon></i>
+                                    </button>
+                                    @if (!tableFieldInvalid()){
+                                        <button 
+                                            type="button" 
+                                            pButton 
+                                             (click)="closeCallback($event); assignTable()" 
+                                            text severity="success"
+                                            size="small"
+                                            >
+                                            <i class="pi pi-check" pButtonIcon></i>
+                                        </button>
+                                    }
+                                </span>
+                            </ng-template>
+                        </p-inplace>
+                        <div class="block md:hidden ">
+                            <p-divider class="w-full my-xs!" />
+                        </div>
+                    </span>
+    
+                    <span 
+                        wlkEntryAnim
+                        [translateY]="15"
+                        class="flex flex-col">
+                        <span class="flex items-center gap-sm">
+                            <p-avatar 
+                                icon="pi pi-send"
+                                shape="square"
+                                size="normal"
+                                class="border! border-wlk-content-muted! text-wlk-content-secondary! font-Semibold!"
+                            />
+                            <small class="text-wlk-content-secondary font-Medium">
+                                Rsvp
+                            </small>
+                        </span>
+                        <!-- <p-inplace> -->
+                            <!-- <ng-template 
+                                #display
+                                > -->
+                                <span
+                                    class="w-fit flex items-center gap-sm font-display ml-sm mt-sm p-xs {{colorRsvp(guest().rsvp)}} {{backgroundRsvp(guest().rsvp)}}"
+                                    >
+                                    {{rsvpFrench(guest().rsvp)}}
+                                    <!-- <p-button 
+                                        size="small"
+                                        [text]="true"
+                                        icon="pi pi-pencil"
+                                    /> -->
+                                </span>
+                                <!-- <span class="flex items-center {{colorRsvp(guest().rsvp)}}">
+                                    <span class=" p-xs text-small font-Medium {{colorRsvp(guest().rsvp)}} {{backgroundRsvp(guest().rsvp)}}">
+                                         {{frenchRsvp(guest.rsvpStatus)}}
+                                    </span>
+                                </span> -->
+                            <!-- </ng-template> -->
+                            <!-- <ng-template 
+                                #content 
+                                let-closeCallback="closeCallback"
+                                >
+                                <span class="inline-flex gap-2 mt-sm">
+                                    <p-select
+                                        inputId="category"
+                                        [options]="categories()"
+                                        optionLabel="name"
+                                        optionValue="value"
+                                        [ngModel]="categoryField()"
+                                        (ngModelChange)="categoryField.set($event)"
+                                        [filter]="true"
+                                        placeholder="Categories"
+                                        class="bg-wlk-surface! min-w-44!"
+                                    />
+                                    <button 
+                                        type="button" 
+                                        pButton 
+                                        (click)="closeCallback($event)" 
+                                        text severity="danger"
+                                        size="small"
+                                        >
+                                        <i class="pi pi-times" pButtonIcon></i>
+                                    </button>
+                                    @if (!categoryFieldInvalid()){
+                                        <button 
+                                            type="button" 
+                                            pButton 
+                                             (click)="closeCallback($event); updateGuestDetails()" 
+                                            text severity="success"
+                                            size="small"
+                                            >
+                                            <i class="pi pi-check" pButtonIcon></i>
+                                        </button>
+                                    }
+                                </span>
+                            </ng-template> -->
+                        <!-- </p-inplace> -->
+                    </span>
+                </div>
+            </div>
+    
+            <div class="w-full min-h-4">
+                @if(submitting()){
+                    <div 
+                        class="w-full flex justify-center">
+                        <span 
+                            wlkEntryAnim
+                            [translateY]="50"
+                            [delay]="300"
+                            class="opacity-0 text-wlk-content-muted animate-pulse duration-500">
+                            {{updatingMessage()}}
+                        </span>
+                    </div>
+                }
+            </div>
+    
+            @if(submitted() === 'submitted'){
+                <div class="w-full flex flex-col justify-start">
+                    <span class="flex items-center gap-xs">
+                        <p-avatar 
+                            shape="circle"
+                            size="normal"
+                            [icon]="assignTableStateIcon()"
+                            [ngClass]="{
+                                'border-wlk-content-muted/10! text-wlk-content-muted! bg-wlk-surface-soft/20!' : updatingGuest() === 'updating',
+                                'border-wlk-sage! text-wlk-sage! bg-wlk-surface-soft/50!': updatingGuest() === 'updated',
+                                'border-wlk-danger/60! text-wlk-danger/60! bg-wlk-surface-soft/60!': updatingGuest() === 'error'
+                            }"
+                            class="border text-label scale-70"
+                        />
+                        <p
+                            [ngClass]="{
+                                'text-wlk-content-muted' : updatingGuest() === 'updating',
+                                'text-wlk-sage': updatingGuest() === 'updated',
+                                'text-wlk-danger/50': updatingGuest() === 'error'
+                            }"
+                            class="text-label text-display"
+                            >
+                            {{updatingMessage()}}
+                        </p>
                     </span>
                 </div>
             }
-        </div>
-
-        @if(submitted() === 'submitted'){
-            <div class="w-full flex flex-col justify-start">
-                <span class="flex items-center gap-xs">
-                    <p-avatar 
-                        shape="circle"
-                        size="normal"
-                        [icon]="assignTableStateIcon()"
-                        [ngClass]="{
-                            'border-wlk-content-muted/10! text-wlk-content-muted! bg-wlk-surface-soft/20!' : updatingGuest() === 'updating',
-                            'border-wlk-sage! text-wlk-sage! bg-wlk-surface-soft/50!': updatingGuest() === 'updated',
-                            'border-wlk-danger/60! text-wlk-danger/60! bg-wlk-surface-soft/60!': updatingGuest() === 'error'
-                        }"
-                        class="border text-label scale-70"
+    
+            @if(submittingError() && !submitting()){
+                <div
+                    class="w-full"
+                    >
+                    <wlk-errors 
+                        [wlkError]="errorContent()"
                     />
-                    <p
-                        [ngClass]="{
-                            'text-wlk-content-muted' : updatingGuest() === 'updating',
-                            'text-wlk-sage': updatingGuest() === 'updated',
-                            'text-wlk-danger/50': updatingGuest() === 'error'
-                        }"
-                        class="text-label text-display"
-                        >
-                        {{updatingMessage()}}
-                    </p>
-                </span>
-            </div>
-        }
-
-        @if(submittingError() && !submitting()){
-            <div
-                class="w-full"
-                >
-                <wlk-errors 
-                    [wlkError]="errorContent()"
-                />
-            </div>
-        }
-    </div>
+                </div>
+            }
+        </div>
+    }
 </section>
-
-
-<!-- 
-<p-select
-    inputId="category"
-    [options]="categories()"
-    optionLabel="name"
-    optionValue="value"
-    [ngModel]="categoryField()"
-    (ngModelChange)="categoryField.set($event)"
-    [filter]="true"
-    placeholder="Categories"
-    class="bg-wlk-surface!"
-/>
--->

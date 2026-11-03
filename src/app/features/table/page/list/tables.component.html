@@ -51,12 +51,21 @@
                                         />
                                         <span class="font-Medium text-h4">{{table.tableName}}</span>
                                     </div>
-    
-                                    @if (active) {
-                                        <i class="pi pi-minus"></i>
-                                    } @else {
-                                        <i class="pi pi-plus"></i>
-                                    }
+                                    
+                                    <div>
+                                        <p-button 
+                                            [routerLink]="['/event', eventUuid, 'tables', table.id ]"
+                                            icon="pi pi-arrow-up-right-and-arrow-down-left-from-center"
+                                            size="small"
+                                            [text]="true"
+                                            class="mr-md"
+                                        />
+                                        @if (active) {
+                                            <i class="pi pi-minus"></i>
+                                        } @else {
+                                            <i class="pi pi-plus"></i>
+                                        }
+                                    </div>
                                 </ng-template>
                             </p-accordion-header>
                             <p-accordion-content>
@@ -65,11 +74,10 @@
                                     >
                                     @if(table.guest.length > 0){
                                         @for(guest of table.guest; track $index){
-                                            <div class="flex items-center gap-md ml-big">
+                                            <div class="flex items-center gap-md ml-big py-sm not-last:border-b border-wlk-border">
                                                 <span class="text-label font-display font-semibold">{{guest.firstName}}</span>
                                                 <span class="text-label font-display font-semibold">{{guest.lastName}}</span>
                                             </div>
-                                            <p-divider class="w-full my-xs" />
                                         }
                                     }@else {
                                         <div

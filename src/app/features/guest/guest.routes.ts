@@ -21,23 +21,39 @@ export const GuestRoutes: Routes = [
                 // loadComponent: ()=> import('./page/list/guest.component').then(m=> m.GuestComponent),
                 children: [
                     {
-                        path: '',
-                        loadComponent: ()=> import('./page/list/guest.component').then(m=> m.GuestComponent),
+                        path: 'guests',
+                        children: [
+                            {
+                                path: '',
+                                loadComponent: ()=> import('./page/list/guest.component').then(m=> m.GuestComponent),
+                            },
+                            {
+                                path: 'add',
+                                title: 'Ajouter',
+                                loadComponent: () => import('./page/add/guest-add.component').then(m => m.GuestAddComponent)
+                            },
+                            {
+                                path: 'import',
+                                title: 'importer',
+                                loadComponent: () => import('./page/import/import.component').then(m => m.ImportComponent)
+                            },
+                            {
+                                path: ':guestUuid',
+                                children: [
+                                    {
+                                        path: '',
+                                        redirectTo: 'details',
+                                        pathMatch: 'prefix'
+                                    },
+                                    {
+                                        path: 'details',
+                                        loadComponent: () => import('./page/details/guest-details.component').then(m => m.GuestDetailsComponent)
+                                    }
+                                ]
+                            },
+                            
+                        ]
                     },
-                    {
-                        path: 'details/:guestUuid',
-                        loadComponent: () => import('./page/details/guest-details.component').then(m => m.GuestDetailsComponent)
-                    },
-                    {
-                        path: 'add',
-                        title: 'Ajouter',
-                        loadComponent: () => import('./page/add/guest-add.component').then(m => m.GuestAddComponent)
-                    },
-                    {
-                        path: 'import',
-                        title: 'importer',
-                        loadComponent: () => import('./page/import/import.component').then(m => m.ImportComponent)
-                    }
                 ]
             },
             // {
