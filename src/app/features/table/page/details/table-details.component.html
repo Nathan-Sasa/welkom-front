@@ -1,14 +1,56 @@
 <section
-    class="flex flex-col"
+    class="w-full flex flex-col gap-xl"
     >
+    <div
+        class="w-full items-center justify-between"
+        >
+        <p-button 
+            size="small"
+            label="Retour"
+            [text]="true"
+            icon="pi pi-arrow-left"
+            (onClick)="goBack()"
+        />
+    </div>
     <div>
-        <span>Table</span>
+        <div class="flex flex-col gap- relative py-xs">
+            <div
+                class="flex items-center gap-xs relative py-xs"
+                >
+                <span class="text-h3 font-display font-black ml-sm">Table</span>
+                @if(loading()){
+                    <span class="h-4 w-44 bg-wlk-surface-soft animate-pulse duration-300"></span>
+                }@else {
+                    <span
+                        [ariaLabel]="'Table ' + table().tableName"
+                        class="text-h3 font-display font-black"
+                        >
+                        {{table().tableName}}
+                    </span>
+                }
+            </div>
+            <div
+                class="flex ml-sm"
+                >
+                <span class="font-display font-medium text-wlk-content-secondary">Place disponible : {{table().countSeats ? table().countSeats : 0}} /  {{ table().maxSeats ? table().maxSeats : 0 }}</span>
+            </div>
+            <div
+                class="absolute w-full h-full flex items-end justify-end bg-wlk-primary-light/20"
+                >
+                <img 
+                    src="assets/shapes/flowers.svg" 
+                    alt="cover"
+                    width="48"
+                    class="mr-xs"
+                >
+            </div>
+        </div>
     </div>
     <div>
         <p-tabs 
             value="0" 
             class=""> 
-            <div class="w-fit mx-auto">
+            <div class="w-full mx-auto">
                 <p-tablist
                     wlkEntryAnim
                     [delay]="100"
@@ -16,10 +58,16 @@
                     [translateY]="20"  
                     class="opacity-0"
                     >
-                    <p-tab value="0">
+                    <p-tab 
+                        value="0" 
+                        [disabled]="loading()"
+                        >
                         Liste d'invités
                     </p-tab>
-                    <p-tab value="1">
+                    <p-tab 
+                        value="1"
+                        [disabled]="loading()"
+                        >
                         Plan de table
                     </p-tab>
                 </p-tablist>
@@ -28,8 +76,16 @@
                 <p-tabpanel 
                     value="0"
                     class="flex flex-col gap-md"
-                    >La list des complete des invites
+                    >
+                    @if (!loading() && table()){
+                        @for(guest of table().guest; track $index){
+                            <div class="w-full p-md not-last:border-b border-wlk-border">
+                                <span class="font-display font-semibold">{{guest.firstName + ' ' + guest.lastName}}</span>
+                            </div>
+                        }
+                    }
                 </p-tabpanel>
+                
                 <p-tabpanel 
                     value="1"
                     class="flex flex-col gap-md"

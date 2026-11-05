@@ -43,7 +43,8 @@ export class DashboardLayoutComponent {
 
 	menuItems = [
 		{ route: `/dashboard/${this.eventUuid}`, icon: 'pi pi-objects-column text-label', label: 'Dashboard' },
-		{ route: `/guest/${this.eventUuid}`, icon: 'pi pi-user', label: 'Invités' },
-		{ route: '/catalogues', icon: 'pi pi-folder', label: 'Catalogues' },
+		{ route: `/event/${this.eventUuid}/guests`, icon: 'pi pi-users', label: 'Invités' },
+		{ route: `/event/${this.eventUuid}/tables`, icon: 'pi pi-user', label: 'Tables' },
+		// { route: '/event', icon: 'pi pi-folder', label: 'Catalogues' },
 	];
 }

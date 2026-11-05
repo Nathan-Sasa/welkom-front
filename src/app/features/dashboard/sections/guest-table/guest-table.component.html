@@ -13,7 +13,7 @@
                 </span>
                 @if (!loadingData() && recentGuests().length > 0) {
                     <p-button 
-                        [routerLink]="['/guest', eventUuid]"
+                        [routerLink]="['/event', eventUuid, 'guests']"
                         label="tous"
                         [text]="true"
                         size="small"

@@ -41,6 +41,10 @@ export class TableService {
 		return this.http.get<ITableName[]>(`${this.tableApiPrefix}/${eventUuid}/table/space`)
 	}
 
+	getTableByUuid(eventUuid: string | undefined, tableUuid: string): Observable<ITableResponse>{
+		return this.http.get<ITableResponse>(`${this.tableApiPrefix}/${eventUuid}/table/${tableUuid}`)
+	}
+
 	assignGuestTable(payload: IAssignTableGuest,eventUuid: string | undefined, tableUuid: string): Observable <ITableResponse>{
 		return this.http.post<ITableResponse>(`${this.tableApiPrefix}/${eventUuid}/table/${tableUuid}`, payload)
 	}

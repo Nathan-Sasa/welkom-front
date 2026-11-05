@@ -142,6 +142,10 @@ export class GuestDetailsComponent {
 		return !rsvp || rsvp === this.guest()?.rsvp
 	})
 
+	tableLoaded = signal({
+		uuid: this.table().uuid,
+		countSeats: this.table().countSeats
+	})
 
 	constructor(){
 		effect(() => {
@@ -152,24 +156,7 @@ export class GuestDetailsComponent {
 				this.getEventUuid.set(event)
 				this.getGuestUuid.set(guestUuid)
 
-				this.guestService.getGuestDetails(event, guestUuid)
-					.pipe(takeUntilDestroyed(this.destroyRef))
-					.subscribe({
-						next: (guest) => {
-							// console.log('guest res : ', guest)
-							this.guest.set(guest)
-
-							this.firstNameField.set(guest.firstName || '')
-							this.lastNameField.set(guest.lastName || '')
-							this.telephoneField.set(guest.telephone || '')
-							this.emailField.set(guest.email || '')
-							this.categoryField.set(guest.category || 'FAMILY')
-							this.rsvpField.set(guest.rsvp || 'PENDING')
-							this.table.set({uuid: '' ,tableName: guest.tableName})
-							this.loading.set(false)
-						}
-					})
-
+				this.loadGuest(event, guestUuid)
 			}
 		})
 	}
@@ -198,6 +185,28 @@ export class GuestDetailsComponent {
 		return toBackgroundRsvp(rsvp)
 	}
 
+	loadGuest(event: string, guestUuid: string){
+		this.guestService.getGuestDetails(event, guestUuid)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: (guest) => {
+					this.guest.set(guest)
+
+					this.firstNameField.set(guest.firstName || '')
+					this.lastNameField.set(guest.lastName || '')
+					this.telephoneField.set(guest.telephone || '')
+					this.emailField.set(guest.email || '')
+					this.categoryField.set(guest.category || 'FAMILY')
+					this.rsvpField.set(guest.rsvp || 'PENDING')
+					this.table.set({
+						uuid: this.tableLoaded().uuid ? this.tableLoaded().uuid: '' ,
+						tableName: guest.tableName, 
+						countSeats: this.tableLoaded().countSeats ? this.tableLoaded().countSeats : 0
+					})
+					this.loading.set(false)
+				}
+			})
+	}
 
 	updateGuestDetails(): void {
 
@@ -265,7 +274,8 @@ export class GuestDetailsComponent {
 							name: item.tableName,
 							value: {
 								uuid: item.uuid,
-								tableName: item.tableName
+								tableName: item.tableName,
+								countSeats: item.countSeats
 							}
 						}
 						return table

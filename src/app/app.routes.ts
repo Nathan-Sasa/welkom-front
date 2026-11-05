@@ -23,6 +23,14 @@ export const routes: Routes = [
         path: 'profile',
         loadChildren: () => import('./features/profile/profile.routes').then(m => m.ProfileRoutes)
     },
+    {
+        path: 'catalogues',
+        loadChildren: () => import('./features/templates/catalogue.routes').then(r => r.CatalogueRoutes)
+    },
+    {
+        path: 'event',
+        loadChildren: () => import('./features/event/event.routes').then(r => r.EventRoutes),
+    },
 
     {
         path: '',
@@ -58,14 +66,7 @@ export const routes: Routes = [
         loadComponent: ()=> import('./layout/design-system/design-system.component').then(m => m.DesignSystemComponent)
     },
 
-    {
-        path: 'catalogues',
-        loadChildren: () => import('./features/templates/catalogue.routes').then(r => r.CatalogueRoutes)
-    },
-    {
-        path: 'event',
-        loadChildren: () => import('./features/event/event.routes').then(r => r.EventRoutes)
-    },
+   
 
     {
         path: 'unauthorized',

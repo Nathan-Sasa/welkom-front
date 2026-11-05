@@ -29,7 +29,7 @@ export class SideMenuComponent {
 
 	menuItems = [
 		{ route: `/dashboard/${this.eventUuid}`, icon: 'pi pi-objects-column text-label', label: 'Dashboard' },
-		{ route: `/event/${this.eventUuid}/guests`, icon: 'pi pi-user', label: 'Invités' },
+		{ route: `/event/${this.eventUuid}/guests`, icon: 'pi pi-users', label: 'Invités' },
 		{ route: `/event/${this.eventUuid}/tables`, icon: 'pi pi-user', label: 'Tables' },
 		// { route: '/catalogues', icon: 'pi pi-folder', label: 'Catalogues' },
 	];

@@ -1,6 +1,7 @@
 export interface ITableName {
     uuid: string
-    tableName: string
+    tableName: string,
+    countSeats: number
 }
 
 export interface ITableRequest {
