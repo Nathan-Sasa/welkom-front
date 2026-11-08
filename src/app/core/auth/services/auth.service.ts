@@ -47,7 +47,7 @@ export class AuthService {
 				}),
 				catchError((err) => {
 					this.currentUser.set(null)
-					console.log('Error current user : ', err)
+					// console.log('Error current user : ', err)
 					return of(null)
 				})
 			)
@@ -97,10 +97,10 @@ export class AuthService {
 			)
 	}
 
-	purge(): void {
+	public purge(): void {
 		this.currentUser.set(null)
 		this.dashboard.clearEventStorage()
-		this.router.navigate(['/login'])
+		void this.router.navigate(['/login'])
 	}
 
 }

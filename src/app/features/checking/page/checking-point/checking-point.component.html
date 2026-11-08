@@ -1,1 +1,63 @@
-<p>checking-point.component works!</p>
+<section
+    class="w-full flex flex-col items-center"
+    >
+    <section
+        class="w-full flex bg-wlk-primary-light py-main relative"
+        >
+        <div class="mx-auto z-3 flex flex-col items-center">
+            <h2 class="text-h1 font-bold font-display">Mariage Zarasoa & Sasa</h2>
+            <span class="flex items-center gap-sm">
+                <img 
+                    [src]="wlkLogo" 
+                    alt="Welkom Logo"
+                    width="32"
+                >
+                <h2 class="text-h4 font-Semibold">
+                    Welkom Checking
+                </h2>
+            </span>
+            <!-- <h2 class="text-h3 font-display">Mariage Zarasoa & Sasa</h2> -->
+        </div>
+        <div
+            class="absolute w-full h-full flex items-end justify-end bg-wlk-primary-light z-2"
+            >
+            <img 
+                src="assets/shapes/flowers.svg" 
+                alt="cover"
+                width="128"
+                class="mr-xs blur-[2px]"
+            >
+            <i class="pi pi-qrcode text-h1! absolute top-8/12 right-3/6 blur-[2.5px]"></i>
+            <i class="pi pi-camera text-hero! absolute top-1/12 left-1/12 blur-[2.5px]"></i>
+        </div>
+    </section>
+
+    <section
+        class="w-full flex flex-col items-center gap-big mt-big py-main"
+        >
+        <div
+            class="flex flex-col items-center w-full px-main"
+            >
+            <!-- <h2 class="text-h2 font-display">Mariage Zarasoa & Sasa</h2> -->
+            <div class="w-full">
+                <p class="font-display">
+                    Bienvenu au portail de "Mariage Zarasoa & Sasa" événement, vous pouvez procéder à la vérification de vos invités.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="w-full flex flex-col py-main"
+        >
+        <div
+            class="flex items-center justify-center"
+            >
+            <span
+                class="w-52 h-52 border border-wlk-border relative flex items-center justify-center"
+                >
+                <wlk-scanner />
+            </span>
+        </div>
+    </section>
+</section>

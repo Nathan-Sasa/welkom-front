@@ -4,6 +4,7 @@ const authPrefixApi = `${baseUrl}/api/v1/auth`
 const oauth2Api = 'http://localhost:8080/oauth2/authorization/google'
 const templatePrefix = `${baseUrl}/api/v1/templates`
 const eventPrefix = `${baseUrl}/api/v1/events`
+const checkingPrefix = `${baseUrl}/api/v1/checking`
 
 export const environment = {
     apisUrl : {
@@ -39,6 +40,11 @@ export const environment = {
         },
         tableUrl: {
             prefix: eventPrefix
+        },
+        checkingUrl: {
+            auth: `${checkingPrefix}/access`,
+            checkAccess: `${checkingPrefix}/access/event`,
+            scan: `${checkingPrefix}/scan`
         }
     }
 }

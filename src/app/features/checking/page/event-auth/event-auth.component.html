@@ -1,1 +1,66 @@
-<p>event-auth.component works!</p>
+<section
+    class="w-full flex flex-col"
+    >
+
+    <div
+        class="flex flex-col items-center py-main bg-wlk-primary-light relative"
+        >
+        <div class="flex flex-col items-center px-main text-center z-3">
+            <h2 class="text-hero font-Semibold">Checking point</h2>
+            <p class="text-h4 text-wlk-content-secondary font-semibold">
+                Votre événement est sécurisé.
+            </p>
+        </div>
+        <div
+            class="absolute w-full h-full flex items-end justify-end bg-wlk-primary-light z-2"
+            >
+            <img 
+                src="assets/shapes/flowers.svg" 
+                alt="cover"
+                width="128"
+                class="mr-xs blur-[2px]"
+            >
+            <i class="pi pi-qrcode text-h1! absolute top-8/12 right-3/6 blur-[2.5px]"></i>
+            <i class="pi pi-key text-hero! absolute top-1/12 left-1/12 blur-[2.5px]"></i>
+        </div>
+    </div>
+
+    <div
+        class="flex flex-col items-center gap-big mt-big py-section-y"
+        >
+        <div
+            class="flex items-end gap-xl"
+            >
+            
+            <fieldset
+                class="flex"
+                >
+                <label 
+                    for="eventKey"
+                    class="flex flex-col gap-md"
+                    >
+                    <span>Clé de sécurité de l'événement</span>    
+                    <p-icon-field >
+                        <p-inputicon class="pi pi-key" />
+                        <input 
+                            pInputText
+                            type="text" 
+                            name="" 
+                            id="eventKey"
+                            placeholder="wlk-••••••••••••••"
+                            [ngModel]="eventKeyField()"
+                            (ngModelChange)="eventKeyField.set($event)"
+                            [size]="28"
+                        >
+                    </p-icon-field>
+                </label>
+            </fieldset>
+            <p-button 
+                label="Connecter l'événement"
+                (onClick)="submit()"
+                [disabled]="eventKeyInvalid()"
+            />
+        </div>
+    </div>
+    
+</section>

@@ -11,4 +11,9 @@ export const AuthRoute: Routes = [
         title: 'Inscription',
         loadComponent: () => import('../authentication/pages/auth.component').then(m => m.AuthComponent)
     },
+    {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'prefix'
+    }
 ]

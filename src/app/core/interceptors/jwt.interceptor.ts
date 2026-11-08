@@ -17,11 +17,12 @@ export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
         environment.apisUrl.auth.loginApiUrl,
         environment.apisUrl.auth.registerApiUrl,
         environment.apisUrl.auth.refreshApiUrl,
-        environment.apisUrl.auth.currentUserApiUrl
+        environment.apisUrl.auth.currentUserApiUrl,
+        environment.apisUrl.checkingUrl.checkAccess
     ]
 
     const ignoredUrlIf401 = [
-        environment.apisUrl.auth.currentUserApiUrl
+        environment.apisUrl.auth.currentUserApiUrl,
     ]
 
     let authReq = req.clone({
@@ -39,9 +40,9 @@ export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
                                 return next(authReq)
                             }),
                             catchError((refreshError) => {
-                                // router.navigate(['/login'])
                                 console.log('refresh api : ', refreshApi)
                                 console.log('refresh error :', refreshError)
+                                router.navigate(['/login'])
                                 return throwError(() => refreshError)
                                 // return of(null)
                             })
@@ -49,8 +50,11 @@ export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
                 }
 
                 // if (error instanceof HttpErrorResponse && error.status === 500 && !ignoredUrlIf401.some(url => req.url.includes(url))){
-                //     router.navigate(['/'])
+                //     router.navigate(['/auth'])
                 // }
+                if (error instanceof HttpErrorResponse && error.status === 401 && !ignoredUrl.some(url => req.url.includes(url))){
+                    auth.purge()
+                }
                 return throwError(() => error)
             })
         )

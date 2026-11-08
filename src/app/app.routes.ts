@@ -31,6 +31,10 @@ export const routes: Routes = [
         path: 'event',
         loadChildren: () => import('./features/event/event.routes').then(r => r.EventRoutes),
     },
+    {
+        path: 'checking',
+        loadChildren: () => import('./features/checking/checking.routes').then(r => r.CheckingRoutes)
+    },
 
     {
         path: '',
@@ -48,7 +52,12 @@ export const routes: Routes = [
             {
                 path: 'event',
                 loadChildren: () => import('./features/table/table.routes').then(m => m.TableRoutes)
-            }
+            },
+            // {
+            //     path: '',
+            //     redirectTo: 'dashboard',
+            //     pathMatch: 'prefix'
+            // }
         ]
     },
 
