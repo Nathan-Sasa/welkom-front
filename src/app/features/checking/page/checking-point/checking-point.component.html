@@ -54,10 +54,96 @@
             class="flex items-center justify-center"
             >
             <span
-                class="w-52 h-52 border border-wlk-border relative flex items-center justify-center"
+                class=" relative flex items-center justify-center"
                 >
-                <wlk-scanner />
+                <div class="scanner-container">
+                    <zxing-scanner
+                        [enable]="scannerEnabled()"
+                        [formats]="allowedFormat"
+                        (scanSuccess)="onScanSuccess($event)">
+                    </zxing-scanner>
+
+                    <div class="scanner-overlay">
+                        <div class="scan-frame"></div>
+                    </div>
+                </div>
             </span>
         </div>
     </section>
 </section>
+
+
+<p-dialog
+    [modal]="true"
+    [(visible)]="isDialog"
+    header="Guest checked"
+    [style]="{ width: '40rem' }" 
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    >
+    <div
+        class="w-full flex flex-col relative pb-md"
+        >
+        @if (!loading()){
+            @if(isError()){
+                @if(errorContent().status !== 500) {
+                    @if(errorContent().status === 409){
+                        <div
+                            class="w-full flex flex-col items-center justify-center gap-md"
+                            >
+                            <span 
+                                class="w-fit p-md border border-wlk-danger rounded-md text-h4 font-Medium text-wlk-danger"
+                                >
+                                Déjà scanné !
+                            </span>
+                            <p class="text-label font-Medium">{{errorContent().error.message}}</p>
+                        </div>
+                    }
+    
+                    @if (errorContent().status === 404) {
+                        <div
+                            class="w-full flex flex-col items-center justify-center gap-md"
+                            >
+                            <span 
+                                class="w-fit p-md border border-wlk-danger rounded-md text-h4 font-Medium text-wlk-danger"
+                                >
+                                Introuvable !
+                            </span>
+                            <p class="text-label font-Medium">{{errorContent().error.message}}</p>
+                        </div>
+                    }
+                }
+    
+                @if (errorContent().status === 500){
+                    <div
+                        class="flex flex-col items-center justify-center gap-md"
+                        >
+                        <wlk-errors 
+                            [wlkError]="errorContent()"
+                        />
+                        <p-button 
+                            label="Rééssayez"
+                            size="small"
+                            (onClick)="isDialog.set(false)"
+                        />
+                    </div>
+                }
+            } @else {
+                <div
+                    class="w-full flex flex-col items-center justify-center gap-md"
+                    >
+                    <div
+                        class=""
+                        >
+
+                    </div>
+                    <span 
+                        class="w-fit p-md border border-wlk-sage rounded-md text-h4 font-Medium text-wlk-sage"
+                        >
+                        Accès autorisé !
+                    </span>
+                </div>
+            }
+        }
+
+    </div>
+</p-dialog>
