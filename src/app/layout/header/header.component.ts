@@ -51,7 +51,7 @@ export class HeaderComponent {
 				const routesUrl = event.urlAfterRedirects.split('/').filter(String);
       			// console.log('Segments URL actuels : ', routesUrl)
 
-				const routerDenied = ['dashboard', 'profile', 'guest', 'table', 'cadeau', 'auth', 'checking']
+				const routerDenied = ['dashboard', 'profile', 'guest', 'event', 'table', 'cadeau', 'auth', 'checking']
 
 				const correspond = routesUrl.some(segment => routerDenied.includes(segment))
 				this.HasHeader.emit(!correspond)

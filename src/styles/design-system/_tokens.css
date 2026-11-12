@@ -26,10 +26,14 @@
     --wlk-gold: #C9A86A;
     --wlk-border: #E8E0D8;
     --wlk-danger: #C75C5C;
-    --wlk-warning: #D49A4A;
+    --wlk-warning: var(--color-orange-400);
 
     --transition-morph: cubic-bezier(0.075, 0.82, 0.165, 1);
     --transition-morph-low: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+
+    --container-max: 1280px;
+    --container-padding: var(--space-4);
+    --nav-height: 64px;
 }
 
 @media (min-width: 640px) { /* sm */
@@ -96,7 +100,8 @@
     --wlk-gold: #D6B778;
     --wlk-border: #3A322D;
     --wlk-danger: #E07A7A;
-    --wlk-warning: #E0AA5E;
+    --wlk-danger: var(--color-orange-300);
+    /* --wlk-warning: #E0AA5E; */
 }
 
 @theme {
@@ -148,6 +153,8 @@
     --spacing-lg: 16px;
     --spacing-xl: 24px;
     --spacing-big: 48px;
+
+    --container-max: var(--container-max);
 
     --z-sticky: 200;
     --z-overlay: 300;

@@ -48,7 +48,6 @@
                 class="w-full! opacity-0"
                 >
                 <p-inputicon class="pi pi-search" />
-                <!-- (input)=""  -->
                 <input 
                     pInputText 
                     type="search" 
@@ -56,19 +55,17 @@
                     placeholder="Recherche..." 
                     class="w-full! h-16! text-display! bg-wlk-surface-soft!"
                 />
-                <!-- (focus)="searchFocus.set(true)"
-                (blur)="searchFocus.set(false)" -->
             </p-iconfield>
             <div
                 class="flex flex-col gap-sm"
                 >
                 <span class="text-h4 font-display">
-                    Filtre
+                    Filtre par
                 </span>
                 <div
                     class="grid grid-cols-4"
                     >
-                    <span class="flex flex-col gap-xs">
+                    <span class="flex flex-col gap-xs col-span-4 md:col-span-2 lg:col-span-1">
                         <small class="font-Semibold">Catégories</small>
                         <p-select
                             inputId="timezone"

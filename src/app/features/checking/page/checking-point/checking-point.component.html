@@ -4,8 +4,8 @@
     <section
         class="w-full flex bg-wlk-primary-light py-main relative"
         >
-        <div class="mx-auto z-3 flex flex-col items-center">
-            <h2 class="text-h1 font-bold font-display">Mariage Zarasoa & Sasa</h2>
+        <div class="mx-auto z-3 flex flex-col items-center text-center">
+            <h2 class="text-h2 font-bold font-display">Mariage Zarasoa & Sasa</h2>
             <span class="flex items-center gap-sm">
                 <img 
                     [src]="wlkLogo" 
@@ -13,7 +13,7 @@
                     width="32"
                 >
                 <h2 class="text-h4 font-Semibold">
-                    Welkom Checking
+                    Welkom Sécurity
                 </h2>
             </span>
             <!-- <h2 class="text-h3 font-display">Mariage Zarasoa & Sasa</h2> -->
@@ -32,16 +32,22 @@
         </div>
     </section>
 
+    <!-- <div class="pt-big pl-md">
+        <wlk-button-back />
+    </div> -->
+
     <section
-        class="w-full flex flex-col items-center gap-big mt-big py-main"
+        class="w-full flex flex-col gap-md mt-big"
         >
+        <div class="pl-md">
+            <wlk-button-back />
+        </div>
         <div
             class="flex flex-col items-center w-full px-main"
             >
-            <!-- <h2 class="text-h2 font-display">Mariage Zarasoa & Sasa</h2> -->
-            <div class="w-full">
+            <div class="w-full text-center">
                 <p class="font-display">
-                    Bienvenu au portail de "Mariage Zarasoa & Sasa" événement, vous pouvez procéder à la vérification de vos invités.
+                    Scanner le QR CODE
                 </p>
             </div>
         </div>
@@ -51,7 +57,7 @@
         class="w-full flex flex-col py-main"
         >
         <div
-            class="flex items-center justify-center"
+            class="flex flex-col items-center justify-center gap-lg"
             >
             <span
                 class=" relative flex items-center justify-center"
@@ -68,82 +74,305 @@
                     </div>
                 </div>
             </span>
+            <p-button 
+                label="Quitter la session"
+                size="small"
+                (onClick)="closeCheckingSession()"
+                severity="danger"
+            />
         </div>
     </section>
 </section>
 
 
-<p-dialog
-    [modal]="true"
-    [(visible)]="isDialog"
-    header="Guest checked"
-    [style]="{ width: '40rem' }" 
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-    >
-    <div
-        class="w-full flex flex-col relative pb-md"
+<div class="hidden lg:flex">
+    <p-dialog
+        [modal]="true"
+        [(visible)]="isDialog"
+        header="Vérification de l'invité"
+        [style]="{ width: '40rem' }" 
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
         >
-        @if (!loading()){
-            @if(isError()){
-                @if(errorContent().status !== 500) {
-                    @if(errorContent().status === 409){
-                        <div
-                            class="w-full flex flex-col items-center justify-center gap-md"
-                            >
-                            <span 
-                                class="w-fit p-md border border-wlk-danger rounded-md text-h4 font-Medium text-wlk-danger"
+        <div
+            class="w-full flex flex-col relative pb-md"
+            >
+            @if (!loading()){
+                @if(isError()){
+                    @if(errorContent().status !== 500) {
+                        @if(errorContent().status === 409){
+                            <div
+                                class="w-full flex flex-col items-center justify-center gap-xl"
                                 >
-                                Déjà scanné !
-                            </span>
-                            <p class="text-label font-Medium">{{errorContent().error.message}}</p>
+                                <div
+                                    class="w-full flex flex-col gap-md"
+                                    >
+                                    <div
+                                        class="flex flex-col items-center justify-center gap-sm"
+                                        >
+                                        <p-avatar 
+                                            [label]="InitialGuestAlreadyScanned()"
+                                            size="xlarge"
+                                            class="border! border-wlk-content-muted! *:text-h3! text-wlk-content-secondary! font-Semibold!"
+                                        />
+                                        <span class="flex flex-col items-center gap-sm">
+                                            <span class="flex justify-center">
+                                                <h3 class="text-h2 font-Semibold">{{guestAlreadyScanned().guest.firstName}} {{ guestAlreadyScanned().guest.lastName}}</h3>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col items-center gap-md"
+                                    >
+                                    <span 
+                                        class="w-fit p-md border border-wlk-warning rounded-md text-h4 font-Medium text-wlk-warning"
+                                        >
+                                        Déjà scanné !
+                                    </span>
+                                    <p class="text-label text-wlk-warning font-Medium">{{errorContent().error.message}}</p>
+                                </div>
+                            </div>
+                        }
+        
+                        @if (errorContent().status === 404) {
+                            <div
+                                class="w-full flex flex-col items-center justify-center gap-md"
+                                >
+                                <span 
+                                    class="w-fit p-md border border-wlk-danger rounded-md text-h4 font-Medium text-wlk-danger"
+                                    >
+                                    Introuvable !
+                                </span>
+                                <p class="text-label font-Medium">{{errorContent().error.message}}</p>
+                            </div>
+                        }
+                    }
+        
+                    @if (errorContent().status === 500){
+                        <div
+                            class="flex flex-col items-center justify-center gap-md"
+                            >
+                            <wlk-errors 
+                                [wlkError]="errorContent()"
+                            />
+                            <p-button 
+                                label="Rééssayez"
+                                size="small"
+                                (onClick)="isDialog.set(false)"
+                            />
                         </div>
                     }
-    
-                    @if (errorContent().status === 404) {
-                        <div
-                            class="w-full flex flex-col items-center justify-center gap-md"
-                            >
-                            <span 
-                                class="w-fit p-md border border-wlk-danger rounded-md text-h4 font-Medium text-wlk-danger"
-                                >
-                                Introuvable !
-                            </span>
-                            <p class="text-label font-Medium">{{errorContent().error.message}}</p>
-                        </div>
-                    }
-                }
-    
-                @if (errorContent().status === 500){
+                } @else {
                     <div
-                        class="flex flex-col items-center justify-center gap-md"
+                        role="contentinfo"
+                        [ariaLabel]="'Accès autorisé'"
+                        class="w-full flex flex-col items-center justify-center gap-xl"
                         >
-                        <wlk-errors 
-                            [wlkError]="errorContent()"
-                        />
+                        <div
+                            class="w-full flex flex-col gap-md"
+                            >
+                            <div
+                                class="flex flex-col items-center justify-center gap-sm"
+                                >
+                                <p-avatar 
+                                    [label]="initialAvatar()"
+                                    size="xlarge"
+                                    class="border! border-wlk-content-muted! *:text-h3! text-wlk-content-secondary! font-Semibold!"
+                                />
+                                <span class="flex flex-col items-center gap-sm">
+                                    <span class="flex justify-center">
+                                        <h3 class="text-h2 font-Semibold">{{guest().firstName}} {{ guest().lastName}}</h3>
+                                    </span>
+                                    @if(guest().tableName){
+                                        <span class="flex items-center">
+                                            <h3 class="font-Medium">Table {{guest().tableName}} </h3>
+                                        </span>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                        <span 
+                            [ariaLabel]="'Accès autorisé'"
+                            class="w-fit p-md border border-wlk-sage rounded-md text-h4 font-Medium text-wlk-sage"
+                            >
+                            Accès autorisé !
+                        </span>
                         <p-button 
-                            label="Rééssayez"
+                            label="Passez"
                             size="small"
-                            (onClick)="isDialog.set(false)"
                         />
                     </div>
                 }
             } @else {
                 <div
-                    class="w-full flex flex-col items-center justify-center gap-md"
+                    class="w-full flex flex-col gap-md"
                     >
                     <div
-                        class=""
+                        class="flex items-center gap-sm"
                         >
-
+                        <span class="w-16 h-16 border border-wlk-border/70 rounded-md bg-wlk-surface-soft animate-pulse duration-300"></span>
+                        <span class="flex flex-col gap-sm">
+                            <span class="w-44 h-4 bg-wlk-surface-soft animate-pulse duration-300"></span>
+                            <span class="w-44 h-4 bg-wlk-surface-soft animate-pulse duration-300"></span>
+                        </span>
                     </div>
-                    <span 
-                        class="w-fit p-md border border-wlk-sage rounded-md text-h4 font-Medium text-wlk-sage"
-                        >
-                        Accès autorisé !
-                    </span>
                 </div>
             }
-        }
+            <div class="w-full flex items-center justify-center gap-xs mt-xl">
+                <img 
+                    [src]="wlkLogo" 
+                    alt="Welkom Logo"
+                    width="24"
+                    class="opacity-50"
+                >
+                <span class="text-wlk-content-muted text-label">welkom security</span>
+            </div>
+        </div>
+    </p-dialog>
+</div>
 
-    </div>
-</p-dialog>
+
+<div class="checking-drawer flex lg:hidden">
+    <p-drawer 
+        header="Vérification de l'invité" 
+        [(visible)]="isDialog" 
+        position="bottom"
+        [style]="{ height: '65vh' }" 
+        >
+        <div
+            class="w-full flex flex-col relative pb-md"
+            >
+            @if (!loading()){
+                @if(isError()){
+                    @if(errorContent().status !== 500) {
+                        @if(errorContent().status === 409){
+                            <div
+                                class="w-full flex flex-col items-center justify-center gap-xl"
+                                >
+                                <div
+                                    class="w-full flex flex-col gap-md"
+                                    >
+                                    <div
+                                        class="flex flex-col items-center justify-center gap-sm"
+                                        >
+                                        <p-avatar 
+                                            [label]="InitialGuestAlreadyScanned()"
+                                            size="xlarge"
+                                            class="border! border-wlk-content-muted! *:text-h3! text-wlk-content-secondary! font-Semibold!"
+                                        />
+                                        <span class="flex flex-col items-center gap-sm">
+                                            <span class="flex justify-center">
+                                                <h3 class="text-h2 font-Semibold">{{guestAlreadyScanned().guest.firstName}} {{ guestAlreadyScanned().guest.lastName}}</h3>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col items-center gap-md"
+                                    >
+                                    <span 
+                                        class="w-fit p-md border border-wlk-warning rounded-md text-h4 font-Medium text-wlk-warning"
+                                        >
+                                        Déjà scanné !
+                                    </span>
+                                    <p class="text-label text-wlk-warning font-Medium">{{guestAlreadyScanned().message}}</p>
+                                </div>
+                            </div>
+                        }
+        
+                        @if (errorContent().status === 404) {
+                            <div
+                                class="w-full flex flex-col items-center justify-center gap-md"
+                                >
+                                <span 
+                                    class="w-fit p-md border border-wlk-danger rounded-md text-h4 font-Medium text-wlk-danger"
+                                    >
+                                    Introuvable !
+                                </span>
+                                <p class="text-label font-Medium">{{errorContent().error.message}}</p>
+                            </div>
+                        }
+                    }
+        
+                    @if (errorContent().status === 500){
+                        <div
+                            class="flex flex-col items-center justify-center gap-md pt-big"
+                            >
+                            <wlk-errors 
+                                [wlkError]="errorContent()"
+                            />
+                            <p-button 
+                                label="Rééssayez"
+                                size="small"
+                                (onClick)="actualize()"
+                            />
+                        </div>
+                    }
+                } @else {
+                    <div
+                        role="contentinfo"
+                        [ariaLabel]="'Accès autorisé'"
+                        class="w-full flex flex-col items-center justify-center gap-xl"
+                        >
+                        <div
+                            class="w-full flex flex-col gap-md"
+                            >
+                            <div
+                                class="flex flex-col items-center justify-center gap-sm"
+                                >
+                                <p-avatar 
+                                    [label]="initialAvatar()"
+                                    size="xlarge"
+                                    class="border! border-wlk-content-muted! *:text-h3! text-wlk-content-secondary! font-Semibold!"
+                                />
+                                <span class="flex flex-col items-center gap-sm">
+                                    <span class="flex justify-center">
+                                        <h3 class="text-h2 font-Semibold">{{guest().firstName}} {{ guest().lastName}}</h3>
+                                    </span>
+                                    @if(guest().tableName){
+                                        <span class="flex items-center">
+                                            <h3 class="font-Medium">Table {{guest().tableName}} </h3>
+                                        </span>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                        <span 
+                            [ariaLabel]="'Accès autorisé'"
+                            class="w-fit p-md border border-wlk-sage rounded-md text-h4 font-Medium text-wlk-sage"
+                            >
+                            Accès autorisé !
+                        </span>
+                        <p-button 
+                            label="Passez"
+                            size="small"
+                        />
+                    </div>
+                }
+            } @else {
+                <div
+                    class="w-full flex flex-col gap-md"
+                    >
+                    <div
+                        class="flex items-center gap-sm"
+                        >
+                        <span class="w-16 h-16 border border-wlk-border/70 rounded-md bg-wlk-surface-soft animate-pulse duration-300"></span>
+                        <span class="flex flex-col gap-sm">
+                            <span class="w-44 h-4 bg-wlk-surface-soft animate-pulse duration-300"></span>
+                            <span class="w-44 h-4 bg-wlk-surface-soft animate-pulse duration-300"></span>
+                        </span>
+                    </div>
+                </div>
+            }
+            <div class="w-full flex items-center justify-center gap-xs mt-xl">
+                <img 
+                    [src]="wlkLogo" 
+                    alt="Welkom Logo"
+                    width="24"
+                    class="opacity-50"
+                >
+                <span class="text-wlk-content-muted text-label">welkom security</span>
+            </div>
+        </div>
+    </p-drawer>
+</div>

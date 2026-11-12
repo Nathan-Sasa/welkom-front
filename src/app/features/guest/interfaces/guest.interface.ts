@@ -49,3 +49,22 @@ export interface IUpdateGuestDetails{
     // tableName?: string
     // rsvpStatus?: RsvpType
 }
+
+export interface IGuestCheckingResponse {
+    firstName: string
+    lastName: string
+    tableName: string
+    scanStatus: string
+    scannedAt: string
+}
+
+export interface IGuestAlreadyScanned {
+    message: string
+    guest: guestAlreadyScanned
+}
+interface guestAlreadyScanned {
+    firstName: string
+    lastName: string
+    scanStatus: string
+    scannedAt: string
+}

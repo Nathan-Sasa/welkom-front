@@ -1,28 +1,15 @@
 <section class="w-full relative">
-    <header
-        class="w-full flex items-start justify-between"
+    <div
+        class=" w-full flex flex-col"
         >
-        <div class="flex flex-col gap-md">
-            <div class="flex items-center gap-sm">
-                <p-button 
-                    label="retour"
-                    size="small"
-                    icon="pi pi-arrow-left"
-                    [text]="true"
-                    (onClick)="goBack()"
-                />
-                <h1 class="text-h2 font-displary">
-                    Importer des invités
-                </h1>
-            </div>
-            <div>
-                <p class="max-w-2xl leading-6 text-wlk-content-secondary">
-                    Importez vos contacts depuis votre téléphone ou un fichier exporté.
-                    Vous pourrez vérifier les informations avant de créer vos invités.
-            </p>
-            </div>
-        </div>
-        <div>
+        <div class="w-full flex items-center justify-between">
+            <p-button 
+                label="retour"
+                size="small"
+                icon="pi pi-arrow-left"
+                [text]="true"
+                (onClick)="goBack()"
+            />
             <button
                 pButton
                 type="button"
@@ -33,7 +20,21 @@
                 Réinitialiser
             </button>
         </div>
-    </header>
+        <div class="flex flex-col gap-md">
+            <div class="flex items-center gap-sm">
+                <h1 class="text-h3 font-displary">
+                    Importer des invités
+                </h1>
+            </div>
+            <div class="w-full">
+                <p class="w-full lg:max-w-2xl leading-6 text-wlk-content-secondary">
+                    Importez vos contacts depuis votre téléphone ou un fichier exporté.
+                    Vous pourrez vérifier les informations avant de créer vos invités.
+                </p>
+            </div>
+        </div>
+        
+    </div>
 
     <div class="w-full  space-y-6 mt-section-y">
         <section class="rounded-2xl border border-wlk-border bg-wlk-surface p-md">

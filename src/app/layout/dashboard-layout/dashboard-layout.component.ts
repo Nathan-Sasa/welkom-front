@@ -34,7 +34,7 @@ export class DashboardLayoutComponent {
 	isMenuCollapsed = false;
 	isCollapsed = signal<boolean>(false);
 
-	isMenuDrawer = false
+	isMenuDrawer = signal<boolean>(false)
 
 	toggleMenu() {
 		this.isCollapsed.update(v => !v);
@@ -45,6 +45,7 @@ export class DashboardLayoutComponent {
 		{ route: `/dashboard/${this.eventUuid}`, icon: 'pi pi-objects-column text-label', label: 'Dashboard' },
 		{ route: `/event/${this.eventUuid}/guests`, icon: 'pi pi-users', label: 'Invités' },
 		{ route: `/event/${this.eventUuid}/tables`, icon: 'pi pi-user', label: 'Tables' },
+		{ route: `/checking/point`, icon: 'pi pi-key', label: 'Checking' },
 		// { route: '/event', icon: 'pi pi-folder', label: 'Catalogues' },
 	];
 }

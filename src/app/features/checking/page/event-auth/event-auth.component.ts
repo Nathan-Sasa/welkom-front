@@ -8,6 +8,7 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { CheckingService } from '../../service/checking.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ButtonBackComponent } from '../../../../shared/components/button-back/button-back.component';
 
 @Component({
 	selector: 'wlk-event-auth',
@@ -16,7 +17,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 		ButtonModule,
 		IconField,
 		InputText,
-		InputIcon
+		InputIcon,
+		ButtonBackComponent
 	],
 	templateUrl: './event-auth.component.html',
 	styleUrl: './event-auth.component.css',
@@ -28,7 +30,6 @@ export class EventAuthComponent {
 	private readonly checkingService = inject(CheckingService)
 
 	protected eventKeyField = signal<string>('')
-
 	protected readonly eventKeyInvalid = computed(() => {
 		return !this.eventKeyField().trim()
 	})
@@ -43,32 +44,17 @@ export class EventAuthComponent {
 
 	protected readonly invalidKeyMessage = 'Veillez entrer une clé valide.'
 	protected isInvalidKey = signal<boolean>(false)
-
 	protected submitting = signal<boolean>(false)
-
-	// constructor() {
-	// 	this.checkingService.getCheckingAccess()
-	// 		.pipe(takeUntilDestroyed(this.destroyRef))
-	// 		.subscribe({
-	// 			next: (res) => {
-	// 				console.log('get access checking res: ', res)
-	// 			},
-	// 			error: (err) => {
-	// 				console.log('get access checking err', err)
-	// 			}
-	// 		})
-		
-	// 		console.log('get access method : ', this.checkingService.signAccessChecking())
-	// }
 
 	submit(): void {
 		if (this.eventKeyInvalid() || this.submitting()) return
 
 		if (this.isValidKey()) {
-			// console.log('invalid key : ', this.eventKeyField())
 			this.isInvalidKey.set(true)
 			return
 		}
+
+		this.submitting.set(true)
 
 		const payload = {
 			securityEventKey: this.eventKeyField().trim()
@@ -77,11 +63,13 @@ export class EventAuthComponent {
 		this.checkingService.connectEvent(payload)
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
-				next: () => {
-					console.log('event connexion ok')
+				next: (res) => {
+					console.log('event connexion ok', res)
 					void this.router.navigate(['/checking/point'])
+					this.submitting.set(false)
 				},
 				error: (err) => {
+					this.submitting.set(false)
 					console.log('event connexion error : ', err)
 				}
 			})

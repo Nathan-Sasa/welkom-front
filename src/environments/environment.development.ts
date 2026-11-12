@@ -44,7 +44,8 @@ export const environment = {
         checkingUrl: {
             auth: `${checkingPrefix}/access`,
             checkAccess: `${checkingPrefix}/access/event`,
-            scan: `${checkingPrefix}/scan`
+            scan: `${checkingPrefix}/scan`,
+            close: `${checkingPrefix}/logout`
         }
     }
 }

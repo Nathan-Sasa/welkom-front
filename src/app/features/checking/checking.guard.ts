@@ -10,20 +10,22 @@ export const checkingGuard: CanMatchFn = () => {
 
     const eventAccessKeyApiUrl = environment.apisUrl.checkingUrl.checkAccess
 
-    return http.get<{IsValid: boolean}>(eventAccessKeyApiUrl)
+    return http.get<{Authenticated: boolean}>(eventAccessKeyApiUrl)
         .pipe(
             map(
                 response => {
                     if (response) {
-                        return true
+                        console.log('get checking guard response test', response)
+                        return response.Authenticated
                     } else {
                         router.navigate(['/checking/auth']);
                         return false;
                     }
                 }
             ),
-            catchError(() => {
+            catchError((err) => {
                 router.navigate(['/checking/auth']);
+                console.log('get checking guard response test error : ', err)
                 return of(false)
             })
         )

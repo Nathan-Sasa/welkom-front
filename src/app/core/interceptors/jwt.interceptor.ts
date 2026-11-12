@@ -18,7 +18,10 @@ export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
         environment.apisUrl.auth.registerApiUrl,
         environment.apisUrl.auth.refreshApiUrl,
         environment.apisUrl.auth.currentUserApiUrl,
-        environment.apisUrl.checkingUrl.checkAccess
+        environment.apisUrl.checkingUrl.checkAccess,
+        environment.apisUrl.checkingUrl.auth,
+        environment.apisUrl.checkingUrl.scan,
+        environment.apisUrl.checkingUrl.close,
     ]
 
     const ignoredUrlIf401 = [
@@ -40,7 +43,7 @@ export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
                                 return next(authReq)
                             }),
                             catchError((refreshError) => {
-                                console.log('refresh api : ', refreshApi)
+                                // console.log('refresh api : ', refreshApi)
                                 console.log('refresh error :', refreshError)
                                 router.navigate(['/login'])
                                 return throwError(() => refreshError)

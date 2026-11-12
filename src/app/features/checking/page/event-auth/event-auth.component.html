@@ -6,7 +6,7 @@
         class="flex flex-col items-center py-main bg-wlk-primary-light relative"
         >
         <div class="flex flex-col items-center px-main text-center z-3">
-            <h2 class="text-hero font-Semibold">Checking point</h2>
+            <h2 class="text-hero font-Semibold">Checkpoint</h2>
             <p class="text-h4 text-wlk-content-secondary font-semibold">
                 Votre événement est sécurisé.
             </p>
@@ -25,15 +25,19 @@
         </div>
     </div>
 
+    <div class="pt-big pl-md">
+        <wlk-button-back />
+    </div>
+
     <div
         class="flex flex-col items-center gap-big mt-big py-section-y"
         >
         <div
-            class="flex items-end gap-xl"
+            class="flex flex-col lg:flex-row items-center lg:items-end gap-xl"
             >
-            
             <fieldset
                 class="flex"
+                [disabled]="submitting()"
                 >
                 <label 
                     for="eventKey"
@@ -59,6 +63,7 @@
                 label="Connecter l'événement"
                 (onClick)="submit()"
                 [disabled]="eventKeyInvalid()"
+                [loading]="submitting()"
             />
         </div>
     </div>

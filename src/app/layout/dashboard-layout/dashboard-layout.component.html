@@ -24,7 +24,7 @@
                         severity="secondary"
                         [text]="true"
                         class="lg:hidden!"
-                        (click)="isMenuDrawer = true"
+                        (click)="isMenuDrawer.set(true)"
                         ></button>
                     <wlk-theme class="mr-xs" />
                 </div>
@@ -65,17 +65,17 @@
                         [ariaLabel]="item.label"
                         [routerLink]="item.route" 
                         routerLinkActive="active cursor-default" 
-                        (click)="isMenuDrawer = false"
+                        (click)="isMenuDrawer.set(false)"
                         class="menu-item"
                         >
                         <span class="icon flex items-center text-center h-5 min-w-4">
                             <i [class]="item.icon"></i>
                         </span>
-                            <span 
-                                class="label text-label"
-                                >
-                                {{ item.label }}
-                            </span>
+                        <span 
+                            class="label text-label"
+                            >
+                            {{ item.label }}
+                        </span>
                     </a>
                 }
             </nav>

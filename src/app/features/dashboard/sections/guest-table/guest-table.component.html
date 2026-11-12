@@ -47,6 +47,7 @@
                     <wlk-recent-guest-card 
                         [routerLink]="[ '/event', eventUuid, 'guests', guest.uuid]"
                         [guest]="guest"
+                        aria-label="invité {{guest.firstName}} {{guest.lastName}}"
                         class="not-last:border-b not-last:border-wlk-border cursor-pointer hover:bg-wlk-content-muted/20 duration-300 p-sm"
                     />
                 }
@@ -115,9 +116,11 @@
 
             @if (!loadingData() && tables().length > 0) {
                 @for (table of tables().slice(0, 5); track $index) {
+                        <!-- [att.aria]="'Table ' + table.tableName" -->
                     <wlk-table-card 
                         [routerLink]="['/event', eventUuid, 'tables', table.id]"
                         [table]="table"
+                        aria-label="Table {{table.tableName}}"
                         class="not-last:border-b not-last:border-wlk-border cursor-pointer hover:bg-wlk-content-muted/20 duration-300 p-sm"
                     />
                 }

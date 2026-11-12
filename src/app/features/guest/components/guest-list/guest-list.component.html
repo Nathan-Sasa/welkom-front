@@ -1,13 +1,13 @@
 <div
     role="listitem"
-    aria-label="guests list"
+    aria-label="liste des invités"
     class="w-full flex-col border border-wlk-border rounded-lg overflow-hidden"
     >
     <div
-        class="w-full border-b border-wlk-border p-md grid grid-cols-17 gap-m"
+        class="w-full border-b border-wlk-border p-md grid grid-cols-7 md:grid-cols-14 xl:grid-cols-17 gap-m"
         >
         @for (head of listHead; track head.id) {
-            <span class="first:col-span-1 nth-[2]:col-span-3 col-span-2 || nth-[4]:col-span-3 || nth-[5]:col-span-2 || nth-[6]:col-span-2 || nth-[7]:col-span-2 ||">
+            <span class="first:col-span-1 nth-[2]:col-span-3 col-span-2 || nth-[3]:hidden md:nth-[3]:block || nth-[4]:hidden md:nth-[4]:block nth-[4]:col-span-3 || nth-[5]:hidden md:nth-[5]:block nth-[5]:col-span-2 || nth-[6]:hidden xl:nth-[6]:block  nth-[6]:col-span-2 || nth-[7]:col-span-2 || nth-[8]:hidden xl:nth-[8]:block">
                 <small class="text-wlk-content font-Medium">
                     {{head.name}}
                 </small>
@@ -22,7 +22,7 @@
                 wlkEntryAnim
                 [delay]="200"
                 [translateY]="25"
-                class="opacity-0 w-full grid grid-cols-17 p-md  not-last:border-b not-last:border-wlk-border  hover:">
+                class="opacity-0 w-full grid grid-cols-7 md:grid-cols-14 xl:grid-cols-17 p-md  not-last:border-b not-last:border-wlk-border  hover:">
                 <!-- [class.bg-wlk-sage/50!]="guest().rsvpStatus === 'CONFIRM'"
                 [class.bg-wlk-danger/50!]="guest().rsvpStatus === 'DECLINED'" -->
                 <p-avatar 
@@ -35,29 +35,29 @@
                     {{guest.lastName}}
                 </span>
 
-                <span class="text-small font-Medium col-span-2 flex items-center">
+                <span class="hidden md:flex text-small font-Medium col-span-2 items-center">
                     {{guest.telephone}}
                 </span>
 
-                <span class="text-small font-Medium col-span-3 flex items-center line-clamp-1">
+                <span class="hidden md:flex text-small font-Medium col-span-3 items-center line-clamp-1">
                     {{guest.email}}
                 </span>
 
-                <span class="text-small font-Medium col-span-2 flex items-center justify-">
+                <span class="hidden md:flex text-small font-Medium col-span-2 items-center justify-">
                     {{frenchCategory(guest.category)}}
                 </span>
 
-                <span class="text-small font-Medium col-span-2 flex items-center justify-">
+                <span class="hidden xl:flex text-small font-Medium col-span-2 items-center justify-">
                     {{guest.tableName || '––'}}
                 </span>
 
-                <span class="col-span-2 flex items-center justify- {{colorRsvp(guest.rsvpStatus)}}">
+                <span class="flex col-span-2 items-center justify- {{colorRsvp(guest.rsvpStatus)}}">
                     <span class=" p-xs text-small font-Medium {{colorRsvp(guest.rsvpStatus)}} {{backgroundRsvp(guest.rsvpStatus)}}">
                         {{frenchRsvp(guest.rsvpStatus)}}
                     </span>
                 </span>
 
-                <span class="text-small font-Medium col-span-1 flex items-center justify-">
+                <span class="hidden xl:flex text-small font-Medium col-span-1 items-center justify-">
                     <!-- {{frenchRsvp(guest.rsvpStatus)}} -->
                     {{guest.sendInvitationStatus}}
                 </span>
