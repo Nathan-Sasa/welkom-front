@@ -25,18 +25,10 @@ export class CheckingService {
     private readonly checkingAuthApi = environment.apisUrl.checkingUrl.auth
     private readonly checkingScanApi = environment.apisUrl.checkingUrl.scan
     private readonly checkingCloseApi = environment.apisUrl.checkingUrl.close
+    private readonly checkingGetAuthApi = environment.apisUrl.checkingUrl.checkAccess
 
     connectEvent(eventKey: IEventKey): Observable<any>{
         return this.http.post<any>(this.checkingAuthApi, eventKey)
-        // return this.closeScanSession()
-        //     .pipe(
-        //         switchMap((res) => {
-        //             return this.http.post<any>(this.checkingAuthApi, eventKey)
-        //         }),
-        //         catchError((err) => {
-        //             return throwError(() => err)
-        //         })
-        //     )
     }
 
     getGuestToken(accessToken: IAccessToken): Observable<IGuestCheckingResponse>{
@@ -53,6 +45,21 @@ export class CheckingService {
                 catchError((err) => {
                     console.log('close checking session error', err)
                     return of(null)
+                })
+            )
+    }
+
+    getAuthenticationChecking(): Observable<{Authenticated: boolean} | boolean>{
+        return this.http.get<{Authenticated: boolean}>(this.checkingGetAuthApi)
+            .pipe(
+                tap(res => {
+                    if (res.Authenticated){
+                        return res.Authenticated
+                    }
+                    return false
+                }),
+                catchError((err) => {
+                    return of(false)
                 })
             )
     }

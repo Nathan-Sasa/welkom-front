@@ -6,6 +6,7 @@ import { IExceptions } from '../../../../core/interfaces/exception.interface';
 import { ErrorsComponent } from '../../../../shared/components/errors/errors.component'
 import { IGuestAlreadyScanned, IGuestCheckingResponse } from '../../../guest/interfaces/guest.interface';
 import { Router } from '@angular/router'
+import { Location, NgClass } from '@angular/common'
 
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { BarcodeFormat } from "@zxing/library"
@@ -15,6 +16,7 @@ import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button'
 import { AvatarModule } from 'primeng/avatar'
 import { ButtonBackComponent } from '../../../../shared/components/button-back/button-back.component';
+import { DashboardService } from '../../../dashboard/services/dashboard.service';
 
 @Component({
     selector: 'wlk-checking-point',
@@ -24,8 +26,7 @@ import { ButtonBackComponent } from '../../../../shared/components/button-back/b
 		Dialog,
 		DrawerModule,
 		ButtonModule,
-		AvatarModule,
-		ButtonBackComponent
+		AvatarModule
     ],
     templateUrl: './checking-point.component.html',
     styleUrl: './checking-point.component.css',
@@ -37,6 +38,8 @@ export class CheckingPointComponent {
 	private readonly destroyRef = inject(DestroyRef)
 	private readonly router = inject(Router)
 	private readonly checkingService = inject(CheckingService)
+	private readonly event = inject(DashboardService).getEventStorage$()?.uuid
+	private readonly location = inject(Location)
 
 	protected scannerEnabled = signal<boolean>(true)
 	qrResultString: string | null = null
@@ -154,6 +157,32 @@ export class CheckingPointComponent {
 				},
 				error: (err ) =>{
 					console.log('logout session error : ', err)
+				}
+			})
+	}
+
+	toBack() : void {
+		this.checkingService.getAuthenticationChecking()
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: (isAuth) => {
+					if (isAuth) {
+						console.log('to back is auth : ', isAuth)
+						if (this.event){
+							console.log('to back is auth & event : ', isAuth)
+							void this.router.navigate(['/dashboard', this.event])
+						}else {
+							console.log('to back is auth & not event : ', isAuth)
+							void this.router.navigate(['/home'])
+						}
+					}else {
+						console.log('to back is not auth : ', isAuth)
+						if (window.history.length > 1){
+							void this.location.back()
+						}else {
+							void this.router.navigate(['/home'])
+						}
+					}
 				}
 			})
 	}

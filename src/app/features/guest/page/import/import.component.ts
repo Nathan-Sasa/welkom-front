@@ -15,6 +15,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DashboardService } from '../../../dashboard/services/dashboard.service';
 import { IGuestRequestBatch } from '../../interfaces/guest.interface';
 
+import Papa from 'papaparse';
+
 interface guestCategories {
 	id: number
 	name: (typeof categoryLabels)[keyof typeof categoryLabels]
@@ -110,9 +112,17 @@ export class ImportComponent {
 		if (extension === 'vcf'){
 			const content = await file.text();
 			const contacts = this.parseVcf(content)
-
 			this.importedContacts.set(contacts)
-			console.log('Contacts analysées : ', contacts)
+
+			console.log('Contacts vcf analysées : ', contacts)
+		}
+
+		if (extension === 'csv'){
+			const content = await file.text();
+			const contacts = this.parseCsv(content)
+			this.importedContacts.set(contacts)
+			
+			console.log('Contacts csv analysées : ', contacts)
 		}
 
 		this.selectedFile.set(file);
@@ -198,6 +208,36 @@ export class ImportComponent {
 		}
 		return contacts;
 	}
+
+
+	private parseCsv(content: string): IGuestContactImported[] {
+		const result = Papa.parse<Record<string, string>>(content, {
+			header: true,
+			skipEmptyLines: true,
+			transformHeader: (header) => header.trim(),
+			transform: (value) => value.trim()
+		});
+
+		if (result.errors.length > 0) {
+			console.warn('Erreurs de lecture CSV :', result.errors);
+		}
+
+		return result.data
+			.map(row => ({
+				firstName: row['First Name'] ?? '',
+				lastName: row['Last Name'] ?? '',
+				email: row['E-mail 1 - Value'] ?? '',
+				telephone: row['Phone 1 - Value'] ?? '',
+				category: 'FRIENDS' as CategoriesType
+			}))
+			.filter(contact =>
+				contact.firstName ||
+				contact.lastName ||
+				contact.email ||
+				contact.telephone
+			);
+	}
+
 
 
 

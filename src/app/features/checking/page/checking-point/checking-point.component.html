@@ -40,7 +40,12 @@
         class="w-full flex flex-col gap-md mt-big"
         >
         <div class="pl-md">
-            <wlk-button-back />
+            <!-- <wlk-button-back /> -->
+            <p-button 
+                label="fermer la session"
+                [text]="true"
+                (onClick)="toBack()"
+            />
         </div>
         <div
             class="flex flex-col items-center w-full px-main"
@@ -70,7 +75,9 @@
                     </zxing-scanner>
 
                     <div class="scanner-overlay">
-                        <div class="scan-frame"></div>
+                        <div class="scan-frame">
+                            <span class="scan-banner" [class.hidden]="!scannerEnabled()"></span>
+                        </div>
                     </div>
                 </div>
             </span>
@@ -208,7 +215,7 @@
                     class="w-full flex flex-col gap-md"
                     >
                     <div
-                        class="flex items-center gap-sm"
+                        class="flex flex-col items-center gap-sm"
                         >
                         <span class="w-16 h-16 border border-wlk-border/70 rounded-md bg-wlk-surface-soft animate-pulse duration-300"></span>
                         <span class="flex flex-col gap-sm">
@@ -354,7 +361,7 @@
                     class="w-full flex flex-col gap-md"
                     >
                     <div
-                        class="flex items-center gap-sm"
+                        class="flex flex-col items-center gap-sm"
                         >
                         <span class="w-16 h-16 border border-wlk-border/70 rounded-md bg-wlk-surface-soft animate-pulse duration-300"></span>
                         <span class="flex flex-col gap-sm">

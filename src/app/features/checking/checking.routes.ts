@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { checkingGuard } from "./checking.guard";
+import { canAuthCheckingGuard, checkingGuard } from "./checking.guard";
 
 
 export const CheckingRoutes: Routes = [
@@ -12,7 +12,8 @@ export const CheckingRoutes: Routes = [
     {
         path: 'auth',
         title: 'checking-auth',
-        loadComponent: () => import('./page/event-auth/event-auth.component').then(m => m.EventAuthComponent)
+        loadComponent: () => import('./page/event-auth/event-auth.component').then(m => m.EventAuthComponent),
+        // canMatch: [canAuthCheckingGuard]
     },
     {
         path: '',

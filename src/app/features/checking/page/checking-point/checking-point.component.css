@@ -29,9 +29,39 @@ zxing-scanner {
 }
 
 .scan-frame {
+    position: relative;
     width: 200px;
     height: 200px;
     border: 2px solid #22c55e;
     border-radius: 12px;
     box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+}
+
+
+.scan-banner {
+    width: 196px;
+    height: 196px;
+    top: 0;
+    
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) rotateZ(90deg);
+    background: linear-gradient(
+        90deg,
+        oklch(87.003% 0.15079 153.986 / 0.075) 25%,
+        oklch(86.882% 0.15629 152.108 / 0.235) 50%,
+        oklch(87.063% 0.14934 154.158 / 0.075) 75%
+    );
+    background-position: top;
+    background-size: 200% 100%;
+    animation: scan 2.5s ease infinite;
+}
+
+@keyframes scan {
+    0%{
+        background-position: 200% 0;
+    }100%{
+        background-position: 0 200%;
+    }
 }

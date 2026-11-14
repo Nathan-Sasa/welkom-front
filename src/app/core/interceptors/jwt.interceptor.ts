@@ -36,14 +36,13 @@ export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
         .pipe(
             catchError((error) => {
                 if (error instanceof HttpErrorResponse && error.status === 401 && !ignoredUrl.some(url => req.url.includes(url))) {
-                    return http.post('http://localhost:8080/api/v1/auth/refresh', {}, {withCredentials: true})
+                    return http.post('http://localhost:8080/api/v1/auth/refresh', {}, {withCredentials: true}) 
                         .pipe(
                             switchMap((refreshOk) => {
                                 console.log('refresh api : ', refreshOk)
                                 return next(authReq)
                             }),
                             catchError((refreshError) => {
-                                // console.log('refresh api : ', refreshApi)
                                 console.log('refresh error :', refreshError)
                                 router.navigate(['/login'])
                                 return throwError(() => refreshError)

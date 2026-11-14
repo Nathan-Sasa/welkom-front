@@ -71,10 +71,10 @@
     }
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* @custom-variant dark (&:where(.dark, .dark *));
 @theme {
 
-}
+} */
 
 .y {
     color: #d9775f; /*primary*/
@@ -100,7 +100,7 @@
     --wlk-gold: #D6B778;
     --wlk-border: #3A322D;
     --wlk-danger: #E07A7A;
-    --wlk-danger: var(--color-orange-300);
+    --wlk-warning: var(--color-orange-300);
     /* --wlk-warning: #E0AA5E; */
 }
 
